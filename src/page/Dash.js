@@ -202,6 +202,9 @@ export default function Dashboard() {
           </Box>
         </Container>
       </main>
+      <Box pt={4}>
+            <Copyright />
+          </Box>
     </div>
   );
 }

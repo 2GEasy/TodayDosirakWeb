@@ -76,21 +76,21 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBarSpacer: theme.mixins.toolbar,
-  // content: {
-  //   flexGrow: 1,
-  //   height: '100vh',
-  //   overflow: 'auto',
-  // },
-  // container: {
-  //   paddingTop: theme.spacing(4),
-  //   paddingBottom: theme.spacing(4),
-  // },
-  // paper: {
-  //   padding: theme.spacing(2),
-  //   display: 'flex',
-  //   overflow: 'auto',
-  //   flexDirection: 'column',
-  // },
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+  },
   fixedHeight: {
     height: 240,
   },
@@ -142,7 +142,7 @@ export default function Appbar(props) {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-      <>
+    <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)} style={{backgroundColor: '#FDC06D'}}>
         <Toolbar className={classes.toolbar}>
@@ -185,7 +185,13 @@ export default function Appbar(props) {
         <Divider />
         <List>{userInfo}</List>
       </Drawer>
-      </>
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <div id="content" style={{margin: 'auto'}}>
+            {React.cloneElement(props.children)}
+        </div>
+      </main>
+    </div>
   );
 }
 

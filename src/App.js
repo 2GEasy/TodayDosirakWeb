@@ -5,12 +5,15 @@ import Datef from './component/Datef';
 import Dashbrd from './component/Dashbrd';
 import Dash from './page/Dash';
 import Appbar from './component/Appbar';
-
+import SalerInfo from './page/SalerInfo';
+import HygieneInfo from './page/HygieneInfo';
 
 function App() {
   return (
     <>
-      <Dash />
+      <Appbar>
+      <HygieneInfo />
+      </Appbar>
     </>
   );
 }
