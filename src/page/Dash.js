@@ -10,10 +10,32 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import { mainListItems, salesList, userInfo } from '../component/listItems';
+import Chart from '../component/Chart';
+import Deposits from '../component/Deposits';
+import Orders from '../component/Orders';
 import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, salesList, userInfo } from '../component/listItems';
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        오늘도시락
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const drawerWidth = 240;
 
@@ -76,60 +98,27 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBarSpacer: theme.mixins.toolbar,
-  // content: {
-  //   flexGrow: 1,
-  //   height: '100vh',
-  //   overflow: 'auto',
-  // },
-  // container: {
-  //   paddingTop: theme.spacing(4),
-  //   paddingBottom: theme.spacing(4),
-  // },
-  // paper: {
-  //   padding: theme.spacing(2),
-  //   display: 'flex',
-  //   overflow: 'auto',
-  //   flexDirection: 'column',
-  // },
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+  },
   fixedHeight: {
     height: 240,
   },
 }));
-function AuthChk(props) {
-    const authChk = props.auth;
-    if(authChk===0) {
-      return <Button color="inherit" align="right"><b>Login</b></Button>;
-    }else {
-      return <Button color="inherit" align="right"><b>Logout</b></Button>;
-    }
-}
 
-// function ElevationScroll(props) {
-//   const { children, window } = props;
-//   // Note that you normally won't need to set the window ref as useScrollTrigger
-//   // will default to window.
-//   // This is only being set here because the demo is in an iframe.
-//   const trigger = useScrollTrigger({
-//     disableHysteresis: true,
-//     threshold: 0,
-//     target: window ? window() : undefined,
-//   });
-
-//   return React.cloneElement(children, {
-//     elevation: trigger ? 4 : 0,
-//   });
-// }
-
-// ElevationScroll.propTypes = {
-//   children: PropTypes.element.isRequired,
-//   /**
-//    * Injected by the documentation to work in an iframe.
-//    * You won't need it on your project.
-//    */
-//   window: PropTypes.func,
-// };
-
-export default function Appbar(props) {
+export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -138,11 +127,10 @@ export default function Appbar(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-      <>
+    <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)} style={{backgroundColor: '#FDC06D'}}>
         <Toolbar className={classes.toolbar}>
@@ -185,7 +173,35 @@ export default function Appbar(props) {
         <Divider />
         <List>{userInfo}</List>
       </Drawer>
-      </>
+
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            {/* Chart */}
+            <Grid item xs={12} md={8} lg={9}>
+              <Paper className={fixedHeightPaper}>
+                <Chart />
+              </Paper>
+            </Grid>
+            {/* Recent Deposits */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={fixedHeightPaper}>
+                <Deposits />
+              </Paper>
+            </Grid>
+            {/* Recent Orders */}
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <Orders />
+              </Paper>
+            </Grid>
+          </Grid>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      </main>
+    </div>
   );
 }
-
