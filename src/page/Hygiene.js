@@ -87,20 +87,22 @@ const styles = theme => ({
 
 stateRefresh =()=>{
     this.setState({
-      customers:'',
+      hygiene:'',
       completed:0,
       searchKeyword: ''
     });
     this.callApi()
-    .then(res => this.setState({customers:res}))
+    .then(res => this.setState({hygiene:res}))
     .catch(err => console.log(err));
   }
-  componentDidMount() {
+  componentDidMount() =() =>{
     this.timer = setInterval(this.progress, 20);
-    this.callApi().then(res => this.setState({customers:res})).catch(err => console.log(err));
+    this.callApi()
+    .then(res => this.setState({hygiene:res}))
+    .catch(err => console.log(err));
   }
   callApi= async() => {
-    const response = await fetch('/api/customers');
+    const response = await fetch('/hygiene');
     const body = await response.json();
     return body;
   }
@@ -115,9 +117,9 @@ stateRefresh =()=>{
   }
 
   export default function Hygiene(props) {
-      const [customers,setCustomers] = useState('');
+      const [hygiene,setHygiene] = useState('');
       const [completed,setCompleted] = useState(0);
-      const cellList = ["번호","프로필 이미지","이름","생년월일","성별","직업","삭제"];
+      const cellList = ["번호","이미지","이름","옵션"];
       const classes = styles;
     return (
         <div className={classes.menu}>
@@ -133,16 +135,16 @@ stateRefresh =()=>{
                 </TableRow>
             </TableHead>
             <TableBody>
-            {
-            this.state.customers ? 
-                filteredComponents(this.state.customers)
+            {/* {
+            hygiene ? 
+                filteredComponents(hygiene)
             : 
             <TableRow>
                 <TableCell colspan="6" align="center">
-                <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed} color="secondary" />
+                <CircularProgress className={classes.progress} variant="determinate" value={completed} color="secondary" />
                 </TableCell>
             </TableRow>
-            }
+            } */}
             </TableBody>
             </Table>
         </Paper>

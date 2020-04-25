@@ -7,12 +7,14 @@ import Dash from './page/Dash';
 import Appbar from './component/Appbar';
 import SalerInfo from './page/SalerInfo';
 import HygieneInfo from './page/HygieneInfo';
+import MonthMenu from './page/MonthMenu';
+import OpenState from './page/OpenState';
 
 function App() {
   return (
     <>
       <Appbar>
-      <HygieneInfo />
+      <OpenState />
       </Appbar>
     </>
   );
