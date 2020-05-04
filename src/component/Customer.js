@@ -26,7 +26,7 @@ class Customer extends Component {
                         {this.props.job}
                     </TableCell>
                     <TableCell>
-                        <CustomerDelete stateRefresh={this.props.stateRefresh} id={this.props.id} />
+                        <HygieneInfoDelete stateRefresh={this.props.stateRefresh} id={this.props.id} />
                     </TableCell>
                 </TableRow>
                 

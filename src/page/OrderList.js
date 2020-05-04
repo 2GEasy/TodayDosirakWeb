@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -6,7 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Title from './Title';
+import Button from '@material-ui/core/Button';
+import Title from '../component/Title';
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -30,21 +31,21 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
 }));
-function deliveryState(delivery) {
+export default function OrderList() {
+  const classes = useStyles();
+  const [delivery,setDelivery] = useState(0);
+  const onClick =(e)=> {
+    setDelivery(e.target.value)
+  }
+  function deliveryState(delivery) {
     if(delivery===0) {
-        return <Button color="primary" value="1">배달 시작</Button>
+      return <Button color="primary" value="1">배달 시작</Button>
     }else if(delivery===1) {
-        return <Button color="secondary" onClick={onClick} value="2">배달 종료</Button>
+      return <Button color="secondary" onClick={onClick} value="2">배달 종료</Button>
     }else if(delivery===2) {
-        return <Button disabled>완료</Button>
+      return <Button disabled>완료</Button>
     }
-}
-export default function Orders() {
-    const classes = useStyles();
-    const [delivery,setDelivery] = useState(0);
-    onClick =(e)=> {
-        setDelivery = e.target.value
-    }
+  }
   return (
     <React.Fragment>
       <Title>주문 내역</Title>

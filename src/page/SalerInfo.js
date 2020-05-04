@@ -100,7 +100,7 @@ const CssTextField = withStyles({
     checked: {},
   })((props) => <Radio color="default" {...props} />);
 
-export default function UserMod(props) {
+export default function SalerInfo(props) {
     const [gender,setGender] = useState('female');
     const [selectedDate, setSelectedDate] = React.useState('1994-08-18');
 

@@ -12,6 +12,7 @@ import axios from 'axios';
 import HygieneInfoAdd from '../component/HygieneInfoAdd';
 
 import {fade} from '@material-ui/core/styles/colorManipulator';
+import HygieneAdd from '../component/HygieneInfoAdd';
 
 const styles = theme => ({
     root: {
@@ -85,45 +86,46 @@ const styles = theme => ({
     }
   })
 
-stateRefresh =()=>{
-    this.setState({
-      hygiene:'',
-      completed:0,
-      searchKeyword: ''
-    });
-    this.callApi()
-    .then(res => this.setState({hygiene:res}))
-    .catch(err => console.log(err));
-  }
-  componentDidMount() =() =>{
-    this.timer = setInterval(this.progress, 20);
-    this.callApi()
-    .then(res => this.setState({hygiene:res}))
-    .catch(err => console.log(err));
-  }
-  callApi= async() => {
-    const response = await fetch('/hygiene');
-    const body = await response.json();
-    return body;
-  }
-  progress = () => {
-    const {completed} = this.state;
-    this.setState({completed : completed >= 100 ? 0 : completed + 1});
-  }
-  handleValueChange = (e) => {
-    let nextState ={};
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
-  }
-
+  
   export default function Hygiene(props) {
-      const [hygiene,setHygiene] = useState('');
-      const [completed,setCompleted] = useState(0);
-      const cellList = ["번호","이미지","이름","옵션"];
-      const classes = styles;
+    const [hygiene,setHygiene] = useState('');
+    const [completed,setCompleted] = useState(0);
+    const cellList = ["번호","이미지","이름","옵션"];
+    const classes = styles;
+    const stateRefresh =()=>{
+                this.setState({
+                  hygiene:'',
+                  completed:0,
+                  searchKeyword: ''
+                });
+                this.callApi()
+                .then(res => this.setState({hygiene:res}))
+                .catch(err => console.log(err));
+              }
+    const componentDidMount =() =>{
+                this.timer = setInterval(this.progress, 20);
+                this.callApi()
+                .then(res => this.setState({hygiene:res}))
+                .catch(err => console.log(err));
+              }
+    const callApi= async() => {
+                const response = await fetch('/hygiene');
+                const body = await response.json();
+                return body;
+              }
+    const progress = () => {
+                const {completed} = this.state;
+                this.setState({completed : completed >= 100 ? 0 : completed + 1});
+              }
+    const handleValueChange = (e) => {
+                let nextState ={};
+                nextState[e.target.name] = e.target.value;
+                this.setState(nextState);
+              }
     return (
+      <>
         <div className={classes.menu}>
-            <CustomerAdd stateRefresh={this.stateRefresh} />
+            <HygieneAdd stateRefresh={this.stateRefresh} />
         </div>
         <Paper className={classes.paper}>
             <Table className={classes.table}>
@@ -148,5 +150,6 @@ stateRefresh =()=>{
             </TableBody>
             </Table>
         </Paper>
+        </>
     );
 }

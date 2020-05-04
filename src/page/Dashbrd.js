@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -10,7 +10,6 @@ import Link from '@material-ui/core/Link';
 import Chart from '../component/Chart';
 import Deposits from '../component/Deposits';
 import Orders from '../component/Orders';
-import Button from '@material-ui/core/Button';
 
 function Copyright() {
     return (

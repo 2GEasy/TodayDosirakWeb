@@ -55,4 +55,4 @@ class HygieneInfoDelete extends Component {
         );
     }
 }
-export default CustomerDelete;
+export default HygieneInfoDelete;

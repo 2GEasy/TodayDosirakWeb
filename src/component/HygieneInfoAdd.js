@@ -106,4 +106,4 @@ class HygieneAdd extends Component {
         );
     }
 }
-export default CustomerAdd;
+export default HygieneAdd;
