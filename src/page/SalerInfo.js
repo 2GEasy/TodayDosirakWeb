@@ -11,12 +11,16 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {withStyles,makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import DateFnsUtils from '@date-io/date-fns';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker
 } from '@material-ui/pickers';
 import ApiService from '../ApiService';
-import Axios from 'axios';
 
 function Copyright() {
     return (
@@ -46,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
+    },
+    formControl: {
+      margin: theme.spacing(3),
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -85,7 +92,15 @@ const CssTextField = withStyles({
       },
     },
   })(TextField);
-  
+  const CssCheckbox = withStyles({
+    root: {
+      color: "#F57C00",
+      '&$checked': {
+        color: "#F57C00",
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props} />);
 
 export default function SalerInfo(props) {
     const defaultTime = new Date();
@@ -100,6 +115,10 @@ export default function SalerInfo(props) {
       phone:'',
       dstart:new Date(),
       dend:defaultTime,
+      normal: false,
+      health: false,
+      lowsalt: false,
+      premium: false,
     });
     const [storeImg,setStoreImg] = useState({
       file:null,
@@ -111,12 +130,13 @@ export default function SalerInfo(props) {
         file: e.target.files[0],
         fileName: e.target.value
       })
+      console.log(e.target.files[0])
     }
     const handlePost=()=> {
       const formData = new FormData();
-      formData.append('file',storeImg);
-
-      ApiService.insertStoreImg(formData)
+      formData.append('file',storeImg.file);
+      console.log(formData)
+      ApiService.insertStoreImg(formData,window.sessionStorage.getItem("userID"))
       .then(res=>{
         alert('성공');
         console.log(res.data);
@@ -133,7 +153,6 @@ export default function SalerInfo(props) {
     const loadUser =()=>{
       ApiService.fetchUserByID(window.sessionStorage.getItem("userID"))
       .then(res => {
-        console.log(res.data);
           let user = res.data;
           setStore({
             ...store,
@@ -155,6 +174,11 @@ export default function SalerInfo(props) {
           ...store, [e.target.name]:e.target.value
         })
     }
+    const handleCheckChange =(e)=> {
+        setStore({
+          ...store, [e.target.name]:e.target.checked
+        })
+    }
     const handleStartDateChange = (date) => {
       setStore({
         ...store, dstart:date
@@ -165,7 +189,40 @@ export default function SalerInfo(props) {
         ...store, dend:date
       })
     };
-    
+    const onSubmit =(e)=> {
+      let id = window.sessionStorage.getItem("userID");
+      let imgChk = false;
+      if(!(storeImg.file===null)){
+        imgChk = true;
+      }
+        let storeInf = {
+            su_id: id,
+            storeImgChk: imgChk,
+            storeName: store.storename,
+            storeExplain: store.storedesc,
+            deliverPosible: store.deliverposible,
+            storeAddr1: store.addr1, 
+            storeAddr2: store.addr2,
+            storePhone: store.phone,
+            abledeliverS: store.dstart,
+            abledeliverE: store.dend,
+            normal: store.normal,
+            health: store.health,
+            lowsalt: store.lowsalt,
+            premium: store.premium
+        };
+        if(!(storeImg.file===null)) {
+          handlePost();
+        }
+        ApiService.insertStoreInf(storeInf)
+        .then(res=> {
+            
+            props.history.push('/store');
+        })
+        .catch(err => {
+            console.log('insertStoreInf() Error!' , err);
+        })
+    }
     
     return (
         <>
@@ -181,7 +238,7 @@ export default function SalerInfo(props) {
           <form className={classes.form} noValidate>
             <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" file={storeImg.file} value={storeImg.fileName} onChange={handleFileInput} /><br/>
             <label htmlFor="raised-button-file">
-            <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}} onClick={handlePost}>
+            <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}}>
               {storeImg.fileName===''? "스토어 사진 등록" : storeImg.fileName }
             </Button>
             </label>
@@ -221,10 +278,10 @@ export default function SalerInfo(props) {
               placeholder="배달가능 지역을 적어주세요"
               onChange={handleChange}
             />
-            <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" /><br/>
+            {/* <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" /><br/>
             <label htmlFor="raised-button-file">
             <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}}>판매자 사진 등록</Button>
-            </label>
+            </label> */}
             <CssTextField
               variant="outlined"
               margin="normal"
@@ -300,12 +357,34 @@ export default function SalerInfo(props) {
                 }}
                 />
             </MuiPickersUtilsProvider>
+            
+            <FormLabel component="legend" className={classes.margin}>판매종류</FormLabel>
+            <FormGroup>
+            <FormControlLabel
+              control={<CssCheckbox checked={store.normal} onChange={handleCheckChange} name="normal" />}
+              label="일반식"
+            />
+            <FormControlLabel
+              control={<CssCheckbox checked={store.health} onChange={handleCheckChange} name="health" />}
+              label="건강식"
+            />
+            <FormControlLabel
+              control={<CssCheckbox checked={store.lowsalt} onChange={handleCheckChange} name="lowsalt" />}
+              label="관리식"
+            />
+            <FormControlLabel
+              control={<CssCheckbox checked={store.premium} onChange={handleCheckChange} name="premium" />}
+              label="프리미엄식"
+            />
+            </FormGroup>
+            
             <Button
               type="submit"
               fullWidth
               variant="outlined"
               style={{borderColor: '#F57C00',color: '#F57C00'}}
               className={classes.submit}
+              onClick={onSubmit}
             >
               수정
             </Button>

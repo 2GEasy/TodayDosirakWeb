@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const storage = multer.diskStorage({
     destination: function(req,file,cb) {
-        cb(null, 'uploads');//저장 경로
+        cb(null, '/upload');//저장 경로
     },
     filename: function(req,file,cb) {
         cb(null,moment().format('YYYYMMDDHHmmss')+"_"+file.originalname);//저장 파일명

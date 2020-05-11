@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, salesList, userInfo } from '../component/listItems';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
 const drawerWidth = 240;
 
@@ -132,6 +133,7 @@ function AuthChk(props) {
 
 export default function Appbar(props) {
   const classes = useStyles();
+  const [id,setId] = useState();
   const [auth,setAuth] = useState(false);
   const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
@@ -144,6 +146,7 @@ export default function Appbar(props) {
     const id = window.sessionStorage.getItem("userID");
     if(id) {
       setAuth(true);
+      setId(id);
     }else {
       setAuth(false);
     }
@@ -195,6 +198,7 @@ export default function Appbar(props) {
           </IconButton>
         </div>
         <Divider />
+        <ListSubheader>{id} 판매자님 반갑습니다.</ListSubheader>
         <List>{mainListItems}</List>
         <Divider />
         <List>{salesList}</List>
