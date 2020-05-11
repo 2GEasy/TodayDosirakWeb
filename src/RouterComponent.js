@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Appbar from './component/Appbar';
 import Dashbrd from './page/Dashbrd';
@@ -11,6 +11,7 @@ import Stock from './page/Stock';
 import UserMod from './page/UserMod';
 import OrderList from './page/OrderList';
 import Hygiene from './page/Hygiene';
+import PWChk from './page/PwChk';
 
 const AppRouter = () => {
 return(
@@ -28,6 +29,7 @@ return(
                 <Route path="/salerInfo" component={SalerInfo} />
                 <Route path="/stock" component={Stock} />
                 <Route path="/usermod" component={UserMod} />
+                <Route path="/pwchk" component={PWChk} />
                 <Route path="/order" component={OrderList} />
                 <Route path="/hygiene" component={Hygiene} />
                 </div>

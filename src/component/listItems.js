@@ -11,10 +11,16 @@ import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { Link as RouterLink } from 'react-router-dom';
 
+const style = {
+  link: {
+    textDecoration:'none',
+    color:'#000000'
+  }
+}
 export const mainListItems = (
   <div>
     <ListSubheader inset>메인</ListSubheader>
-    <RouterLink to="/">
+    <RouterLink to="/" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <DashboardIcon />
@@ -22,7 +28,7 @@ export const mainListItems = (
       <ListItemText primary="대쉬보드" />
     </ListItem>
     </RouterLink>
-    <RouterLink to="order">
+    <RouterLink to="order" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <ShoppingCartIcon />
@@ -30,7 +36,7 @@ export const mainListItems = (
       <ListItemText primary="주문내역" />
     </ListItem>
     </RouterLink>
-    {/* <RouterLink to="review"> */}
+    {/* <RouterLink to="review" style={style.link}> */}
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
@@ -45,7 +51,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="메뉴" />
     </ListItem>
-    <RouterLink to="menuchart">
+    <RouterLink to="menuchart" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
@@ -53,7 +59,7 @@ export const mainListItems = (
       <ListItemText primary="식단표" />
     </ListItem>
     </RouterLink>
-    <RouterLink to="stock">
+    <RouterLink to="stock" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <LayersIcon />
@@ -61,7 +67,7 @@ export const mainListItems = (
       <ListItemText primary="재고" />
     </ListItem>
     </RouterLink>
-    <RouterLink to="open">
+    <RouterLink to="open" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <LayersIcon />
@@ -103,7 +109,7 @@ export const salesList = (
 export const userInfo = (
   <div>
     <ListSubheader inset>회원정보</ListSubheader>
-    <RouterLink to="userMod">
+    <RouterLink to="pwchk" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
@@ -111,7 +117,7 @@ export const userInfo = (
       <ListItemText primary="회원정보 수정" />
     </ListItem>
     </RouterLink>
-    <RouterLink to="salerInfo">
+    <RouterLink to="salerInfo" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
@@ -119,7 +125,7 @@ export const userInfo = (
       <ListItemText primary="판매자정보 수정" />
     </ListItem>
     </RouterLink>
-    <RouterLink to="hygiene">
+    <RouterLink to="hygiene" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />

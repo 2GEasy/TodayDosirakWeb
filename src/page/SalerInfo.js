@@ -1,27 +1,22 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import 'date-fns';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Input from '@material-ui/core/Input';
 import {withStyles,makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import InputBase from '@material-ui/core/InputBase';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardDatePicker,
   KeyboardTimePicker
 } from '@material-ui/pickers';
+import ApiService from '../ApiService';
+import Axios from 'axios';
 
 function Copyright() {
     return (
@@ -90,62 +85,87 @@ const CssTextField = withStyles({
       },
     },
   })(TextField);
-  const CssRadio = withStyles({
-    root: {
-      color: '#FF9800',
-      '&$checked': {
-        color: '#F57C00',
-      },
-    },
-    checked: {},
-  })((props) => <Radio color="default" {...props} />);
+  
 
 export default function SalerInfo(props) {
-    const [gender,setGender] = useState('female');
-    const [selectedDate, setSelectedDate] = React.useState('1994-08-18');
+    const defaultTime = new Date();
+    defaultTime.setHours(defaultTime.getHours()+6);
+    const [store,setStore] = useState({
+      storename:'',
+      storedesc:'',
+      deliverposible:'',
+      name:'',
+      addr1:'',
+      addr2:'',
+      phone:'',
+      dstart:new Date(),
+      dend:defaultTime,
+    });
+    const [storeImg,setStoreImg] = useState({
+      file:null,
+      fileName:''
+    });
+
+    const handleFileInput =(e)=>{
+      setStoreImg({
+        file: e.target.files[0],
+        fileName: e.target.value
+      })
+    }
+    const handlePost=()=> {
+      const formData = new FormData();
+      formData.append('file',storeImg);
+
+      ApiService.insertStoreImg(formData)
+      .then(res=>{
+        alert('성공');
+        console.log(res.data);
+      })
+      .catch(err=>{
+        alert('실패: '+err);
+      })
+    }
+    
+    useEffect(()=>{
+      console.log(window.sessionStorage.getItem("userID"));
+      loadUser();
+    },[])
+    const loadUser =()=>{
+      ApiService.fetchUserByID(window.sessionStorage.getItem("userID"))
+      .then(res => {
+        console.log(res.data);
+          let user = res.data;
+          setStore({
+            ...store,
+              name : user.name,
+              addr1: user.addr1,
+              addr2: user.addr2,
+              phone: user.phone,
+          })
+      })
+      .catch(err =>{
+          console.log('loadUser() Error!', err);
+      });
+  }
 
     const classes = useStyles();
 
-    const styles={
-    
-        appbar: {
-          backgroundColor: '#FDC06D',
-          width: '100%',
-          height: '7%',
-        },
-        addr: {
-          
-          color: '#ffffff',
-          flexGrow: 1,
-          textAlign:'center',
-          fontSize: '1.2rem'
-    
-        },
-        content: {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            margin: '0 auto',
-            alignItems: 'center'
-        },
-        tf: {
-            margin: '10px'
-        }
-    }
     const handleChange =(e)=> {
-        setGender(e.target.value);
+        setStore({
+          ...store, [e.target.name]:e.target.value
+        })
     }
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-      };
-      const returnGender = (gender)=>{
-        if(gender==='female') {
-            return '여자';
-        }else{
-            return '남자';
-        }
-      }
+    const handleStartDateChange = (date) => {
+      setStore({
+        ...store, dstart:date
+      })
+    };
+    const handleEndDateChange = (date) => {
+      setStore({
+        ...store, dend:date
+      })
+    };
+    
     
     return (
         <>
@@ -159,9 +179,11 @@ export default function SalerInfo(props) {
             판매자정보 수정
           </Typography>
           <form className={classes.form} noValidate>
-          <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" /><br/>
+            <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" file={storeImg.file} value={storeImg.fileName} onChange={handleFileInput} /><br/>
             <label htmlFor="raised-button-file">
-            <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}}>스토어 사진 등록</Button>
+            <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}} onClick={handlePost}>
+              {storeImg.fileName===''? "스토어 사진 등록" : storeImg.fileName }
+            </Button>
             </label>
             <CssTextField
               variant="outlined"
@@ -171,8 +193,9 @@ export default function SalerInfo(props) {
               id="storename"
               label="스토어 이름"
               name="storename"
-              value=""
+              value={store.storename}
               placeholder="스토어 이름을 적어주세요."
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -182,8 +205,9 @@ export default function SalerInfo(props) {
               name="storedesc"
               label="스토어 설명"
               id="storedesc"
-              value=""
+              value={store.storedesc}
               placeholder="스토어에 대한 설명을 적어주세요."
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -193,7 +217,9 @@ export default function SalerInfo(props) {
               name="deliverposible"
               label="배달가능 지역"
               id="deliverposible"
+              value={store.deliverposible}
               placeholder="배달가능 지역을 적어주세요"
+              onChange={handleChange}
             />
             <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" /><br/>
             <label htmlFor="raised-button-file">
@@ -207,7 +233,7 @@ export default function SalerInfo(props) {
               id="name"
               label="판매자 이름"
               name="name"
-              value="판매자 이름"
+              value={store.name}
               readOnly
             />
             <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button>
@@ -219,7 +245,9 @@ export default function SalerInfo(props) {
               id="addr1"
               label="주소"
               name="addr1"
-              placeholder="주소를 입력해주세요."
+              value={store.addr1}
+              placeholder="스토어 주소를 입력해주세요."
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -229,7 +257,9 @@ export default function SalerInfo(props) {
               id="addr2"
               label="상세주소"
               name="addr2"
-              placeholder="상세주소를 입력해주세요."
+              value={store.addr2}
+              placeholder="스토어 상세주소를 입력해주세요."
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -239,16 +269,19 @@ export default function SalerInfo(props) {
               id="phone"
               label="연락처"
               name="phone"
-              placeholder="연락처를 입력해주세요."
+              value={store.phone}
+              placeholder="스토어 연락처를 입력해주세요."
+              onChange={handleChange}
             />
             
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardTimePicker
                 margin="normal"
                 id="time-picker"
+                name="dstart"
                 label="배달 가능시간"
-                value={selectedDate}
-                onChange={handleDateChange}
+                value={store.dstart}
+                onChange={handleStartDateChange}
                 KeyboardButtonProps={{
                     'aria-label': 'change time',
                 }}
@@ -258,9 +291,10 @@ export default function SalerInfo(props) {
                 <KeyboardTimePicker
                 margin="normal"
                 id="time-picker"
+                name="dend"
                 label="배달 가능시간"
-                value={selectedDate}
-                onChange={handleDateChange}
+                value={store.dend}
+                onChange={handleEndDateChange}
                 KeyboardButtonProps={{
                     'aria-label': 'change time',
                 }}

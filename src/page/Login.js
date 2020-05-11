@@ -1,4 +1,5 @@
-import React,{Component} from 'react';
+import React,{useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +18,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {withStyles} from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import ApiService from '../ApiService';
 
 function Copyright() {
     return (
@@ -83,9 +84,14 @@ const CssTextField = withStyles({
     },
   })(TextField);
 
-export default function Login() {
+export default function Login(props) {
     const classes = useStyles();
-    
+    const [auth,setAuth] = useState();
+    const [message,setMessage] = useState('');
+    const [login,setLogin] = useState({
+      su_id: '',
+      pw: ''
+    });
     const styles={
     
         appbar: {
@@ -113,6 +119,42 @@ export default function Login() {
             margin: '10px'
         }
     }
+    const handleChange=(e)=>{
+      setLogin({
+        ...login,[e.target.name] : e.target.value
+      })
+    }
+    const handleLogin=(e)=>{
+      e.preventDefault();
+      ApiService.loginUser(login.su_id,login.pw)
+        .then(res=> {
+          if(res.data===0) {
+            setMessage(
+              '확인되지 않는 회원정보입니다. 다시 확인해주세요'
+            );
+            console.log(message);
+          }else if(res.data===2){
+            setMessage(
+              '비밀번호가 틀렸습니다. 다시 확인해주세요'
+            );
+            console.log(message);
+          }else if(res.data===1) {
+            setMessage(
+                login.su_id + '님이 성공적으로 로그인 되었습니다.'
+            );
+            console.log(message);
+            window.sessionStorage.setItem("userID",login.su_id);
+            
+            props.history.push('/');
+          }else if(res.data===3) {
+            setMessage('알 수 없는 오류');
+            console.log(message);
+          }
+        })
+        .catch(err => {
+            console.log('insertUser() Error!' , err);
+        })
+    }
     return (
         <>
     <AppBar position="static" style={styles.appbar}>
@@ -132,30 +174,32 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             로그인
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form}>
             <CssTextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="su_id"
               label="이메일"
-              name="email"
+              name="su_id"
               autoComplete="email"
               placeholder="이메일을 입력해주세요."
               autoFocus
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              name="password"
+              name="pw"
               label="비밀번호"
               type="password"
-              id="password"
+              id="pw"
               placeholder="비밀번호를 입력해주세요."
               autoComplete="current-password"
+              onChange={handleChange}
             />
             
             {/* <FormControlLabel
@@ -168,10 +212,11 @@ export default function Login() {
               variant="outlined"
               style={{borderColor: '#F57C00',color: '#F57C00'}}
               className={classes.submit}
+              onClick={handleLogin}
             >
               로그인
             </Button>
-            <Button
+            {/* <Button
               type="submit"
               fullWidth
               variant="outlined"
@@ -188,7 +233,7 @@ export default function Login() {
               className={classes.submit}
             >
               <b>Naver 로그인</b>
-            </Button>
+            </Button> */}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -196,7 +241,7 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {'회원가입'}
                 </Link>
               </Grid>

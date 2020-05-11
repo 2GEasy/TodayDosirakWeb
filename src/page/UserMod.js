@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import 'date-fns';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
@@ -12,13 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {withStyles,makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import InputBase from '@material-ui/core/InputBase';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import ApiService from '../ApiService';
+
 
 function Copyright() {
     return (
@@ -98,51 +93,75 @@ const CssTextField = withStyles({
   })((props) => <Radio color="default" {...props} />);
 
 export default function UserMod(props) {
-    const [gender,setGender] = useState('female');
-    const [selectedDate, setSelectedDate] = React.useState('1994-08-18');
-
+    const [user,setUser] = useState({
+      su_id:'',
+      pw:'',
+      name: '',
+      addr1: '', 
+      addr2: '',
+      phone: '',
+      gender: '',
+      birth: ''
+    });
+    
+    const [passChk, setPassChk] = useState('비밀번호는 영문과 숫자를 사용하여 8~16자로 정해주세요.');
+    useEffect(()=>{
+      console.log(window.sessionStorage.getItem("userID"));
+      loadUser();
+    },[])
+    const loadUser =()=>{
+      ApiService.fetchUserByID(window.sessionStorage.getItem("userID"))
+      .then(res => {
+        console.log(res.data);
+          let user = res.data;
+          setUser({
+              su_id : user.su_id,
+              name : user.name,
+              addr1: user.addr1,
+              addr2: user.addr2,
+              phone: user.phone,
+              gender: user.gender,
+              birth: user.birth
+          })
+      })
+      .catch(err =>{
+          console.log('loadUser() Error!', err);
+      });
+  }
     const classes = useStyles();
 
-    const styles={
-    
-        appbar: {
-          backgroundColor: '#FDC06D',
-          width: '100%',
-          height: '7%',
-        },
-        addr: {
-          
-          color: '#ffffff',
-          flexGrow: 1,
-          textAlign:'center',
-          fontSize: '1.2rem'
-    
-        },
-        content: {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            margin: '0 auto',
-            alignItems: 'center'
-        },
-        tf: {
-            margin: '10px'
-        }
-    }
     const handleChange =(e)=> {
-        setGender(e.target.value);
+        setUser({
+          ...user, [e.target.name]: e.target.value,
+
+        });
     }
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const onSubmit =(e)=>{
+      e.preventDefault();
+      let update = {
+          su_id: user.su_id,
+          pw: user.pw,
+          addr1: user.addr1, 
+          addr2: user.addr2,
+          phone: user.phone,
       };
-      const returnGender = (gender)=>{
-        if(gender==='female') {
-            return '여자';
-        }else{
-            return '남자';
-        }
-      }
+      console.log("user: ",update);
+      ApiService.updateUser(update)
+      .then(res=> {
+          console.log(user.name + '님이 성공적으로 등록되었습니다.');
+          props.history.push('/usermod');
+      })
+      .catch(err => {
+          console.log('updateUser() Error!' , err);
+      })
+  }
+  const handlePassChk=(e)=>{
+    if(user.pw===e.target.value) {
+      setPassChk('비밀번호가 맞습니다.')
+    }else{
+      setPassChk('비밀번호가 맞지 않습니다.')
+    }
+  }
     
     return (
         <>
@@ -159,12 +178,11 @@ export default function UserMod(props) {
             <CssTextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
-              id="email"
+              id="su_id"
               label="이메일"
-              name="email"
-              value="email@a.a"
+              name="su_id"
+              value={user.su_id}
               readOnly
             />
             <CssTextField
@@ -172,11 +190,12 @@ export default function UserMod(props) {
               margin="normal"
               required
               fullWidth
-              name="password1"
+              name="pw"
               label="비밀번호"
               type="password"
-              id="password1"
+              id="pw"
               placeholder="비밀번호를 입력해주세요."
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -188,16 +207,17 @@ export default function UserMod(props) {
               type="password"
               id="password2"
               placeholder="비밀번호를 다시 입력해주세요."
+              helperText={passChk}
+              onChange={handlePassChk}
             />
             <CssTextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="name"
               label="이름"
               name="name"
-              value="이름"
+              value={user.name}
               readOnly
             />
             <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button>
@@ -209,17 +229,22 @@ export default function UserMod(props) {
               id="addr1"
               label="주소"
               name="addr1"
+              value={user.addr1}
               placeholder="주소를 입력해주세요."
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
               margin="normal"
+              type="text"
               required
               fullWidth
               id="addr2"
               label="상세주소"
               name="addr2"
+              value={user.addr2}
               placeholder="상세주소를 입력해주세요."
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -229,18 +254,18 @@ export default function UserMod(props) {
               id="phone"
               label="연락처"
               name="phone"
+              value={user.phone}
               placeholder="연락처를 입력해주세요."
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
-              format="MM/dd/yyyy"
-              id="phone"
+              id="gender"
               label="성별"
-              name="phone"
-              value={returnGender(gender)}
+              name="gender"
+              value={user.gender}
               readOnly
             />
             <CssTextField
@@ -249,10 +274,10 @@ export default function UserMod(props) {
               required
               fullWidth
               format="MM/dd/yyyy"
-              id="phone"
+              id="birth"
               label="생년월일"
-              name="phone"
-              value={selectedDate}
+              name="birth"
+              value={user.birth}
               readOnly
             />
             
@@ -261,7 +286,7 @@ export default function UserMod(props) {
               fullWidth
               variant="outlined"
               style={{borderColor: '#F57C00',color: '#F57C00'}}
-              className={classes.submit}
+              onClick={onSubmit}
             >
               수정
             </Button>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -131,16 +132,29 @@ function AuthChk(props) {
 
 export default function Appbar(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [auth,setAuth] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
+  useEffect(()=>{
+    const id = window.sessionStorage.getItem("userID");
+    if(id) {
+      setAuth(true);
+    }else {
+      setAuth(false);
+    }
+  })
+  const style = {
+    link: {
+      textDecoration: 'none',
+      color: '#FFFFFF',
+      fontWeight:'bold'
+    }
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -163,7 +177,9 @@ export default function Appbar(props) {
               <NotificationsIcon />
             </Badge>
           </IconButton> */}
-          <Button color="inherit">Logout</Button>
+          {auth?
+          <RouterLink to="/login" style={style.link}><Button color="inherit" onClick={()=>{window.sessionStorage.clear();}}>Logout</Button></RouterLink>
+         : <RouterLink to="/login" style={style.link}><Button color="inherit">Login</Button></RouterLink>}
         </Toolbar>
       </AppBar>
       <Drawer

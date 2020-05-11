@@ -1,6 +1,6 @@
 import 'date-fns';
 import React,{useState,useEffect} from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -116,16 +116,6 @@ export default function SignIn(props) {
       birth:new Date('1994-08-18')
     });
     
-    const [su_id,setSu_id] = useState();
-    const [password1,setPassword1] = useState();
-    const [password2,setPassword2] = useState();
-    const [password,setPassword] = useState();
-    const [name,setName] = useState();
-    const [addr1,setAddr1] = useState();
-    const [addr2,setAddr2] = useState();
-    const [phone,setPhone] = useState();
-    const [gender,setGender] = useState('male');
-    const [birth,setBirth] = useState(new Date('1994-08-18'));
     const [selectedDate, setSelectedDate] = React.useState(new Date('1994-08-18'));
     const [passChk, setPassChk] = useState('비밀번호는 영문과 숫자를 사용하여 8~16자로 정해주세요.');
     const [message, setMessage] = useState('');
@@ -146,7 +136,8 @@ export default function SignIn(props) {
             su_id: value.su_id,
             pw: value.password,
             name: value.name,
-            addr: value.addr1 + value.addr2,
+            addr1: value.addr1, 
+            addr2: value.addr2,
             phone: value.phone,
             gender: value.gender,
             birth: value.birth
@@ -164,14 +155,10 @@ export default function SignIn(props) {
             console.log('insertUser() Error!' , err);
         })
     }
-    const handleGender=(e)=>{
-      console.log('handleGender: '+ e.target.value);
-      setGender(e.target.value);
-      console.log('setGender:' + gender);
-    }
+    
     const handlePassChk=(e)=>{
       if(value.password1===e.target.value) {
-        setValue({...value,password:e.target.value})
+        setValue({...value,password1:e.target.value})
         setPassChk('비밀번호가 맞습니다.')
       }else{
         setPassChk('비밀번호가 맞지 않습니다.')
@@ -285,7 +272,7 @@ export default function SignIn(props) {
               placeholder="연락처를 입력해주세요."
               onChange={handleChange}
             />
-            <RadioGroup aria-label="gender" name="gender" value={gender} onChange={handleGender}>
+            <RadioGroup aria-label="gender" name="gender" value={value.gender} onChange={handleChange}>
                 <FormControlLabel value="female" control={<CssRadio />} label="여자"/>
                 <FormControlLabel value="male" control={<CssRadio />} label="남자"/>
             </RadioGroup>

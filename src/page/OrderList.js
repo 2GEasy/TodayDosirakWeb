@@ -22,9 +22,7 @@ const rows = [
   createData(4, '4월 21일, 2020', '최오', '진천동 진천타운 505/204', 'VISA ⠀•••• 5919', 212.79),
 ];
 
-function preventDefault(event) {
-  event.preventDefault();
-}
+
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
