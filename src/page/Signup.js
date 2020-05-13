@@ -123,15 +123,11 @@ export default function SignIn(props) {
     
     
     const handleChange =(e)=> {
-      console.log("name: "+e.target.name);
-      console.log("value: "+e.target.value);
       setValue({
         ...value,[e.target.name] : e.target.value,
       });
-      console.log("setValue: "+value.su_id);
     }
     const onInsert =()=>{
-        console.log("value: ",value);
         let user = {
             su_id: value.su_id,
             pw: value.password,
@@ -149,7 +145,7 @@ export default function SignIn(props) {
                 user.name + '님이 성공적으로 등록되었습니다.'
             );
             console.log(message);
-            props.history.push('/login');
+            props.history.push(`/storeadd/${value.su_id}`);
         })
         .catch(err => {
             console.log('insertUser() Error!' , err);
@@ -158,7 +154,7 @@ export default function SignIn(props) {
     
     const handlePassChk=(e)=>{
       if(value.password1===e.target.value) {
-        setValue({...value,password1:e.target.value})
+        setValue({...value,password:e.target.value})
         setPassChk('비밀번호가 맞습니다.')
       }else{
         setPassChk('비밀번호가 맞지 않습니다.')

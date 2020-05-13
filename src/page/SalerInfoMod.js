@@ -21,7 +21,6 @@ import {
   KeyboardTimePicker
 } from '@material-ui/pickers';
 import ApiService from '../ApiService';
-import { Link as RouterLink } from 'react-router-dom';
 
 function Copyright() {
     return (
@@ -70,10 +69,6 @@ const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1),
       },
-      link: {
-        textDecoration:'none',
-        color:'#000000'
-      }
 }));
 
 const CssTextField = withStyles({
@@ -107,7 +102,7 @@ const CssTextField = withStyles({
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
 
-export default function SalerInfo(props) {
+export default function SalerInfoMod(props) {
     const defaultTime = new Date();
     defaultTime.setHours(defaultTime.getHours()+6);
     const [store,setStore] = useState({
@@ -128,14 +123,33 @@ export default function SalerInfo(props) {
     });
     const [storeImg,setStoreImg] = useState({
       file:null,
-      fileName:'',
-      path: '',
+      fileName:''
     });
-    let regImg = storeImg.path+storeImg.fileName;
+
+    const handleFileInput =(e)=>{
+      setStoreImg({
+        file: e.target.files[0],
+        fileName: e.target.value
+      })
+      console.log(e.target.files[0])
+    }
+    const handlePost=()=> {
+      const formData = new FormData();
+      formData.append('file',storeImg.file);
+      console.log(formData)
+      ApiService.updateStoreImg(formData,window.sessionStorage.getItem("userID"))
+      .then(res=>{
+        alert('성공');
+        console.log(res.data);
+      })
+      .catch(err=>{
+        alert('실패: '+err);
+      })
+    }
+    
     useEffect(()=>{
       console.log(window.sessionStorage.getItem("userID"));
       loadStoreInf();
-      
     },[])
     const loadStoreInf =()=>{
       ApiService.fetchStoreByID(window.sessionStorage.getItem("userID"))
@@ -158,32 +172,66 @@ export default function SalerInfo(props) {
               lowsalt: store.lowsalt,
               premium: store.premium
           })
-          console.log("storeImgChk:",store.storeImgChk);
-          if(store.storeImgChk) {
-            loadStoreImg();
-          }
       })
       .catch(err =>{
           console.log('loadStoreInf() Error!', err);
       });
   }
-  const loadStoreImg =()=>{
-    ApiService.fetchStoreImgByID(window.sessionStorage.getItem("userID"))
-    .then(res => {
-        let storeImg = res.data;
-        console.log("loadImg:",res.data);
-        setStoreImg({
-          ...storeImg,
-            path: storeImg.path,
-            fileName: storeImg.ogName,
-        })
-    })
-    .catch(err =>{
-        console.log('loadStoreInf() Error!', err);
-    });
-}
+
     const classes = useStyles();
 
+    const handleChange =(e)=> {
+        setStore({
+          ...store, [e.target.name]:e.target.value
+        })
+    }
+    const handleCheckChange =(e)=> {
+        setStore({
+          ...store, [e.target.name]:e.target.checked
+        })
+    }
+    const handleStartDateChange = (date) => {
+      setStore({
+        ...store, dstart:date
+      })
+    };
+    const handleEndDateChange = (date) => {
+      setStore({
+        ...store, dend:date
+      })
+    };
+    const onSubmit =(e)=> {
+      let id = window.sessionStorage.getItem("userID");
+      let imgChk = false;
+      if(!(storeImg.file===null)){
+        imgChk = true;
+        handlePost();
+      }
+        let storeInf = {
+            su_id: id,
+            storeImgChk: imgChk,
+            storeName: store.storename,
+            storeExplain: store.storedesc,
+            deliverPosible: store.deliverposible,
+            storeAddr1: store.addr1, 
+            storeAddr2: store.addr2,
+            storePhone: store.phone,
+            abledeliverS: store.dstart,
+            abledeliverE: store.dend,
+            normal: store.normal,
+            health: store.health,
+            lowsalt: store.lowsalt,
+            premium: store.premium
+        };
+        ApiService.updateStoreInf(storeInf)
+        .then(res=> {
+            
+            props.history.push('/store');
+        })
+        .catch(err => {
+            console.log('updateStoreInf() Error!' , err);
+        })
+    }
     
     return (
         <>
@@ -194,11 +242,15 @@ export default function SalerInfo(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            판매자정보
+            판매자정보 수정
           </Typography>
           <form className={classes.form} noValidate>
-            <Typography>스토어 이미지</Typography>
-            <img src={regImg} width={100} height={100}/>
+            <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" file={storeImg.file} value={storeImg.fileName} onChange={handleFileInput} /><br/>
+            <label htmlFor="raised-button-file">
+            <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}}>
+              {storeImg.fileName===''? "스토어 사진 등록" : storeImg.fileName }
+            </Button>
+            </label>
             <CssTextField
               variant="outlined"
               margin="normal"
@@ -209,7 +261,7 @@ export default function SalerInfo(props) {
               name="storename"
               value={store.storename}
               placeholder="스토어 이름을 적어주세요."
-              readOnly
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -221,7 +273,7 @@ export default function SalerInfo(props) {
               id="storedesc"
               value={store.storedesc}
               placeholder="스토어에 대한 설명을 적어주세요."
-              readOnly
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -233,12 +285,9 @@ export default function SalerInfo(props) {
               id="deliverposible"
               value={store.deliverposible}
               placeholder="배달가능 지역을 적어주세요"
-              readOnly
+              onChange={handleChange}
             />
-            {/* <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" /><br/>
-            <label htmlFor="raised-button-file">
-            <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}}>판매자 사진 등록</Button>
-            </label> */}
+            <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button>
             <CssTextField
               variant="outlined"
               margin="normal"
@@ -249,7 +298,7 @@ export default function SalerInfo(props) {
               name="addr1"
               value={store.addr1}
               placeholder="스토어 주소를 입력해주세요."
-              readOnly
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -261,7 +310,7 @@ export default function SalerInfo(props) {
               name="addr2"
               value={store.addr2}
               placeholder="스토어 상세주소를 입력해주세요."
-              readOnly
+              onChange={handleChange}
             />
             <CssTextField
               variant="outlined"
@@ -273,7 +322,7 @@ export default function SalerInfo(props) {
               name="phone"
               value={store.phone}
               placeholder="스토어 연락처를 입력해주세요."
-              readOnly
+              onChange={handleChange}
             />
             
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -283,10 +332,10 @@ export default function SalerInfo(props) {
                 name="dstart"
                 label="배달 가능시간"
                 value={store.dstart}
+                onChange={handleStartDateChange}
                 KeyboardButtonProps={{
                     'aria-label': 'change time',
                 }}
-                disabled
                 />
             </MuiPickersUtilsProvider>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -296,45 +345,44 @@ export default function SalerInfo(props) {
                 name="dend"
                 label="배달 가능시간"
                 value={store.dend}
+                onChange={handleEndDateChange}
                 KeyboardButtonProps={{
                     'aria-label': 'change time',
                 }}
-                disabled
                 />
             </MuiPickersUtilsProvider>
             
             <FormLabel component="legend" className={classes.margin}>판매종류</FormLabel>
             <FormGroup>
             <FormControlLabel
-              control={<CssCheckbox checked={store.normal} name="normal" />}
+              control={<CssCheckbox checked={store.normal} onChange={handleCheckChange} name="normal" />}
               label="일반식"
             />
             <FormControlLabel
-              control={<CssCheckbox checked={store.health} name="health" />}
+              control={<CssCheckbox checked={store.health} onChange={handleCheckChange} name="health" />}
               label="건강식"
             />
             <FormControlLabel
-              control={<CssCheckbox checked={store.lowsalt} name="lowsalt" />}
+              control={<CssCheckbox checked={store.lowsalt} onChange={handleCheckChange} name="lowsalt" />}
               label="관리식"
             />
             <FormControlLabel
-              control={<CssCheckbox checked={store.premium} name="premium" />}
+              control={<CssCheckbox checked={store.premium} onChange={handleCheckChange} name="premium" />}
               label="프리미엄식"
             />
             </FormGroup>
-            <RouterLink to="storeMod" className={classes.link}>
-
+            
             <Button
               type="submit"
               fullWidth
               variant="outlined"
               style={{borderColor: '#F57C00',color: '#F57C00'}}
               className={classes.submit}
-              >
+              onClick={onSubmit}
+            >
               수정
             </Button>
             
-            </RouterLink>
           </form>
         </div>
         <Box mt={8}>

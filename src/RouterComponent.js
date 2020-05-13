@@ -12,6 +12,8 @@ import UserMod from './page/UserMod';
 import OrderList from './page/OrderList';
 import Hygiene from './page/Hygiene';
 import PWChk from './page/PwChk';
+import StoreMod from './page/SalerInfoMod';
+import StoreAdd from './page/SalerInfoAdd';
 
 const AppRouter = () => {
 return(
@@ -20,6 +22,7 @@ return(
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
+                <Route path="/storeadd/:su_id" component={StoreAdd} />
                 
             <Appbar>    
                 <div>
@@ -32,6 +35,7 @@ return(
                 <Route path="/pwchk" component={PWChk} />
                 <Route path="/order" component={OrderList} />
                 <Route path="/hygiene" component={Hygiene} />
+                <Route path="/storeMod" component={StoreMod} />
                 </div>
             </Appbar>
             {/* <Route path="/hygieneview" component={HygieneInfo} /> */}

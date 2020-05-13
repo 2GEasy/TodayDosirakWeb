@@ -8,7 +8,6 @@ import TableCell from '@material-ui/core/TableCell';
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import axios from 'axios';
 import HygieneInfoAdd from '../component/HygieneInfoAdd';
 
 import {fade} from '@material-ui/core/styles/colorManipulator';
