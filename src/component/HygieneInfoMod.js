@@ -7,30 +7,29 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ApiService from '../ApiService';
 
-export default function HygieneInfoDelete(props) {
+export default function HygieneInfoMod(props) {
     const [open,setOpen] =useState(false);
-    const id = window.sessionStorage.getItem("userID");
     const handleClickOpen = () => {
         setOpen(true);
     }
     const handleClose = () => {
         setOpen(false);
     }
-    const deleteHygieneInfo=(su_id,hgn_id)=> {
-        // ApiService.deleteHygieneInfo(su_id,hgn_id)
+    const modifyHygieneInfo=(su_id,hgn_id)=> {
+        // ApiService.modifyHygieneInfo(su_id,hgn_id)
         // .then(res=>{
 
         // })
         // .catch(err=>{
-        //     console.log("위생정보 삭제 Error!",err)
+        //     console.log("위생정보 수정 Error!",err)
         // })
     }
     return (
         <div>
-        <Button variant="contained" color="secondary" onClick={handleClickOpen}>삭제하기</Button>
+        <Button variant="contained" color="secondary" onClick={handleClickOpen}>수정하기</Button>
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>
-                삭제 경고
+                위생정보 수정
             </DialogTitle>
             <DialogContent>
                 <Typography gutterBottom>
@@ -38,7 +37,7 @@ export default function HygieneInfoDelete(props) {
                 </Typography>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={deleteHygieneInfo(id,props.hgn_id)}>삭제</Button>
+                <Button variant="contained" color="primary" onClick={modifyHygieneInfo(props.su_id,props.hgn_id)}>수정</Button>
                 <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button>
             </DialogActions>
         </Dialog>

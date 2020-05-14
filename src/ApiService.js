@@ -42,5 +42,14 @@ class ApiService {
     updateStoreImg(file,su_id) {
         return axios.put("http://localhost:8080/storeImg/" + su_id, file);
     }
+    fetchHygiene(su_id) {
+        return axios.get("http://localhost:8080/hygiene/"+su_id);
+    }
+    insertHygiene(hygiene) {
+        return axios.post("http://localhost:8080/hygiene", hygiene);
+    }
+    insertHygieneImg(file,su_id) {
+        return axios.post("http://localhost:8080/hygieneImg/"+su_id, file);
+    }
 }
 export default new ApiService();

@@ -1,5 +1,4 @@
-import React,{useState} from 'react';
-import Customer from '../component/Customer';
+import React,{useState, useEffect} from 'react';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,10 +7,11 @@ import TableCell from '@material-ui/core/TableCell';
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import HygieneInfo from '../component/HygieneInfo';
 import HygieneInfoAdd from '../component/HygieneInfoAdd';
 
 import {fade} from '@material-ui/core/styles/colorManipulator';
-import HygieneAdd from '../component/HygieneInfoAdd';
+import ApiService from '../ApiService';
 
 const styles = theme => ({
     root: {
@@ -87,65 +87,52 @@ const styles = theme => ({
 
   
   export default function Hygiene(props) {
-    const [hygiene,setHygiene] = useState('');
-    const [completed,setCompleted] = useState(0);
-    const cellList = ["번호","이미지","이름","옵션"];
+    const [hygiene,setHygiene] = useState([]);
+    const cellList = ["번호","이미지","이름","설명","수정","삭제"];
     const classes = styles;
-    const stateRefresh =()=>{
-                this.setState({
-                  hygiene:'',
-                  completed:0,
-                  searchKeyword: ''
-                });
-                this.callApi()
-                .then(res => this.setState({hygiene:res}))
-                .catch(err => console.log(err));
-              }
-    const componentDidMount =() =>{
-                this.timer = setInterval(this.progress, 20);
-                this.callApi()
-                .then(res => this.setState({hygiene:res}))
-                .catch(err => console.log(err));
-              }
-    const callApi= async() => {
-                const response = await fetch('/hygiene');
-                const body = await response.json();
-                return body;
-              }
-    const progress = () => {
-                const {completed} = this.state;
-                this.setState({completed : completed >= 100 ? 0 : completed + 1});
-              }
-    const handleValueChange = (e) => {
-                let nextState ={};
-                nextState[e.target.name] = e.target.value;
-                this.setState(nextState);
-              }
+    useEffect(()=>{
+      if(window.sessionStorage.getItem("userID")===null){
+        alert("로그인을 해주세요.");
+        props.history.push('login');
+      }else{
+        loadHygieneInfo(window.sessionStorage.getItem("userID"))
+      }
+    },[])
+    const loadHygieneInfo=(su_id)=> {
+      ApiService.fetchHygiene(su_id)
+      .then(res=> {
+        console.log("위생정보 로드 성공 ");
+        setHygiene(res.data);
+        console.log("res.data: ",res.data)
+        console.log("hygiene:", hygiene);
+      })
+      .catch(err=> {
+        console.log("loadHygiene Error!", err);
+      })
+    }
+    const listAttach=(data)=>{
+      return data.map((c,index)=>{
+        
+        return <HygieneInfo key={index} hgn_id={c.hgn_id} num={index} image={c.hgnFileChk} title={c.hgnTitle} explain={c.hgnExpln} />;
+        
+      })
+    }
     return (
       <>
         <div className={classes.menu}>
-            <HygieneAdd stateRefresh={this.stateRefresh} />
+            <HygieneInfoAdd />
         </div>
         <Paper className={classes.paper}>
             <Table className={classes.table}>
             <TableHead>
                 <TableRow>
-                {cellList.map(c => {
-                    return <TableCell className={classes.tableHead}>{c}</TableCell>
+                {cellList.map((c,index) => {
+                    return <TableCell className={classes.tableHead} key={index}>{c}</TableCell>
                 })}
                 </TableRow>
             </TableHead>
             <TableBody>
-            {/* {
-            hygiene ? 
-                filteredComponents(hygiene)
-            : 
-            <TableRow>
-                <TableCell colspan="6" align="center">
-                <CircularProgress className={classes.progress} variant="determinate" value={completed} color="secondary" />
-                </TableCell>
-            </TableRow>
-            } */}
+                {listAttach(hygiene)}
             </TableBody>
             </Table>
         </Paper>
