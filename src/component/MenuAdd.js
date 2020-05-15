@@ -9,13 +9,14 @@ import {withStyles} from '@material-ui/core/styles';
 import ApiService from '../ApiService';
 
 
-export default function HygieneInfoAdd(props) {
+export default function MenuAdd(props) {
     const [open,setOpen] = useState(false);
-    const [hygiene,setHygiene] = useState({
+    const [menu,setMenu] = useState({
         su_id: window.sessionStorage.getItem("userID"),
-        hgnTitle: '',
-        hgnExpln: '',
-        hgnFileChk: false,
+        name: '',
+        produce: '',
+        price:'',
+        fileChk: false,
     });
     const [file, setFile] = useState({
         files:null,
@@ -27,25 +28,26 @@ export default function HygieneInfoAdd(props) {
     }
     const handleClose = () => {
         setOpen(false);
-        setHygiene({hgnTitle:'',hgnExpln:'',hgnFileChk: false});
+        setMenu({name:'',produce:'',price:'',fileChk: false});
         setFile({files:null,fileName:''});
     }
     const handleChange=(e)=>{
-        setHygiene({
-            ...hygiene, [e.target.name]:e.target.value
+        setMenu({
+            ...menu, [e.target.name]:e.target.value
         });
     }
     const onSubmit=(e)=>{
         e.preventDefault();
-        let hygieneInfo = {
+        let menuTemp = {
             su_id: window.sessionStorage.getItem("userID"),
-            hgnTitle: hygiene.hgnTitle,
-            hgnExpln: hygiene.hgnExpln,
-            hgnFileChk: hygiene.hgnFileChk,
+            name: menu.name,
+            produce: menu.produce,
+            price: menu.price,
+            fileChk: menu.fileChk,
         }
-        ApiService.insertHygiene(hygieneInfo)
+        ApiService.insertMenu(menuTemp)
         .then(res=>{
-            console.log('위생정보 등록 성공.' ,res);
+            console.log('메뉴 등록 성공.' ,res);
             if(file.file!==null) {
                 handlePostImg();
             }
@@ -53,7 +55,7 @@ export default function HygieneInfoAdd(props) {
             handleClose();
         })
         .catch(err=>{
-            console.log("insertHygiene Error!",err);
+            console.log("insertMenu Error!",err);
         })
     }
     const handleFileInput =(e)=>{
@@ -62,8 +64,8 @@ export default function HygieneInfoAdd(props) {
           files: e.target.files,
           fileName: e.target.value
         })
-        setHygiene({
-            ...hygiene, hgnFileChk:true
+        setMenu({
+            ...menu, fileChk:true
         })
         console.log("fileInput:",e.target.files);
       }
@@ -74,9 +76,8 @@ export default function HygieneInfoAdd(props) {
 
         }
         console.log("formData:",formData);
-        ApiService.insertHygieneImg(formData,window.sessionStorage.getItem("userID"))
+        ApiService.insertMenuImg(formData,window.sessionStorage.getItem("userID"))
         .then(res=>{
-          
           console.log('성공:',res.data);
         })
         .catch(err=>{
@@ -88,17 +89,17 @@ export default function HygieneInfoAdd(props) {
 
         return(
             <div>
-                <Button variant="contained" color="primary" onClick={handleClickOpen}>위생정보 등록</Button>
+                <Button variant="contained" color="primary" onClick={handleClickOpen}>메뉴 등록</Button>
                 <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>위생정보 추가</DialogTitle>
+                    <DialogTitle>메뉴 추가</DialogTitle>
                     <DialogContent>
-                        <TextField label="이름" type="text" name="hgnTitle" value={hygiene.hgnTitle} onChange={handleChange} /><br/>
-                        <TextField label="설명" type="text" name="hgnExpln" value={hygiene.hgnExpln} onChange={handleChange}/><br/>
-                        
+                        <TextField label="이름" type="text" name="name" value={menu.name} onChange={handleChange} /><br/>
+                        <TextField label="설명" type="text" name="produce" value={menu.produce} onChange={handleChange}/><br/>
+                        <TextField label="가격" type="text" name="price" value={menu.price} onChange={handleChange}/><br/>
                         <input style={{display:'none'}} multiple accept="image/*" id="raised-button-file" type="file" file={file.files} value={file.fileName} onChange={handleFileInput} /><br/>
                         <label htmlFor="raised-button-file">
                             <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}}>
-                            {file.fileName===''? "위생정보 사진 등록" : file.fileName }
+                            {file.fileName===''? "메뉴 사진 등록" : file.fileName }
                             </Button>
                         </label>
                     </DialogContent>

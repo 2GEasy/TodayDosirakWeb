@@ -9,13 +9,14 @@ import {withStyles} from '@material-ui/core/styles';
 import ApiService from '../ApiService';
 
 
-export default function HygieneInfoAdd(props) {
+export default function MenuAdd(props) {
     const [open,setOpen] = useState(false);
-    const [hygiene,setHygiene] = useState({
+    const [stock,setStock] = useState({
         su_id: window.sessionStorage.getItem("userID"),
-        hgnTitle: '',
-        hgnExpln: '',
-        hgnFileChk: false,
+        name: '',
+        amount: '',
+        minAmount:'',
+        fileChk: false,
     });
     const [file, setFile] = useState({
         files:null,
@@ -27,25 +28,26 @@ export default function HygieneInfoAdd(props) {
     }
     const handleClose = () => {
         setOpen(false);
-        setHygiene({hgnTitle:'',hgnExpln:'',hgnFileChk: false});
+        setStock({name:'',amount:'',minAmount:'',fileChk: false});
         setFile({files:null,fileName:''});
     }
     const handleChange=(e)=>{
-        setHygiene({
-            ...hygiene, [e.target.name]:e.target.value
+        setStock({
+            ...stock, [e.target.name]:e.target.value
         });
     }
     const onSubmit=(e)=>{
         e.preventDefault();
-        let hygieneInfo = {
+        let stockTemp = {
             su_id: window.sessionStorage.getItem("userID"),
-            hgnTitle: hygiene.hgnTitle,
-            hgnExpln: hygiene.hgnExpln,
-            hgnFileChk: hygiene.hgnFileChk,
+            name: stock.name,
+            amount: stock.amount,
+            minAmount: stock.minAmount,
+            fileChk: stock.fileChk,
         }
-        ApiService.insertHygiene(hygieneInfo)
+        ApiService.insertStock(stockTemp)
         .then(res=>{
-            console.log('위생정보 등록 성공.' ,res);
+            console.log('재고 등록 성공.' ,res);
             if(file.file!==null) {
                 handlePostImg();
             }
@@ -53,7 +55,7 @@ export default function HygieneInfoAdd(props) {
             handleClose();
         })
         .catch(err=>{
-            console.log("insertHygiene Error!",err);
+            console.log("insertStock Error!",err);
         })
     }
     const handleFileInput =(e)=>{
@@ -62,8 +64,8 @@ export default function HygieneInfoAdd(props) {
           files: e.target.files,
           fileName: e.target.value
         })
-        setHygiene({
-            ...hygiene, hgnFileChk:true
+        setStock({
+            ...stock, fileChk:true
         })
         console.log("fileInput:",e.target.files);
       }
@@ -74,9 +76,8 @@ export default function HygieneInfoAdd(props) {
 
         }
         console.log("formData:",formData);
-        ApiService.insertHygieneImg(formData,window.sessionStorage.getItem("userID"))
+        ApiService.insertStockImg(formData,window.sessionStorage.getItem("userID"))
         .then(res=>{
-          
           console.log('성공:',res.data);
         })
         .catch(err=>{
@@ -88,17 +89,17 @@ export default function HygieneInfoAdd(props) {
 
         return(
             <div>
-                <Button variant="contained" color="primary" onClick={handleClickOpen}>위생정보 등록</Button>
+                <Button variant="contained" color="primary" onClick={handleClickOpen}>재고 등록</Button>
                 <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>위생정보 추가</DialogTitle>
+                    <DialogTitle>재고 추가</DialogTitle>
                     <DialogContent>
-                        <TextField label="이름" type="text" name="hgnTitle" value={hygiene.hgnTitle} onChange={handleChange} /><br/>
-                        <TextField label="설명" type="text" name="hgnExpln" value={hygiene.hgnExpln} onChange={handleChange}/><br/>
-                        
+                        <TextField label="이름" type="text" name="name" value={stock.name} onChange={handleChange} /><br/>
+                        <TextField label="수량" type="text" name="amount" value={stock.amount} onChange={handleChange}/><br/>
+                        <TextField label="최소 수량" type="text" name="minAmount" value={stock.minAmount} onChange={handleChange}/><br/>
                         <input style={{display:'none'}} multiple accept="image/*" id="raised-button-file" type="file" file={file.files} value={file.fileName} onChange={handleFileInput} /><br/>
                         <label htmlFor="raised-button-file">
                             <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}}>
-                            {file.fileName===''? "위생정보 사진 등록" : file.fileName }
+                            {file.fileName===''? "재고 사진 등록" : file.fileName }
                             </Button>
                         </label>
                     </DialogContent>

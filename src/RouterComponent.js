@@ -14,6 +14,7 @@ import Hygiene from './page/Hygiene';
 import PWChk from './page/PwChk';
 import StoreMod from './page/SalerInfoMod';
 import StoreAdd from './page/SalerInfoAdd';
+import Menu from './page/Menu';
 
 const AppRouter = () => {
 return(
@@ -36,6 +37,7 @@ return(
                 <Route path="/order" component={OrderList} />
                 <Route path="/hygiene" component={Hygiene} />
                 <Route path="/storeMod" component={StoreMod} />
+                <Route path="/menu" component={Menu} />
                 </div>
             </Appbar>
             {/* <Route path="/hygieneview" component={HygieneInfo} /> */}

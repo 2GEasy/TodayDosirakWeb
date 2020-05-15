@@ -1,15 +1,15 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import HygieneInfoMod from './HygieneInfoMod';
-import HygieneInfoDelete from './HygieneInfoDelete';
+import StockMod from './StockMod';
+import StockDelete from './StockDelete';
 import { Button } from '@material-ui/core';
 import ApiService from '../ApiService';
 
-export default function HygieneInfo(props) {
+export default function MenuInfo(props) {
         const [img,setImg] = useState({
             img_id:'',
-            hgn_id:'',
+            stck_id:'',
             su_id:'',
             fileName:'',
             path:''
@@ -20,12 +20,12 @@ export default function HygieneInfo(props) {
         },[1])
         const inputImage=(bl)=>{
             if(bl) {
-                ApiService.fetchHygieneImgPreview(window.sessionStorage.getItem("userID"), props.hgn_id)
+                ApiService.fetchStockImgPreview(window.sessionStorage.getItem("userID"), props.stck_id)
                 .then(res=>{
                     setImg(res.data);
                 })
                 .catch(err=>{
-                    console.log("hgnInfo inputImg Error!", err);
+                    console.log("Menu Preview Error!", err);
                 })
             }else{
                 return '';
@@ -34,28 +34,32 @@ export default function HygieneInfo(props) {
         return (
                 <TableRow>
                     <TableCell>
-                        <input type="hidden" value={props.hgn_id}/>
                         {props.num} 
                         {/* 번호 */}
                     </TableCell>
                     <TableCell>
-                        <img src={imgPath} alt="HygieneImage" width={100} height={100}/>
+                        <img src={imgPath} alt="MenuImage" width={100} height={100}/>
                         {/* 이미지 */}
                     </TableCell>
                     <TableCell>
-                        {props.title}
-                        {/* 제목 */}
+                        {props.name}
+                        {/* 이름 */}
                     </TableCell>
                     <TableCell>
-                        {props.explain}
-                        {/* 설명 */}
+                        {props.amount}
+                        {/* 수량 */}
                     </TableCell>
                     <TableCell>
-                        <HygieneInfoMod stateRefresh={props.stateRefresh} hgn_id={props.hgn_id}/>
-                        {/* 옵션 */}
+                        {props.minAmount}
+                        {/* 최소 수량 */}
                     </TableCell>
                     <TableCell>
-                        <HygieneInfoDelete stateRefresh={props.stateRefresh} hgn_id={props.hgn_id} />
+                        <StockMod stateRefresh={props.stateRefresh} stck_id={props.stck_id}/>
+                        {/* 수정 */}
+                    </TableCell>
+                    <TableCell>
+                        <StockDelete stateRefresh={props.stateRefresh} stck_id={props.stck_id} />
+                        {/* 삭제 */}
                     </TableCell>
                 </TableRow>
                 

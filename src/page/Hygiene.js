@@ -95,7 +95,7 @@ const styles = theme => ({
         alert("로그인을 해주세요.");
         props.history.push('login');
       }else{
-        loadHygieneInfo(window.sessionStorage.getItem("userID"))
+        loadHygieneInfo(window.sessionStorage.getItem("userID"));
       }
     },[])
     const loadHygieneInfo=(su_id)=> {
@@ -103,24 +103,28 @@ const styles = theme => ({
       .then(res=> {
         console.log("위생정보 로드 성공 ");
         setHygiene(res.data);
-        console.log("res.data: ",res.data)
+        console.log("res.data: ",res.data);
         console.log("hygiene:", hygiene);
       })
       .catch(err=> {
         console.log("loadHygiene Error!", err);
       })
     }
+    const stateRefresh =()=>{
+      setHygiene([]);
+      loadHygieneInfo(window.sessionStorage.getItem("userID"));
+    }
     const listAttach=(data)=>{
       return data.map((c,index)=>{
         
-        return <HygieneInfo key={index} hgn_id={c.hgn_id} num={index} image={c.hgnFileChk} title={c.hgnTitle} explain={c.hgnExpln} />;
+        return <HygieneInfo key={index} hgn_id={c.hgn_id} num={index+1} image={c.hgnFileChk} title={c.hgnTitle} explain={c.hgnExpln} stateRefresh={stateRefresh} />;
         
       })
     }
     return (
       <>
         <div className={classes.menu}>
-            <HygieneInfoAdd />
+            <HygieneInfoAdd stateRefresh={stateRefresh}/>
         </div>
         <Paper className={classes.paper}>
             <Table className={classes.table}>

@@ -175,7 +175,7 @@ export default function SalerInfo(props) {
         setStoreImg({
           ...storeImg,
             path: storeImg.path,
-            fileName: storeImg.ogName,
+            fileName: storeImg.fileName,
         })
     })
     .catch(err =>{

@@ -45,12 +45,15 @@ export const mainListItems = (
     </ListItem>
     {/* </RouterLink> */}
     
+    <RouterLink to="menu" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="메뉴" />
     </ListItem>
+    </RouterLink>
+
     <RouterLink to="menuchart" style={style.link}>
     <ListItem button>
       <ListItemIcon>

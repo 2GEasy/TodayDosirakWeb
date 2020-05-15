@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ApiService from '../ApiService';
 
-export default function HygieneInfoDelete(props) {
+export default function MenuDelete(props) {
     const [open,setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -15,15 +15,15 @@ export default function HygieneInfoDelete(props) {
     const handleClose = () => {
         setOpen(false);
     }
-    const deleteHygieneInfo=(su_id,hgn_id)=> {
-        ApiService.deleteHygieneInfo(su_id,hgn_id)
+    const deleteMenu=(su_id,mn_id)=> {
+        ApiService.deleteMenu(su_id,mn_id)
         .then(res=>{
-            console.log("위생정보 삭제 성공", res);
+            console.log("메뉴 삭제 성공", res);
             props.stateRefresh();
             handleClose();
         })
         .catch(err=>{
-            console.log("위생정보 삭제 Error!",err)
+            console.log("메뉴 삭제 Error!",err)
         })
     }
     return (
@@ -35,11 +35,11 @@ export default function HygieneInfoDelete(props) {
             </DialogTitle>
             <DialogContent>
                 <Typography gutterBottom>
-                    선택한 위생정보가 삭제됩니다.
+                    선택한 메뉴가 삭제됩니다.
                 </Typography>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={()=>deleteHygieneInfo(window.sessionStorage.getItem("userID"), props.hgn_id)}>삭제</Button>
+                <Button variant="contained" color="primary" onClick={()=>deleteMenu(window.sessionStorage.getItem("userID"), props.mn_id)}>삭제</Button>
                 <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button>
             </DialogActions>
         </Dialog>

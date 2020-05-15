@@ -181,7 +181,7 @@ export default function Appbar(props) {
             </Badge>
           </IconButton> */}
           {auth?
-          <RouterLink to="/login" style={style.link}><Button color="inherit" onClick={()=>{window.sessionStorage.clear();}}>Logout</Button></RouterLink>
+          <RouterLink to="/login" style={style.link}><Button color="inherit" onClick={()=>{window.sessionStorage.clear();}}>{id}님 Logout</Button></RouterLink>
          : <RouterLink to="/login" style={style.link}><Button color="inherit">Login</Button></RouterLink>}
         </Toolbar>
       </AppBar>
@@ -198,7 +198,6 @@ export default function Appbar(props) {
           </IconButton>
         </div>
         <Divider />
-        <ListSubheader>{id} 판매자님 반갑습니다.</ListSubheader>
         <List>{mainListItems}</List>
         <Divider />
         <List>{salesList}</List>
