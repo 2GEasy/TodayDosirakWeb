@@ -6,7 +6,7 @@ import StockDelete from './StockDelete';
 import { Button } from '@material-ui/core';
 import ApiService from '../ApiService';
 
-export default function MenuInfo(props) {
+export default function StockInfo(props) {
         const [img,setImg] = useState({
             img_id:'',
             stck_id:'',

@@ -9,7 +9,7 @@ import {withStyles} from '@material-ui/core/styles';
 import ApiService from '../ApiService';
 
 
-export default function MenuAdd(props) {
+export default function StockAdd(props) {
     const [open,setOpen] = useState(false);
     const [stock,setStock] = useState({
         su_id: window.sessionStorage.getItem("userID"),

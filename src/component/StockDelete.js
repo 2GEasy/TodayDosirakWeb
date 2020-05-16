@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ApiService from '../ApiService';
 
-export default function MenuDelete(props) {
+export default function StockDelete(props) {
     const [open,setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);

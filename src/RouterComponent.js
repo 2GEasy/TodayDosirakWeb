@@ -16,6 +16,15 @@ import StoreMod from './page/SalerInfoMod';
 import StoreAdd from './page/SalerInfoAdd';
 import Menu from './page/Menu';
 
+import Main from "./produce/page/Main";
+import Produce from "./produce/page/Produce";
+import Notice from "./produce/page/NoticeBoard";
+import BestSaler from './produce/page/BestSaler';
+import Inquire from './produce/page/Inquire';
+import Master from './produce/page/Master';
+import Nav from './produce/component/Nav';
+import NoticeView from './produce/page/NoticeView';
+
 const AppRouter = () => {
 return(
     <>
@@ -24,6 +33,17 @@ return(
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/storeadd/:su_id" component={StoreAdd} />
+                {/* <Nav>
+                    <div>
+                        <Route path="/produce/" component={Main} />
+                        <Route path="/produce/notice" component={Notice} />
+                        <Route path="/produce/produce" component={Produce} />
+                        <Route path="/produce/bsaler" component={BestSaler} />
+                        <Route path="/produce/inquire" component={Inquire} />
+                        <Route path="/produce/master" component={Master} />
+                        <Route path="/produce/noticeview/:ntcb_id" component={NoticeView} />
+                    </div>
+                </Nav> */}
                 
             <Appbar>    
                 <div>
@@ -42,8 +62,11 @@ return(
             </Appbar>
             {/* <Route path="/hygieneview" component={HygieneInfo} /> */}
                 {/* <Route path="/noticeview/:ntcb_id" component={NoticeView} /> */}
+                
+                
             </Switch>
         </BrowserRouter>
+
     </>
 );
 }

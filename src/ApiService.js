@@ -116,5 +116,19 @@ class ApiService {
     updateStockImg(formData,su_id,stck_id) {
         return axios.put("http://localhost:8080/stockImg/"+su_id+"/"+stck_id,formData);
     }
+
+    fetchOpenList(su_id) {
+        return axios.get("http://localhost:8080/storeOpen/"+su_id);
+    }
+
+    fetchOpenState(su_id) {
+        return axios.get("http://localhost:8080/storeOpen/state/"+su_id);
+    }
+    updateOpenState(open_id,su_id) {
+        return axios.put("http://localhost:8080/storeOpen/"+su_id+"/"+open_id);
+    }
+    insertOpenState(su_id) {
+        return axios.post("http://localhost:8080/storeOpen/"+su_id);
+    }
 }
 export default new ApiService();

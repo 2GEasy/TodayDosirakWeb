@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ApiService from '../ApiService';
 
-export default function MenuMod(props) {
+export default function StockMod(props) {
     const [open,setOpen] =useState(false);
     const [stock,setStock] = useState({
         su_id: window.sessionStorage.getItem("userID"),
