@@ -15,6 +15,8 @@ import PWChk from './page/PwChk';
 import StoreMod from './page/SalerInfoMod';
 import StoreAdd from './page/SalerInfoAdd';
 import Menu from './page/Menu';
+import Review from './page/Review';
+
 
 import Main from "./produce/page/Main";
 import Produce from "./produce/page/Produce";
@@ -24,6 +26,16 @@ import Inquire from './produce/page/Inquire';
 import Master from './produce/page/Master';
 import Nav from './produce/component/Nav';
 import NoticeView from './produce/page/NoticeView';
+
+import CustomerMain from './customer/page/Main';
+import CustomerLogin from './customer/page/Login';
+import CustomerSignup from './customer/page/Signup';
+import Stores from './customer/page/Stores';
+import CustomerAppbar from './customer/component/Appbar';
+import BottomNav from './customer/component/BottomNav';
+import StoreView from './customer/page/StoreView';
+import MenuView from './customer/page/MenuView';
+
 
 const AppRouter = () => {
 return(
@@ -35,33 +47,39 @@ return(
                 <Route path="/storeadd/:su_id" component={StoreAdd} />
                 {/* <Nav>
                     <div>
-                        <Route path="/produce/" component={Main} />
-                        <Route path="/produce/notice" component={Notice} />
-                        <Route path="/produce/produce" component={Produce} />
-                        <Route path="/produce/bsaler" component={BestSaler} />
-                        <Route path="/produce/inquire" component={Inquire} />
-                        <Route path="/produce/master" component={Master} />
-                        <Route path="/produce/noticeview/:ntcb_id" component={NoticeView} />
+                    <Route path="/produce/" component={Main} />
+                    <Route path="/produce/notice" component={Notice} />
+                    <Route path="/produce/produce" component={Produce} />
+                    <Route path="/produce/bsaler" component={BestSaler} />
+                    <Route path="/produce/inquire" component={Inquire} />
+                    <Route path="/produce/master" component={Master} />
+                    <Route path="/produce/noticeview/:ntcb_id" component={NoticeView} />
                     </div>
                 </Nav> */}
+                    <Route exact path="/" component={Dashbrd} />
+                    <Route path="/saler" component={Dashbrd} />
+                    <Route path="/menuchart" component={MonthMenu} /> 
+                    <Route path="/open" component={OpenState} />
+                    <Route path="/salerInfo" component={SalerInfo} />
+                    <Route path="/stock" component={Stock} />
+                    <Route path="/usermod" component={UserMod} />
+                    <Route path="/pwchk" component={PWChk} />
+                    <Route path="/order" component={OrderList} />
+                    <Route path="/hygiene" component={Hygiene} />
+                    <Route path="/storeMod" component={StoreMod} />
+                    <Route path="/menu" component={Menu} />
+                    <Route path="/review" component={Review} />
+                   
+                <Route exact path="/customer/" component={CustomerMain} />
+                <Route path="/customer/login" component={CustomerLogin} />
+                <Route path="/customer/signup" component={CustomerSignup} />
+                <Route path="/customer/store/:su_id" component={StoreView} />
+                <Route path="/customer/menu/:su_id/:mn_id" component={MenuView} />
+            
+                <Route path="/customer/main" component={CustomerMain} />
+                <Route path="/customer/category/:cate" component={Stores} />
                 
-            <Appbar>    
-                <div>
-                <Route exact path="/" component={Dashbrd} />
-                <Route path="/menuchart" component={MonthMenu} /> 
-                <Route path="/open" component={OpenState} />
-                <Route path="/salerInfo" component={SalerInfo} />
-                <Route path="/stock" component={Stock} />
-                <Route path="/usermod" component={UserMod} />
-                <Route path="/pwchk" component={PWChk} />
-                <Route path="/order" component={OrderList} />
-                <Route path="/hygiene" component={Hygiene} />
-                <Route path="/storeMod" component={StoreMod} />
-                <Route path="/menu" component={Menu} />
-                </div>
-            </Appbar>
-            {/* <Route path="/hygieneview" component={HygieneInfo} /> */}
-                {/* <Route path="/noticeview/:ntcb_id" component={NoticeView} /> */}
+               
                 
                 
             </Switch>
