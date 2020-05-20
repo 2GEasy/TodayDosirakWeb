@@ -12,6 +12,7 @@ import MenuAdd from '../component/MenuAdd';
 
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import ApiService from '../ApiService';
+import Appbar from '../component/Appbar';
 
 const styles = theme => ({
     root: {
@@ -123,23 +124,27 @@ const styles = theme => ({
     }
     return (
       <>
-        <div className={classes.menu}>
-            <MenuAdd stateRefresh={stateRefresh}/>
+        <Appbar>
+        <div>
+          <div className={classes.menu}>
+              <MenuAdd stateRefresh={stateRefresh}/>
+          </div>
+          <Paper className={classes.paper}>
+              <Table className={classes.table}>
+              <TableHead>
+                  <TableRow>
+                  {cellList.map((c,index) => {
+                      return <TableCell className={classes.tableHead} key={index}>{c}</TableCell>
+                  })}
+                  </TableRow>
+              </TableHead>
+              <TableBody>
+                  {listAttach(menu)}
+              </TableBody>
+              </Table>
+          </Paper>
         </div>
-        <Paper className={classes.paper}>
-            <Table className={classes.table}>
-            <TableHead>
-                <TableRow>
-                {cellList.map((c,index) => {
-                    return <TableCell className={classes.tableHead} key={index}>{c}</TableCell>
-                })}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {listAttach(menu)}
-            </TableBody>
-            </Table>
-        </Paper>
+        </Appbar>
         </>
     );
 }

@@ -21,6 +21,7 @@ import {
   KeyboardTimePicker
 } from '@material-ui/pickers';
 import ApiService from '../ApiService';
+import Appbar from '../component/Appbar';
 
 function Copyright() {
     return (
@@ -235,6 +236,7 @@ export default function SalerInfoMod(props) {
     
     return (
         <>
+        <Appbar>
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -389,6 +391,7 @@ export default function SalerInfoMod(props) {
           <Copyright />
         </Box>
       </Container>
+      </Appbar>
       </>
     );
 }

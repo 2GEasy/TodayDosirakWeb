@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import ApiService from '../ApiService';
+import Appbar from '../component/Appbar';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -98,6 +99,7 @@ function PwChk(props) {
     }
     return(
         <>
+        <Appbar>
             <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
@@ -143,6 +145,7 @@ function PwChk(props) {
             </form>
             </div>
             </Container>
+        </Appbar>
         </>
     );
 }

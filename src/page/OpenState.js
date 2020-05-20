@@ -10,6 +10,7 @@ import TableFooter from '@material-ui/core/TableFooter';
 import Paper from '@material-ui/core/Paper';
 import ApiService from '../ApiService';
 import OpenInfo from '../component/OpenInfo';
+import Appbar from '../component/Appbar';
 
 const styles = theme => ({
     root: {
@@ -132,6 +133,7 @@ export default function OpenState(props) {
     }
     return (
         <>
+        <Appbar>
         <Container component="main" maxWidth="xl" style={{padding: '20px'}}>
             <Typography style={{fontSize:'1.8rem'}}>영업 상태</Typography>
             <Paper className={classes.paper}>
@@ -207,6 +209,7 @@ export default function OpenState(props) {
         </Table>
         </Paper>
         </Container>
+        </Appbar>
         </>
     );
 }

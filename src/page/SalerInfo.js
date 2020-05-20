@@ -16,6 +16,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Appbar from '../component/Appbar';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker
@@ -187,6 +188,7 @@ export default function SalerInfo(props) {
     
     return (
         <>
+        <Appbar>
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -341,6 +343,7 @@ export default function SalerInfo(props) {
           <Copyright />
         </Box>
       </Container>
+      </Appbar>
       </>
     );
 }

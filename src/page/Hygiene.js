@@ -12,6 +12,7 @@ import HygieneInfoAdd from '../component/HygieneInfoAdd';
 
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import ApiService from '../ApiService';
+import Appbar from '../component/Appbar';
 
 const styles = theme => ({
     root: {
@@ -123,6 +124,8 @@ const styles = theme => ({
     }
     return (
       <>
+      <Appbar>
+        <div>
         <div className={classes.menu}>
             <HygieneInfoAdd stateRefresh={stateRefresh}/>
         </div>
@@ -140,6 +143,8 @@ const styles = theme => ({
             </TableBody>
             </Table>
         </Paper>
+        </div>
+      </Appbar>
         </>
     );
 }

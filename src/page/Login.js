@@ -145,7 +145,7 @@ export default function Login(props) {
             console.log(message);
             window.sessionStorage.setItem("userID",login.su_id);
             
-            props.history.push('/');
+            props.history.push('/saler');
           }else if(res.data===3) {
             setMessage('알 수 없는 오류');
             console.log(message);
@@ -181,10 +181,10 @@ export default function Login(props) {
               required
               fullWidth
               id="su_id"
-              label="이메일"
+              label="아이디"
               name="su_id"
               autoComplete="email"
-              placeholder="이메일을 입력해주세요."
+              placeholder="아이디를 입력해주세요."
               autoFocus
               onChange={handleChange}
             />

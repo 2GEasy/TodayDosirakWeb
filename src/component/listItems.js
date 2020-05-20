@@ -20,7 +20,7 @@ const style = {
 export const mainListItems = (
   <div>
     <ListSubheader inset>메인</ListSubheader>
-    <RouterLink to="/" style={style.link}>
+    <RouterLink to="/saler" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <DashboardIcon />
@@ -36,14 +36,14 @@ export const mainListItems = (
       <ListItemText primary="주문내역" />
     </ListItem>
     </RouterLink>
-    {/* <RouterLink to="review" style={style.link}> */}
+    <RouterLink to="review" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="리뷰내역" />
     </ListItem>
-    {/* </RouterLink> */}
+    </RouterLink>
     
     <RouterLink to="menu" style={style.link}>
     <ListItem button>
@@ -54,14 +54,6 @@ export const mainListItems = (
     </ListItem>
     </RouterLink>
 
-    <RouterLink to="menuchart" style={style.link}>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="식단표" />
-    </ListItem>
-    </RouterLink>
     <RouterLink to="stock" style={style.link}>
     <ListItem button>
       <ListItemIcon>

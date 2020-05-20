@@ -13,7 +13,7 @@ import {withStyles,makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Radio from '@material-ui/core/Radio';
 import ApiService from '../ApiService';
-
+import Appbar from '../component/Appbar';
 
 function Copyright() {
     return (
@@ -165,6 +165,7 @@ export default function UserMod(props) {
     
     return (
         <>
+        <Appbar>
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -297,6 +298,7 @@ export default function UserMod(props) {
           <Copyright />
         </Box>
       </Container>
+      </Appbar>
       </>
     );
 }

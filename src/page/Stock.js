@@ -10,9 +10,10 @@ import {withStyles} from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import StockInfo from '../component/StockInfo';
 import StockAdd from '../component/StockAdd';
-
+import Appbar from '../component/Appbar';
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import ApiService from '../ApiService';
+import { Container } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -124,6 +125,8 @@ const styles = theme => ({
     }
     return (
       <>
+      <Appbar>
+        <Container fullWidth="sm">
         <Typography>재고 관리</Typography>
         <div className={classes.menu}>
             <StockAdd stateRefresh={stateRefresh}/>
@@ -142,6 +145,8 @@ const styles = theme => ({
             </TableBody>
             </Table>
         </Paper>
+        </Container>
+        </Appbar>
         </>
     );
 }
