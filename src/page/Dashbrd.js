@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -6,10 +6,18 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TableHead from '@material-ui/core/TableHead';
 import Link from '@material-ui/core/Link';
 import Chart from '../component/Chart';
 import Deposits from '../component/Deposits';
-import Orders from '../component/Orders';
+
+import DashOrder from '../component/DashOrder';
+import ApiService from '../ApiService';
+import Appbar from '../component/Appbar';
 
 function Copyright() {
     return (
@@ -105,11 +113,38 @@ function Copyright() {
     },
   }));
 
-export default function Dashbrd() {
+export default function Dashbrd(props) {
     
         const classes = useStyles();
+        
+        const [orderList,setOrderList] = useState([]);
+        useEffect(()=>{
+          if(window.sessionStorage.getItem("userID")===null){
+            alert("로그인을 해주세요.");
+            props.history.push('login');
+          }else{
+            loadSalerOrderList(window.sessionStorage.getItem("userID"));
+          }
+        },[]);
         const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+        const loadSalerOrderList=(su_id)=> {
+          ApiService.loadSalerOrderList(su_id)
+          .then(res=>{
+            setOrderList(res.data);
+            console.log(res.data);
+          })
+          .catch(err=>{
+            console.log("loadSalerOrderList Error!",err);
+          })
+        }
+        const returnOrderList=(data)=>{
+          return data.map((c,index)=>{
+            return <DashOrder key={index,c.ord_id} ord={c.ord_id} su_id={c.su_id} pu_id={c.pu_id} num={index+1} addr1={c.addr1} addr2={c.addr2} dreqstart={c.dreqstart} dreqend={c.dreqend} ordDate={c.ordDate} />;
+          })
+        }
+        const cellList = ["번호","배송지","요청시간(부터)","요청시간(까지)","메뉴","총 금액","주문일시"];
         return (
+            <Appbar> 
           <div className={classes.root}>
             <main className={classes.content}>
         
@@ -130,7 +165,19 @@ export default function Dashbrd() {
                 {/* Recent Orders */}
                 <Grid item xs={12}>
                   <Paper className={classes.paper}>
-                    <Orders />
+                  <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                    주문내역
+                  </Typography>
+                  <Table size="small">
+                    <TableHead>
+                      {cellList.map((c,index)=>{
+                        return <TableCell key={index}>{c}</TableCell>
+                      })}
+                    </TableHead>
+                    <TableBody>
+                    {returnOrderList(orderList)}
+                    </TableBody>
+                  </Table>
                   </Paper>
                 </Grid>
               </Grid>
@@ -140,5 +187,6 @@ export default function Dashbrd() {
             </Container>
           </main>
         </div>
+        </Appbar>
         );
     }
