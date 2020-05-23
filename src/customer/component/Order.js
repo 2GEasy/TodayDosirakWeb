@@ -10,7 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import ApiService from '../ApiService';
 import { Button } from '@material-ui/core';
-
+import ReviewWrite from './ReviewWrite';
 const useStyles = makeStyles({
   card: {
     display: 'flex',
@@ -95,10 +95,10 @@ export default function Order(props) {
     let menu='';
     let summary=0;
   return (
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md={6} style={{padding:10}}>
         <Card className={classes.card}>
           <Hidden xsDown>
-            <CardMedia className={classes.cardMedia} image={("/"+file.path+file.fileName)} title={file.fileName} />
+            <CardMedia className={classes.cardMedia} image={("/"+file.path+file.fileName)} title={file.fileName} style={{width:150,height:150}} />
           </Hidden>
           <div className={classes.cardDetails}>
             <CardContent>
@@ -110,7 +110,7 @@ export default function Order(props) {
               </Typography>
                   {attach(orderMenu)}
             </CardContent>
-            <Button style={{float:'right',color:'#FF9595'}}><b>리뷰 작성</b></Button>
+            <ReviewWrite storeName={storeInf.storeName} menu={menu}/>
           </div>
         </Card>
     </Grid>
