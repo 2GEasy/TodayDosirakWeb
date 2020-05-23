@@ -105,7 +105,7 @@ export default function Appbar(props) {
       <ElevationScroll {...props}>
         <AppBar style={styles.appbar}>
           <Toolbar>
-          <img src={logo} alt="logo" width="50" height="50"/>
+          <Link to="/customer/"><img src={logo} alt="logo" width="50" height="50"/></Link>
             <Button style={styles.addr}><b>{addr}</b><ArrowDropDownIcon/></Button>
             {setLogin(auth)}
           </Toolbar>

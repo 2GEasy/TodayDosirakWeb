@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -35,49 +36,68 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review(props) {
   const classes = useStyles();
+  const [orderItems,setOrderItems] = useState([]);
+
 
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        주문 확인
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+        {/* {products.map((product) => ( */}
+          <ListItem className={classes.listItem}>
+            <ListItemText primary={props.name} secondary={`${props.amount}개`} />
+            <Typography variant="body2">{props.price}</Typography>
           </ListItem>
-        ))}
+        {/* ))} */}
         <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
+          <ListItemText primary="합계" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            {(props.price*props.amount)}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
+            배달지
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(', ')}</Typography>
+          <Typography gutterBottom>{props.deliverSet.name}</Typography>
+          <Typography gutterBottom>{props.deliverSet.addr1}</Typography>
+          <Typography gutterBottom>{props.deliverSet.addr2}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Payment details
+            결제 상세
           </Typography>
           <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
+              <React.Fragment>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
+                  <Typography gutterBottom>카드사</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
+                  <Typography gutterBottom>{props.paymentSet.cardName}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>카드번호</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{props.paymentSet.cardNumber}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>유효기간</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{props.paymentSet.expDate}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>cvc</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography gutterBottom>{props.paymentSet.cvc}</Typography>
                 </Grid>
               </React.Fragment>
-            ))}
           </Grid>
         </Grid>
       </Grid>

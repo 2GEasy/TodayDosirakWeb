@@ -1,9 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import Appbar from '../component/Appbar';
 import { Container, Typography, Divider, Button, Paper } from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 
 export default function MenuView(props) {
+    
     
     const [count,setCount] = useState(1);
     useEffect(()=>{
@@ -23,7 +25,7 @@ export default function MenuView(props) {
                     <hr/>
                     <Typography>총금액 {(props.location.state.price*count)}</Typography>
                     <hr/>
-                    <Button>장바구니</Button><Button>바로 주문</Button>
+                    <Button>장바구니</Button><Link to={{pathname:`/customer/order`,state:{su_id:props.match.params.su_id,mn_id:props.match.params.mn_id,name:props.location.state.name, amount:count, price:props.location.state.price}}} style={{textDecoration:'none'}}><Button>바로 주문</Button></Link>
                     </Paper>
                 </Container>
             </Appbar>

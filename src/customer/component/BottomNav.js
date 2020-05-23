@@ -5,6 +5,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import {Link , withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -17,10 +18,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BottomNav() {
+export default function BottomNav(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  
   return (
     <BottomNavigation
       value={value}
@@ -30,7 +31,7 @@ export default function BottomNav() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="주문 내역" icon={<AssignmentIcon />} style={{color:'#ffffff'}} />
+      <BottomNavigationAction component={Link} to="/customer/orderHistory" label="주문 내역" icon={<AssignmentIcon />} style={{color:'#ffffff'}}/>
       <BottomNavigationAction label="찜스토어" icon={<FavoriteIcon />} style={{color:'#ffffff'}}/>
       <BottomNavigationAction label="마이페이지" icon={<AccountCircleIcon />} style={{color:'#ffffff'}}/>
     </BottomNavigation>

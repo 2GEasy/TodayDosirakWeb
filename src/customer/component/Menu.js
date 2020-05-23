@@ -66,7 +66,7 @@ export default function EngagementCard01 (props) {
     }
     const path ="/"+ file.path+file.fileName;
     return (
-      <Link to={{pathname:`/customer/menu/${props.su_id}/${props.mn_id}`,state: {name:props.name,produce:props.produce,price:props.price,img:path}}} name={props.name} produce={props.produce} price={props.price} img={path}>
+      <Link to={{pathname:`/customer/menu/${props.su_id}/${props.mn_id}`,state: {name:props.name,produce:props.produce,price:props.price,img:path}}}>
         <Card className={"MuiEngagementCard--01"}>
             <CardMedia
             className={"MuiCardMedia-root"}

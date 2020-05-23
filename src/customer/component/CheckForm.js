@@ -8,18 +8,20 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import ResultForm from './ResultForm';
+import ApiService from '../ApiService';
+import { Grid } from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        오늘도시락
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -30,6 +32,8 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
+    backgroundColor:'#FDC06D',
+    color:'#ffffff'
   },
   layout: {
     width: 'auto',
@@ -64,47 +68,94 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+
 
 export default function Checkout(props) {
+  const steps = ['배달 정보 작성', '결제 작성', '주문 확인'];
   const classes = useStyles();
+  const [orderInfo,setOrderInfo] = useState({
+  })
+  const [deliverInfo,setDeliverInfo] = useState({}); 
+
+  const [paymentInfo,setPaymentInfo] = useState({});
+ 
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if(activeStep === steps.length - 1) {
+      let order = {
+        su_id: props.su_id,
+        pu_id: window.sessionStorage.getItem('cid'),
+        name: deliverInfo.name,
+        addr1: deliverInfo.addr1,
+        addr2: deliverInfo.addr2,
+        phone: deliverInfo.phone,
+        dreqstart: deliverInfo.dreqstart,
+        dreqend: deliverInfo.dreqend,
+        ordDate: new Date()
+      }
+      insertOrder(order);
+      let orderMenu = {
+        su_id: props.su_id,
+        mn_id: props.mn_id,
+        amount: props.amount
+      }
+      insertOrderMenu(orderMenu,window.sessionStorage.getItem('cid'));
+      setActiveStep(activeStep + 1);
+    }else{
+      setActiveStep(activeStep + 1);
+    }
   };
-
+  const insertOrder=(order)=>{
+    ApiService.insertOrder(order)
+    .then(res=>{
+      console.log("inserOrder",res);
+    })
+    .catch(err=>{
+      console.log("insertOrder ERR",err);
+    })
+  }
+  const insertOrderMenu=(orderMenu,pu_id)=>{
+    ApiService.insertOrderMenu(orderMenu,pu_id)
+    .then(res=>{
+      console.log("insertOrderMenu",res);
+    })
+    .catch(err=>{
+      console.log("insertOrderMenu ERR",err);
+    })
+  }
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm setDeliver={setDeliverInfo} deliver={deliverInfo} />;
+      case 1:
+        return <PaymentForm setPayment={setPaymentInfo} payment={paymentInfo} />;
+      case 2:
+        return <ResultForm name={props.name} price={props.price} amount={props.amount} deliverSet={deliverInfo} paymentSet={paymentInfo} />;
+      default:
+        throw new Error('알 수 없는 단계입니다.');
+    }
+  }
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
+          <Link to="/customer/" style={{textDecoration:'none',color:'#ffffff'}}>
           <Typography variant="h6" color="inherit" noWrap>
-            Company name
+            <b>오늘도시락</b>
           </Typography>
+          </Link>
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            주문 확인
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
@@ -117,12 +168,17 @@ export default function Checkout(props) {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  주문해주셔서 감사합니다.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
+                    {props.name}/{props.price} * {props.amount}개
+                </Typography><br/>
+                <Typography>
+                    합계: {(props.price*props.amount)}원
                 </Typography>
+                <Grid item container direction="column" xs={12}>
+                  <Link to="/customer/orderHistory"><Button>확인</Button></Link>
+                </Grid>
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -130,7 +186,7 @@ export default function Checkout(props) {
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
-                      Back
+                      뒤로
                     </Button>
                   )}
                   <Button
@@ -139,7 +195,7 @@ export default function Checkout(props) {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? '주문' : '다음'}
                   </Button>
                 </div>
               </React.Fragment>
