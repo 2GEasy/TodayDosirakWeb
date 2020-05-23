@@ -1,12 +1,10 @@
-import React from 'react';
-import Link from '@material-ui/core/Link';
+import React,{useState,useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
+import ApiService from '../ApiService';
 
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 const useStyles = makeStyles({
   depositContext: {
@@ -16,17 +14,43 @@ const useStyles = makeStyles({
 
 export default function Deposits() {
   const classes = useStyles();
+  const [sales,setSales] = useState([]);
+  
+  useEffect(()=>{
+    if(window.sessionStorage.getItem("userID")!==null){
+      fetchMonthSales(window.sessionStorage.getItem("userID"));
+    }
+  },[])
+  const fetchMonthSales=(su_id)=>{
+    ApiService.fetchMonthSales(su_id)
+    .then(res=>{
+      setSales(res.data);
+      console.log(res.data);
+    })
+    .catch(err=>{
+      console.log("fetchMonthSales",err);
+    })
+  }
+  let summary = 0;
+  let dt = '';
+  const attach=(data)=>{
+    data.map((c,index)=>{
+      summary+=c.sum;
+      dt=c.ordDate;
+    })
+    return summary;
+  }
   return (
     <React.Fragment>
       <Title>이달의 매출</Title>
       <Typography component="p" variant="h4">
-        302만원
+        {attach(sales)}원
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        4월 22일, 2020
+        
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link to="/monthSales">
           상세보기
         </Link>
       </div>

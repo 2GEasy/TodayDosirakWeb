@@ -9,23 +9,24 @@ import ApiService from '../ApiService';
 export default function StockInfo(props) {
         const [img,setImg] = useState({
             img_id:'',
-            stck_id:'',
+            mn_id:'',
             su_id:'',
             fileName:'',
             path:''
         });
-        const imgPath = img.path+img.fileName;
+        const imgPath = "/"+img.path+img.fileName;
         useEffect(()=>{
             inputImage(props.image);
         },[1])
         const inputImage=(bl)=>{
             if(bl) {
-                ApiService.fetchStockImgPreview(window.sessionStorage.getItem("userID"), props.stck_id)
+                ApiService.fetchMenuImgPreview(window.sessionStorage.getItem("userID"), props.mn_id)
                 .then(res=>{
                     setImg(res.data);
+                    console.log("fetchStockImg",res.data);
                 })
                 .catch(err=>{
-                    console.log("Menu Preview Error!", err);
+                    console.log("StockImgPreview Error!", err);
                 })
             }else{
                 return '';
@@ -38,7 +39,7 @@ export default function StockInfo(props) {
                         {/* 번호 */}
                     </TableCell>
                     <TableCell>
-                        <img src={imgPath} alt="MenuImage" width={100} height={100}/>
+                        <img src={imgPath} alt="StockImage" width={100} height={100}/>
                         {/* 이미지 */}
                     </TableCell>
                     <TableCell>
@@ -54,12 +55,8 @@ export default function StockInfo(props) {
                         {/* 최소 수량 */}
                     </TableCell>
                     <TableCell>
-                        <StockMod stateRefresh={props.stateRefresh} stck_id={props.stck_id}/>
+                        <StockMod stateRefresh={props.stateRefresh} mn_id={props.mn_id}/>
                         {/* 수정 */}
-                    </TableCell>
-                    <TableCell>
-                        <StockDelete stateRefresh={props.stateRefresh} stck_id={props.stck_id} />
-                        {/* 삭제 */}
                     </TableCell>
                 </TableRow>
                 

@@ -35,6 +35,11 @@ import CustomerAppbar from './customer/component/Appbar';
 import BottomNav from './customer/component/BottomNav';
 import StoreView from './customer/page/StoreView';
 import MenuView from './customer/page/MenuView';
+import OrderForm from './customer/page/OrderForm';
+import OrderHistory from './customer/page/OrderHistory';
+import MonthChart from './component/MonthChart';
+import DayChart from './component/DayChart';
+import YearChart from './component/YearChart';
 
 
 const AppRouter = () => {
@@ -69,6 +74,9 @@ return(
                     <Route path="/storeMod" component={StoreMod} />
                     <Route path="/menu" component={Menu} />
                     <Route path="/review" component={Review} />
+                    <Route path="/monthSales" component={MonthChart} />
+                    <Route path="/daySales" component={DayChart} />
+                    <Route path="/yearSales" component={YearChart} />
                    
                 <Route exact path="/customer/" component={CustomerMain} />
                 <Route path="/customer/login" component={CustomerLogin} />
@@ -78,6 +86,8 @@ return(
             
                 <Route path="/customer/main" component={CustomerMain} />
                 <Route path="/customer/category/:cate" component={Stores} />
+                <Route path="/customer/order" component={OrderForm} />
+                <Route path="/customer/orderHistory" component={OrderHistory} />
                 
                
                 

@@ -75,30 +75,31 @@ export const mainListItems = (
 export const salesList = (
   <div>
     <ListSubheader inset>매출</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="매출" />
-    </ListItem>
+    
+    <RouterLink to="monthSales" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="이번달 매출" />
     </ListItem>
+    </RouterLink>
+    <RouterLink to="daySales" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="일일 매출" />
     </ListItem>
+    </RouterLink>
+    <RouterLink to="yearSales" style={style.link}>
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="올해 매출" />
     </ListItem>
+    </RouterLink>
   </div>
 );
 export const userInfo = (

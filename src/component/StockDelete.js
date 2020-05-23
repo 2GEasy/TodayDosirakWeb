@@ -15,8 +15,8 @@ export default function StockDelete(props) {
     const handleClose = () => {
         setOpen(false);
     }
-    const deleteStock=(su_id,stck_id)=> {
-        ApiService.deleteStock(su_id,stck_id)
+    const deleteStock=(su_id,mn_id)=> {
+        ApiService.deleteStock(su_id,mn_id)
         .then(res=>{
             console.log("재고 삭제 성공", res);
             props.stateRefresh();
@@ -39,7 +39,7 @@ export default function StockDelete(props) {
                 </Typography>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={()=>deleteStock(window.sessionStorage.getItem("userID"), props.stck_id)}>삭제</Button>
+                <Button variant="contained" color="primary" onClick={()=>deleteStock(window.sessionStorage.getItem("userID"), props.mn_id)}>삭제</Button>
                 <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button>
             </DialogActions>
         </Dialog>
