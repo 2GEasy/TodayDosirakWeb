@@ -61,8 +61,9 @@ export default function Review(props) {
   return (
     <>
     <Appbar>
-        <Container>
-            <Paper>
+        <Container maxWidth="sm">
+            <Paper style={{padding:'20px',margin:'20px'}}>
+                <Typography variant="h5">리뷰 리스트</Typography>
                 {returnReviewList(review)}
             </Paper>
         </Container>

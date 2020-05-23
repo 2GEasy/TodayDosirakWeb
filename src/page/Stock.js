@@ -90,7 +90,7 @@ const styles = theme => ({
   
   export default function Stock(props) {
     const [stock,setStock] = useState([]);
-    const cellList = ["번호","이미지","이름","수량","최소 수량","수정","삭제"];
+    const cellList = ["번호","이미지","이름","수량","최소 수량","수정"];
     const classes = styles;
     useEffect(()=>{
       if(window.sessionStorage.getItem("userID")===null){
@@ -119,7 +119,7 @@ const styles = theme => ({
     const listAttach=(data)=>{
       return data.map((c,index)=>{
         
-        return <StockInfo key={index} stck_id={c.stck_id} num={index+1} image={c.fileChk} name={c.name} amount={c.amount} minAmount={c.minAmount} stateRefresh={stateRefresh} />;
+        return <StockInfo key={index} mn_id={c.mn_id} num={index+1} image={c.fileChk} name={c.name} amount={c.amount} minAmount={c.minAmount} stateRefresh={stateRefresh} />;
         
       })
     }
@@ -127,10 +127,10 @@ const styles = theme => ({
       <>
       <Appbar>
         <Container fullWidth="sm">
-        <Typography>재고 관리</Typography>
-        <div className={classes.menu}>
+        <Typography variant="h5" style={{marginTop:'20px',marginBottom:'20px'}}><b>재고 관리</b></Typography>
+        {/* <div className={classes.menu}>
             <StockAdd stateRefresh={stateRefresh}/>
-        </div>
+        </div> */}
         <Paper className={classes.paper}>
             <Table className={classes.table}>
             <TableHead>

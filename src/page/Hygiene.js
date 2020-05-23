@@ -13,6 +13,7 @@ import HygieneInfoAdd from '../component/HygieneInfoAdd';
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import ApiService from '../ApiService';
 import Appbar from '../component/Appbar';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -125,7 +126,8 @@ const styles = theme => ({
     return (
       <>
       <Appbar>
-        <div>
+        <div style={{margin:'20px'}}>
+        <Typography variant="h5" style={{marginTop:'20px',marginBottom:'20px'}}><b>위생정보 관리</b></Typography>
         <div className={classes.menu}>
             <HygieneInfoAdd stateRefresh={stateRefresh}/>
         </div>

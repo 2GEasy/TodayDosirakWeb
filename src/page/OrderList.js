@@ -60,9 +60,9 @@ export default function OrderList(props) {
   return (
     <>
     <Appbar>
-      <Container fullWidth="sm">
-      <Typography component="h2" variant="h6" color="primary" gutterBottom>주문 내역</Typography>
-      <Table size="small">
+      <Container style={{marginTop:'20px'}}>
+      <Typography variant="h5" gutterBottom><b>주문 내역</b></Typography>
+      <Table>
         <TableHead>
           <TableRow>
             {cellList.map((c,index)=>{
