@@ -73,10 +73,10 @@ export default function Store(props) {
             {props.storeExplain}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {props.abledeliverS}~
+            {new Date(props.abledeliverS).toLocaleString("ko-KR")}~
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {props.abledeliverE} 배달가능
+            {new Date(props.abledeliverE).toLocaleString("ko-KR")} 배달가능
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             {props.deliverPosible}

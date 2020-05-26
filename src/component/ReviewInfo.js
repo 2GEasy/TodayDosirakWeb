@@ -177,7 +177,7 @@ let summary=0;
           disabled
         />
         <Typography variant="body2" color="textSecondary" component="p">
-          {props.regDate}
+          {new Date(props.regDate).toLocaleString("ko-KR")}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

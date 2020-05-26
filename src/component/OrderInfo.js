@@ -53,16 +53,20 @@ export default function OrderInfo(props) {
     let ordid=0;
     let menu='';
     let summary=0;
+    // let orderDate = props.ordDate.substring(0,10) +" "+props.ordDate.substring(11,13)+"시"+props.ordDate.substring(14,16)+"분";
+    // list.get(i).getBbsDate().substring(0,11)
+    // + list.get(i).getBbsDate().substring(11, 13) 
+    // + "시" + list.get(i).getBbsDate().substring(14, 16) +  "분";
     return (
         <>
         <TableRow>
             <TableCell width={70}>{props.num}</TableCell>
             <TableCell>{props.addr1} {props.addr2}</TableCell> 
             {/* 주문자이름 > 상세보기 */}
-            <TableCell>{props.dreqstart}</TableCell>
-            <TableCell>{props.dreqend}</TableCell>
+            <TableCell>{(new Date(props.dreqstart).toLocaleString('ko-KR'))}</TableCell>
+            <TableCell>{(new Date(props.dreqend).toLocaleString('ko-KR'))}</TableCell>
             {attach(orderMenu)}
-            <TableCell>{props.ordDate}</TableCell>
+            <TableCell>{new Date(props.ordDate).toLocaleString('ko-KR')}</TableCell>
             <TableCell width={110}><DeliveryState ord={props.ord} su_id={props.su_id} pu_id={props.pu_id} stateRefresh={props.stateRefresh}/></TableCell>
             <TableCell width={110}><OrderCancel ord={props.ord} su_id={props.su_id} pu_id={props.pu_id} stateRefresh={props.stateRefresh} /></TableCell>
         </TableRow>

@@ -122,7 +122,7 @@ export default function Order(props) {
           <div className={classes.cardDetails}>
             <CardContent>
               <Typography component="h5" variant="h6">
-                {props.ordDate}
+                {new Date(props.ordDate).toLocaleString("ko-KR")}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
                 {storeInf.storeName}

@@ -21,15 +21,15 @@ export default function OpenInfo(props) {
                         {/* 번호 */}
                     </TableCell>
                     <TableCell>
-                        {props.regDate}
+                        {new Date(props.regDate).toLocaleString("ko-KR")}
                         {/* 일자 */}
                     </TableCell>
                     <TableCell>
-                        {props.start}
+                        {new Date(props.start).toLocaleString("ko-KR")}
                         {/* 시작 */}
                     </TableCell>
                     <TableCell>
-                        {props.end}
+                        {new Date(props.end).toLocaleString("ko-KR")}
                         {/* 종료 */}
                     </TableCell>
                     <TableCell>

@@ -59,10 +59,10 @@ export default function DashOrder(props) {
             <TableCell>{props.num}</TableCell>
             <TableCell>{props.addr1} {props.addr2}</TableCell> 
             {/* 주문자이름 > 상세보기 */}
-            <TableCell>{props.dreqstart}</TableCell>
-            <TableCell>{props.dreqend}</TableCell>
+            <TableCell>{new Date(props.dreqstart).toLocaleString("ko-KR")}</TableCell>
+            <TableCell>{new Date(props.dreqend).toLocaleString("ko-KR")}</TableCell>
             {attach(orderMenu)}
-            <TableCell>{props.ordDate}</TableCell>
+            <TableCell>{new Date(props.ordDate).toLocaleString("ko-KR")}</TableCell>
         </TableRow>
         </>
     );

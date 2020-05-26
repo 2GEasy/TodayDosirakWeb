@@ -46,7 +46,7 @@ export default function StoreInf(props) {
             <Typography variant="subtitle2" color="textSecondary">스토어 연략처</Typography><br/>   
             <Typography>{props.storePhone}</Typography><br/>
             <Typography variant="subtitle2" color="textSecondary">배달 가능 시간</Typography><br/>   
-            <Typography>{props.abledeliverS}~</Typography><Typography>{props.abledeliverE}</Typography><br/>
+            <Typography>{new Date(props.abledeliverS).toLocaleString("ko-KR")}~</Typography><Typography>{new Date(props.abledeliverE).toLocaleString("ko-KR")}</Typography><br/>
             <Divider/><br/>
             <Typography>위생정보</Typography><br/>   
             {returnHygiene(hy)}

@@ -61,7 +61,7 @@ export default function Stores(props) {
   //props.match.params.cate
   const returnStoreList=(data)=>{
     return data.map((c,index)=>{
-      return <Store key={index} su_id={c.su_id} storeImgChk={c.storeImgChk} storeName={c.storeName} storeExplain={c.storeExplain} deliverPosible={c.deliverPosible} abledeliverS={c.abledeliverS} abledeliverS={c.abledeliverE} />;
+      return <Store key={index} su_id={c.su_id} storeImgChk={c.storeImgChk} storeName={c.storeName} storeExplain={c.storeExplain} deliverPosible={c.deliverPosible} abledeliverS={c.abledeliverS} abledeliverE={c.abledeliverE} />;
     })
   }    
   

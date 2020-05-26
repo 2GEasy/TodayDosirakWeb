@@ -139,7 +139,7 @@ export default function Review(props) {
           disabled
         />
         <Typography variant="body2" color="textSecondary" component="p">
-          {props.regDate}
+          {new Date(props.regDate).toLocaleString("ko-KR")}
         </Typography>
       </CardContent>
       {comment?
