@@ -25,7 +25,7 @@ export default function HygieneInfo(props) {
                     setImg(res.data);
                 })
                 .catch(err=>{
-                    console.log("hgnInfo inputImg Error!", err);
+                    console.log("hgnInfo attach Error!", err);
                 })
             }else{
                 return '';

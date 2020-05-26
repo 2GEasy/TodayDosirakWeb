@@ -3,7 +3,7 @@ import ApiService from '../ApiService';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-
+import SlideShow from 'react-image-show';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HygieneImg(props) {
     const classes = useStyles();
-    const [himg,setHimg] = useState({});
+    const [himg,setHimg] = useState([]);
     useEffect(()=>{
         console.log(props.su_id, props.hgn_id);
         if(props.su_id !== null && props.hgn_id !==null){
@@ -46,16 +46,27 @@ export default function HygieneImg(props) {
             console.log("fetchHygieneImg ERR!",err);
         })
     }
-    const path="/"+himg.path+himg.fileName;
+    const returnHygieneImgs=(himg)=>{
+        let path=[];
+        himg.map((c,index)=>{
+            path.push(("/"+c.path+c.fileName));
+        })
+        return (
+            <SlideShow
+                images={path}
+                width="400px"
+                imagesWidth="400px"
+                imagesHeight="250px"
+                imagesHeightMobile="56vw"
+                thumbnailsWidth="420px"
+                thumbnailsHeight="10vw"
+                thumbnails fixedImagesHeight arrows={false}
+            />
+        )
+    }
     return(
         <>
-            <div className={classes.root}>
-            {/* <GridList className={classes.gridList} cols={2.5}>
-                <GridListTile> */}
-                    <img src={path} alt="hygiene image" width={100} height={100} />
-                {/* </GridListTile>
-            </GridList> */}
-            </div>
+            {returnHygieneImgs(himg)}
         </>
     );
 }

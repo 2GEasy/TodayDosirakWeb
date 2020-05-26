@@ -22,16 +22,17 @@ const useStyles = makeStyles({
             margin:'0 auto',
         },
         width:'28vw',height:'28vh',margin:'0',
-        
+        maxWidth:'430px',minWidth:'380px'
     },
     cardMedia:{
-        width:'28vw',height:'20vh',margin:'0'
+        width:'28vw',height:'20vh',margin:'0',
+        maxWidth:'430px',minWidth:'380px'
     },
     gridItem:{
         margin:0,
         padding:10
     }
-  });
+});
 
 export default function Category(props) {
     
