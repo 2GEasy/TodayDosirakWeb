@@ -29,15 +29,28 @@ export default function Order(props) {
   const [storeInf,setStoreInf] = useState({});
   const [file,setFile] = useState({});
   const [orderMenu,setOrderMenu] = useState([]);
+  const [reviewChk,setReviewChk] = useState(false);
+  
 
   useEffect(()=>{
     if(props.su_id !== null){
         fetchStoreInfo(props.su_id);
         fetchStoreImg(props.su_id);
         fetchOrderMenu(props.ord_id);
+        fetchReviewChk(props.ord_id,props.su_id,window.sessionStorage.getItem('cid'));
     }
   },[])
-
+  const fetchReviewChk=(ord_id,su_id,pu_id)=>{
+    ApiService.fetchReviewChk(ord_id,su_id,pu_id)
+    .then(res=>{
+      setReviewChk(res.data);
+      console.log("fetchReviewChk:",res.data);
+      console.log("주문번호:" +ord_id,"리뷰유무:"+reviewChk);
+    })
+    .catch(err=>{
+      console.log("fetchReviewChk ERR.",err);
+    })
+  }
   const fetchStoreInfo=(su_id)=>{
     ApiService.fetchStoreInfo(su_id)
     .then(res=>{
@@ -51,7 +64,6 @@ export default function Order(props) {
     ApiService.fetchStoreImgByID(su_id)
     .then(res=>{
         setFile(res.data);
-        console.log("fetchStoreImg",res.data);
     })
     .catch(err=>{
         console.log("fetchStoreImg ERR", err);
@@ -61,7 +73,6 @@ export default function Order(props) {
     ApiService.fetchOrderMenu(ord_id)
     .then(res=>{
         setOrderMenu(res.data);
-        console.log("fetchOrderMenu",res.data);
     })
     .catch(err=>{
         console.log("fetchOrderMenu ERR", err);
@@ -94,6 +105,14 @@ export default function Order(props) {
     let ordid=0;
     let menu='';
     let summary=0;
+    const returnButton=(reviewChk)=>{
+      console.log("returnButton.reviewChk:"+reviewChk);
+      if(reviewChk) {
+        return <Button style={{marginBottom:10,marginRight:10,float:'right',color:'#535353'}} disabled><b>작성 완료</b></Button>;
+      }else{
+        return <ReviewWrite ord_id={props.ord_id} su_id={props.su_id} storeName={storeInf.storeName} menu={menu} refreshState={props.refreshState} />;
+      }
+    }
   return (
     <Grid item xs={12} md={6} style={{padding:10}}>
         <Card className={classes.card}>
@@ -110,7 +129,7 @@ export default function Order(props) {
               </Typography>
                   {attach(orderMenu)}
             </CardContent>
-            <ReviewWrite storeName={storeInf.storeName} menu={menu}/>
+            {returnButton(reviewChk)}
           </div>
         </Card>
     </Grid>

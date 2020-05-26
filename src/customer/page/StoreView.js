@@ -79,7 +79,7 @@ export default function StoreView(props) {
     }
     const returnReviewList=(data)=>{
       return data.map((c,index)=>{
-        return <Review key={index} su_id={c.su_id} rvw_id={c.rvw_id} ord_id={c.ord_id} title={c.title} content={c.content} score={c.score} fileChk={c.fileChk} regData={c.regData} />;
+        return <Review key={index} su_id={c.su_id} rvw_id={c.rvw_id} ord_id={c.ord_id} content={c.content} score={c.score} fileChk={c.fileChk} regDate={c.regDate} />;
       })
     }
     const returnStoreInf=(data)=>{

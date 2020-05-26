@@ -55,7 +55,7 @@ export default function Review(props) {
 
   const returnReviewList=(data)=>{
     return data.map((c,index)=>{
-      return <ReviewInfo key={index,c.ord_id} rvw_id={c.rvw_id} ord_id={c.ord_id} su_id={c.su_id} pu_id={c.pu_id} title={c.title} content={c.content} score={c.score} fileChk={c.fileChk} regDate={c.regDate} />;
+      return <ReviewInfo key={index,c.ord_id} rvw_id={c.rvw_id} ord_id={c.ord_id} su_id={c.su_id} pu_id={c.pu_id} content={c.content} score={c.score} fileChk={c.fileChk} regDate={c.regDate} />;
     })
   }
   return (

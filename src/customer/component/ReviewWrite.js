@@ -40,6 +40,7 @@ export default function ReviewWrite(props) {
         });
         setFiles(null);
         setFileName('');
+        setPreviewURL([]);
     }
     const handleChange=(e)=>{
         setReview({
@@ -52,25 +53,27 @@ export default function ReviewWrite(props) {
 
     const onSubmit=(e)=>{
         e.preventDefault();
-        // let stockTemp = {
-        //     su_id: window.sessionStorage.getItem("userID"),
-        //     name: stock.name,
-        //     amount: stock.amount,
-        //     minAmount: stock.minAmount,
-        //     fileChk: stock.fileChk,
-        // }
-        // ApiService.insertStock(stockTemp)
-        // .then(res=>{
-        //     console.log('재고 등록 성공.' ,res);
-        //     if(file.file!==null) {
-        //         handlePostImg();
-        //     }
-        //     props.stateRefresh();
-        //     handleClose();
-        // })
-        // .catch(err=>{
-        //     console.log("insertStock Error!",err);
-        // })
+        let reviewTemp = {
+            ord_id: props.ord_id,
+            su_id: props.su_id,
+            pu_id: window.sessionStorage.getItem("cid"),
+            content: review.content,
+            score: review.score,
+            fileChk: review.fileChk,
+            regDate: new Date()
+        }
+        ApiService.insertReview(reviewTemp)
+        .then(res=>{
+            console.log('리뷰 등록 성공.' ,res);
+            if(files!==null) {
+                handlePostImg();
+            }
+            props.refreshState();
+            handleClose();
+        })
+        .catch(err=>{
+            console.log("insertReview Error!",err);
+        })
     }
     const readURI=(e)=>{
         if(e.target.files) {
@@ -110,13 +113,13 @@ export default function ReviewWrite(props) {
             formData.append('file',files[i]);
         }
         console.log("formData:",formData);
-        // ApiService.insertStockImg(formData,window.sessionStorage.getItem("userID"))
-        // .then(res=>{
-        //   console.log('성공:',res.data);
-        // })
-        // .catch(err=>{
-        //   console.log('실패: ',err);
-        // })
+        ApiService.insertReviewImg(formData,window.sessionStorage.getItem("cid"),props.su_id,props.ord_id)
+        .then(res=>{
+          console.log('성공:',res.data);
+        })
+        .catch(err=>{
+          console.log('실패: ',err);
+        })
       }
     const buildImgTag=()=>{
         return <div className="photo-container">

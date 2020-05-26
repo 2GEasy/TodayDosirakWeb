@@ -39,6 +39,10 @@ export default function OrderHistory(props) {
             console.log("fetchOrderByID ERR",err);
         })
     }
+    const refreshState=()=>{
+      setOrders([]);
+      fetchOrderByID(window.sessionStorage.getItem('cid'));
+    }
     return (
         <Appbar>
             <div>
@@ -46,7 +50,7 @@ export default function OrderHistory(props) {
                 <Typography variant="h6"><b>주문내역</b></Typography>
                 <Grid container direction="column">
                     {orders.map((post,index) => (
-                    <Order key={post.index} ord_id={post.ord_id} su_id={post.su_id} ordDate={post.ordDate} />
+                    <Order key={post.index} ord_id={post.ord_id} su_id={post.su_id} ordDate={post.ordDate} refreshState={refreshState}/>
                     ))}
                 </Grid>
             </Container>
