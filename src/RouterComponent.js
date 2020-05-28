@@ -40,7 +40,7 @@ import OrderHistory from './customer/page/OrderHistory';
 import MonthChart from './component/MonthChart';
 import DayChart from './component/DayChart';
 import YearChart from './component/YearChart';
-
+import Cart from './customer/page/Cart';
 
 const AppRouter = () => {
 return(
@@ -88,6 +88,7 @@ return(
                 <Route path="/customer/category/:cate" component={Stores} />
                 <Route path="/customer/order" component={OrderForm} />
                 <Route path="/customer/orderHistory" component={OrderHistory} />
+                <Route path="/customer/cart" component={Cart} />
                 
                
                 

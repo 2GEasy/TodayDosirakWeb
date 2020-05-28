@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import Appbar from '../component/Appbar';
 import { Container, Typography, Divider, Button, Paper } from '@material-ui/core';
 import {Link} from 'react-router-dom';
-
+import ApiService from '../ApiService';
 
 export default function MenuView(props) {
     
@@ -11,7 +11,26 @@ export default function MenuView(props) {
     useEffect(()=>{
         console.log(props.match.params.mn_id);
     },[])
-    
+
+    const addCart =(pu_id,su_id,mn_id,amount)=>{
+        let CartItem = {
+            pu_id: pu_id,
+            su_id: su_id,
+            mn_id: mn_id,
+            amount: amount
+        }
+        ApiService.insertCart(CartItem)
+        .then(res=>{
+            console.log("insertCart Success",res);
+            const result = window.confirm("장바구니로 이동하시겠습니까?");
+            if(result) {
+                props.history.push("/customer/cart");
+            }
+        })
+        .catch(err=>{
+            console.log("insertCart Error",err);
+        })
+    }
     return (
         <>
             <Appbar>
@@ -25,7 +44,8 @@ export default function MenuView(props) {
                     <hr/>
                     <Typography>총금액 {(props.location.state.price*count)}</Typography>
                     <hr/>
-                    <Button>장바구니</Button><Link to={{pathname:`/customer/order`,state:{su_id:props.match.params.su_id,mn_id:props.match.params.mn_id,name:props.location.state.name, amount:count, price:props.location.state.price}}} style={{textDecoration:'none'}}><Button>바로 주문</Button></Link>
+                    <Button onClick={()=>addCart(window.sessionStorage.getItem('cid'), props.match.params.su_id, props.match.params.mn_id,count)}>장바구니에 추가</Button>
+                    <Link to={{pathname:`/customer/order`,state:{su_id:props.match.params.su_id,mn_id:props.match.params.mn_id,name:props.location.state.name, amount:count, price:props.location.state.price}}} style={{textDecoration:'none'}}><Button>바로 주문</Button></Link>
                     </Paper>
                 </Container>
             </Appbar>

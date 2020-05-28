@@ -98,9 +98,9 @@ export default function StoreView(props) {
               <Tab label="리뷰" value="3" style={{color:'#000000'}}/>
             </TabList>
           </AppBar>
-          <TabPanel value="1">{returnMenuList(menus)}</TabPanel>
-          <TabPanel value="2">{returnStoreInf(storeInf)}</TabPanel>
-          <TabPanel value="3">{returnReviewList(reviews)}</TabPanel>
+          <TabPanel value="1" style={{paddingBottom:'100px'}}>{returnMenuList(menus)}</TabPanel>
+          <TabPanel value="2" style={{paddingBottom:'100px'}}>{returnStoreInf(storeInf)}</TabPanel>
+          <TabPanel value="3" style={{paddingBottom:'100px'}}>{returnReviewList(reviews)}</TabPanel>
           </TabContext>
           </Paper>
         </Container>
