@@ -16,122 +16,117 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles,makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-    card:{
-        MuiPaper:{
-            margin:'0 auto',
-        },
-        width:'28vw',height:'28vh',margin:'0',
-        maxWidth:'430px',minWidth:'380px'
+const useStyles = makeStyles((theme) => ({
+  
+    cardGrid: {
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(8),
     },
-    cardMedia:{
-        width:'28vw',height:'20vh',margin:'0',
-        maxWidth:'430px',minWidth:'380px'
+    card: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
-    gridItem:{
-        margin:0,
-        padding:10
+    cardMedia: {
+      paddingTop: '56.25%', // 16:9
+    },
+    cardContent: {
+      flexGrow: 1,
+    },
+    footer: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(6),
+    },
+    title:{
+        fontSize: '1rem'
+    },
+    desc:{
+        fontSize: '0.8rem'
     }
-});
+  }));
 
 export default function Category(props) {
     
         const style = {
-            root: {
-                marginTop: '20px',
-                marginBottom:'20px',
-                minHeight:'100%',
-                width: '100%'
-            },
             link: {
                 textDecoration: 'none'
             }
         }
         const classes = useStyles();
         return (
-            <>
-                <Container maxWidth="md">
-                <Grid container direction="rows" align="center">
-                    <Grid item xs={12} sm={6} className={classes.gridItem}>
+                <>
+                <Grid container spacing={4}>
+                    <Grid item xs={6} sm={6} md={6}>
                         <Link to="/customer/category/normal" style={style.link}>
-                        <Card className={classes.card} >
-                            <Hidden>
-                                <CardMedia className={classes.cardMedia} image={img1} />
-                            </Hidden>
-                            <div className={classes.cardDetails}>
-                                <CardContent>
-                                <Typography component="h5" variant="h6">
-                                    일반 도시락
-                                </Typography>
-                                <Typography variant="subtitle1" color="textSecondary">
-                                맛있는 일반식
-                                </Typography>
-                                </CardContent>
-                            </div>
+                        <Card className={classes.card}>
+                        <Hidden>
+                            <CardMedia className={classes.cardMedia} image={img1} />
+                        </Hidden>
+                        <CardContent className={classes.cardContent}>
+                        <Typography className={classes.title}>
+                            일반 도시락
+                        </Typography>
+                        <Typography className={classes.desc} variant="subtitle1" color="textSecondary">
+                            맛있는 일반식
+                        </Typography>
+                        </CardContent>
                         </Card>
-                            {/* <CardView img={img1} width="100%" height="120" title="일반 도시락" content="맛있는 일반식"/> */}
                         </Link>
                     </Grid>
-                    <Grid item xs={12} sm={6} className={classes.gridItem}>
+                    <Grid item xs={6} sm={6} md={6}>
                         <Link to="/customer/category/health" style={style.link}>
-                            <Card className={classes.card}>
-                                <Hidden>
-                                    <CardMedia className={classes.cardMedia} image={img2} />
-                                </Hidden>
-                                <div className={classes.cardDetails}>
-                                    <CardContent>
-                                    <Typography component="h5" variant="h6">
-                                    건강 도시락
-                                    </Typography>
-                                    <Typography variant="subtitle1" color="textSecondary">
-                                    관리를 위한 건강식
-                                    </Typography>
-                                    </CardContent>
-                                </div>
-                            </Card>
+                        <Card className={classes.card}>
+                        <Hidden>
+                            <CardMedia className={classes.cardMedia} image={img2} />
+                        </Hidden>
+                        <CardContent className={classes.cardContent}>
+                        <Typography className={classes.title}>
+                            건강 도시락
+                        </Typography>
+                        <Typography className={classes.desc} variant="subtitle1" color="textSecondary">
+                            관리를 위한 건강식
+                        </Typography>
+                        </CardContent>
+                        </Card>
                         </Link>
                     </Grid>
-                    <Grid item xs={12} sm={6} className={classes.gridItem}>
+                    <Grid item xs={6} sm={6} md={6}>
                         <Link to="/customer/category/lowsalt" style={style.link}>
-                            <Card className={classes.card} >
-                                <Hidden>
-                                    <CardMedia className={classes.cardMedia} image={img3}  />
-                                </Hidden>
-                                <div className={classes.cardDetails}>
-                                    <CardContent>
-                                    <Typography component="h5" variant="h6">
-                                    특별식 도시락
-                                    </Typography>
-                                    <Typography variant="subtitle1" color="textSecondary">
-                                    당뇨 식단, 저염식
-                                    </Typography>
-                                    </CardContent>
-                                </div>
-                            </Card>
+                        <Card className={classes.card}>
+                        <Hidden>
+                            <CardMedia className={classes.cardMedia} image={img3} />
+                        </Hidden>
+                        <CardContent className={classes.cardContent}>
+                        <Typography className={classes.title}>
+                            특별식 도시락
+                        </Typography>
+                        <Typography className={classes.desc} variant="subtitle1" color="textSecondary">
+                            당뇨 식단, 저염식
+                        </Typography>
+                        </CardContent>
+                        </Card>
                         </Link>
                     </Grid>
-                    <Grid item xs={12} sm={6} className={classes.gridItem}>
+                    <Grid item xs={6} sm={6} md={6}>
                         <Link to={`/customer/category/premium`} style={style.link}>
-                            <Card className={classes.card} >
-                                <Hidden>
-                                    <CardMedia className={classes.cardMedia} image={img4}  />
-                                </Hidden>
-                                <div className={classes.cardDetails}>
-                                    <CardContent>
-                                    <Typography component="h5" variant="h6">
-                                    프리미엄 도시락
-                                    </Typography>
-                                    <Typography variant="subtitle1" color="textSecondary">
-                                    특별한 날과 특별한 나를 위한 프리미엄 도시락
-                                    </Typography>
-                                    </CardContent>
-                                </div>
-                            </Card>
+                        <Card className={classes.card}>
+                        <Hidden>
+                            <CardMedia className={classes.cardMedia} image={img4} />
+                        </Hidden>
+                        <CardContent className={classes.cardContent}>
+                        <Typography className={classes.title}>
+                            프리미엄 도시락
+                        </Typography>
+                        <Typography className={classes.desc} variant="subtitle1" color="textSecondary">
+                            특별한 날과 특별한 나를 위한 프리미엄 도시락
+                        </Typography>
+                        </CardContent>
+                        </Card>
                         </Link>
                     </Grid>
                 </Grid>
-                </Container>
-            </>
+                
+                </>
         );
     
 }

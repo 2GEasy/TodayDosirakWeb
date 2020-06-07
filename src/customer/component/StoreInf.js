@@ -39,6 +39,10 @@ export default function StoreInf(props) {
             <Typography>{props.storeName}</Typography><br/>
             <Typography variant="subtitle2" color="textSecondary">스토어 설명</Typography><br/>
             <Typography>{props.storeExplain}</Typography><br/>
+            <Typography variant="subtitle2" color="textSecondary">주문수</Typography><br/>
+            <Typography>{props.count}</Typography><br/>
+            <Typography variant="subtitle2" color="textSecondary">찜한 수</Typography><br/>
+            <Typography>{props.favorite}</Typography><br/>
             <Typography variant="subtitle2" color="textSecondary">배달 가능 지역</Typography><br/>
             <Typography>{props.deliverPosible}</Typography><br/>
             <Typography variant="subtitle2" color="textSecondary">스토어 주소</Typography><br/>   

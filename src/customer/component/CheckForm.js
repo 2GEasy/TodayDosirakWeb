@@ -15,6 +15,7 @@ import ResultForm from './ResultForm';
 import ApiService from '../ApiService';
 import { Grid } from '@material-ui/core';
 import {Link} from 'react-router-dom';
+import ChkItem from './ChkItem';
 
 function Copyright() {
   return (
@@ -74,14 +75,27 @@ const useStyles = makeStyles((theme) => ({
 export default function Checkout(props) {
   const steps = ['배달 정보 작성', '결제 작성', '주문 확인'];
   const classes = useStyles();
-  const [orderInfo,setOrderInfo] = useState({
-  })
+  const [orderInfo,setOrderInfo] = useState([]);
   const [deliverInfo,setDeliverInfo] = useState({}); 
 
   const [paymentInfo,setPaymentInfo] = useState({});
- 
+  const [total,setTotal] = useState(0);
   const [activeStep, setActiveStep] = React.useState(0);
+  useEffect(()=>{
+    fetchCartList(window.sessionStorage.getItem('cid'),props.su_id);
+  },[])
+  useEffect(()=>{
 
+  },[orderInfo])
+  const fetchCartList=(pu_id,su_id)=>{
+    ApiService.fetchCartList(pu_id,su_id)
+    .then(res=>{
+      setOrderInfo(res.data);
+    })
+    .catch(err=>{
+      console.log("fetchCartList ERR",err);
+    })
+  }
   const handleNext = () => {
     if(activeStep === steps.length - 1) {
       let order = {
@@ -96,12 +110,14 @@ export default function Checkout(props) {
         ordDate: new Date()
       }
       insertOrder(order);
-      let orderMenu = {
-        su_id: props.su_id,
-        mn_id: props.mn_id,
-        amount: props.amount
-      }
-      insertOrderMenu(orderMenu,window.sessionStorage.getItem('cid'));
+      orderInfo.map((c)=>{
+        let orderMenu = {
+          su_id: c.su_id,
+          mn_id: c.mn_id,
+          amount: c.amount
+        }
+        insertOrderMenu(orderMenu,window.sessionStorage.getItem('cid'));
+      })
       setActiveStep(activeStep + 1);
     }else{
       setActiveStep(activeStep + 1);
@@ -135,7 +151,7 @@ export default function Checkout(props) {
       case 1:
         return <PaymentForm setPayment={setPaymentInfo} payment={paymentInfo} />;
       case 2:
-        return <ResultForm name={props.name} price={props.price} amount={props.amount} deliverSet={deliverInfo} paymentSet={paymentInfo} />;
+        return <ResultForm order={orderInfo} deliverSet={deliverInfo} paymentSet={paymentInfo} />;
       default:
         throw new Error('알 수 없는 단계입니다.');
     }
@@ -170,11 +186,13 @@ export default function Checkout(props) {
                 <Typography variant="h5" gutterBottom>
                   주문해주셔서 감사합니다.
                 </Typography>
-                <Typography variant="subtitle1">
-                    {props.name}/{props.price} * {props.amount}개
-                </Typography><br/>
+                    {/* {props.name}/{props.price} * {props.amount}개 */}
+                {orderInfo.map((c)=>{
+                  return <ChkItem su_id={c.su_id} mn_id={c.mn_id} amount={c.amount} setTotal={setTotal} total={total} />;
+                })}
+                <br/>
                 <Typography>
-                    합계: {(props.price*props.amount)}원
+                    합계: {total}원
                 </Typography>
                 <Grid item container direction="column" xs={12}>
                   <Link to="/customer/orderHistory"><Button>확인</Button></Link>

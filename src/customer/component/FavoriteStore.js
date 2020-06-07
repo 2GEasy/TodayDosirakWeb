@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Store(props) {
+export default function FavoriteStore(props) {
   const classes = useStyles;
   const theme = useTheme;
   const [file,setFile] = useState({});
@@ -81,9 +81,6 @@ export default function Store(props) {
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             {props.deliverPosible}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            거리 {props.distance} m
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             주문수 {props.count}

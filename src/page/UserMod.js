@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import Radio from '@material-ui/core/Radio';
 import ApiService from '../ApiService';
 import Appbar from '../component/Appbar';
-
+import AddrSearch from '../component/AddrSearch';
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -103,12 +103,15 @@ export default function UserMod(props) {
       gender: '',
       birth: ''
     });
-    
+    const [addr,setAddr] = useState('');
     const [passChk, setPassChk] = useState('비밀번호는 영문과 숫자를 사용하여 8~16자로 정해주세요.');
     useEffect(()=>{
       console.log(window.sessionStorage.getItem("userID"));
       loadUser();
     },[])
+    useEffect(()=>{
+      setUser({...user,addr1:addr});
+    },[addr])
     const loadUser =()=>{
       ApiService.fetchUserByID(window.sessionStorage.getItem("userID"))
       .then(res => {
@@ -149,11 +152,25 @@ export default function UserMod(props) {
       ApiService.updateUser(update)
       .then(res=> {
           console.log(user.name + '님이 성공적으로 등록되었습니다.');
-          props.history.push('/usermod');
+          alert(user.name + '님이 성공적으로 등록되었습니다.');
+          refreshState();
       })
       .catch(err => {
           console.log('updateUser() Error!' , err);
       })
+  }
+  const refreshState=()=>{
+    setUser({
+      su_id:'',
+      pw:'',
+      name: '',
+      addr1: '', 
+      addr2: '',
+      phone: '',
+      gender: '',
+      birth: ''
+    });
+    loadUser();
   }
   const handlePassChk=(e)=>{
     if(user.pw===e.target.value) {
@@ -221,7 +238,7 @@ export default function UserMod(props) {
               value={user.name}
               readOnly
             />
-            <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button>
+            <AddrSearch setAddr={setAddr}/>
             <CssTextField
               variant="outlined"
               margin="normal"

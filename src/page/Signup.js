@@ -25,6 +25,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import ApiService from '../ApiService';
+import AddrSearch from '../component/AddrSearch';
 
 function Copyright() {
     return (
@@ -103,6 +104,7 @@ const CssTextField = withStyles({
   })((props) => <Radio color="default" {...props} />);
   
 export default function SignIn(props) {
+    const [addr,setAddr] = useState("");
     const [value,setValue] = useState({
       su_id:'',
       password1:'',
@@ -121,7 +123,9 @@ export default function SignIn(props) {
     const [message, setMessage] = useState('');
     const classes = useStyles();
     
-    
+    useEffect(()=>{
+      setValue({...value,addr1:addr});
+    },[addr])
     const handleChange =(e)=> {
       setValue({
         ...value,[e.target.name] : e.target.value,
@@ -234,7 +238,7 @@ export default function SignIn(props) {
               placeholder="이름을 입력해주세요."
               onChange={handleChange}
             />
-            <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button>
+            <AddrSearch setAddr={setAddr}/>
             <CssTextField
               variant="outlined"
               margin="normal"

@@ -1,17 +1,19 @@
 import React,{useState,useEffect} from 'react';
 import CartItem from '../component/CartItem';
 import ApiService from '../ApiService';
-import { TableHead, Table, TableRow, TableCell, TableBody, Typography } from '@material-ui/core';
+import { Button,TableHead, Table, TableRow, TableCell, TableBody, Typography, Container } from '@material-ui/core';
+import Appbar from '../component/Appbar';
+import {Link} from 'react-router-dom';
 
 export default function Cart(props) {
     const [cart,setCart] = useState([]);
     const titles=["메뉴","가격","수량","합","삭제"];
     
     useEffect(()=>{
-      fetchCartList(window.sessionStorage.getItem('cid'));
+      fetchCartList(window.sessionStorage.getItem('cid'),props.location.state.su_id);
     },[])
-    const fetchCartList=(pu_id)=>{
-      ApiService.fetchCartList(pu_id)
+    const fetchCartList=(pu_id,su_id)=>{
+      ApiService.fetchCartList(pu_id,su_id)
       .then(res=>{
         setCart(res.data);
       })
@@ -29,7 +31,9 @@ export default function Cart(props) {
       fetchCartList(window.sessionStorage.getItem('cid'));
     }
     return (
-      <div>
+      <>
+        <Appbar>
+          <Container maxWidth="sm">
           <Typography>장바구니</Typography>
           <Table>
             <TableHead>
@@ -45,6 +49,9 @@ export default function Cart(props) {
               {returnCartItems(cart)}
             </TableBody>
           </Table>
-      </div>
+          <Link to={{pathname:`/customer/order`,state:{su_id:props.location.state.su_id}}} style={{textDecoration:'none'}}><Button variant="contained" style={{backgroundColor:'#F57C00',color:'#FFFFFF',float:'right',marginTop:20}}>주문</Button></Link>
+          </Container>
+        </Appbar>
+      </>
     );
 }

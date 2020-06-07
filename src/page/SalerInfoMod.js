@@ -22,6 +22,7 @@ import {
 } from '@material-ui/pickers';
 import ApiService from '../ApiService';
 import Appbar from '../component/Appbar';
+import AddrSearch from '../component/AddrSearch';
 
 function Copyright() {
     return (
@@ -126,7 +127,12 @@ export default function SalerInfoMod(props) {
       file:null,
       fileName:''
     });
+    const [addr,setAddr] = useState('');
 
+    useEffect(()=>{
+      setStore({...store,addr1:addr});
+    },[addr])
+    
     const handleFileInput =(e)=>{
       setStoreImg({
         file: e.target.files[0],
@@ -289,7 +295,7 @@ export default function SalerInfoMod(props) {
               placeholder="배달가능 지역을 적어주세요"
               onChange={handleChange}
             />
-            <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button>
+            <AddrSearch setAddr={setAddr}/>
             <CssTextField
               variant="outlined"
               margin="normal"

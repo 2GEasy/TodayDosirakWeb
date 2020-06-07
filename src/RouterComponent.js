@@ -41,7 +41,8 @@ import MonthChart from './component/MonthChart';
 import DayChart from './component/DayChart';
 import YearChart from './component/YearChart';
 import Cart from './customer/page/Cart';
-
+import Favorite from './customer/page/Favorite';
+import Test from './customer/component/NotificationTest';
 const AppRouter = () => {
 return(
     <>
@@ -78,17 +79,19 @@ return(
                     <Route path="/daySales" component={DayChart} />
                     <Route path="/yearSales" component={YearChart} />
                    
-                <Route exact path="/customer/" component={CustomerMain} />
-                <Route path="/customer/login" component={CustomerLogin} />
-                <Route path="/customer/signup" component={CustomerSignup} />
-                <Route path="/customer/store/:su_id" component={StoreView} />
-                <Route path="/customer/menu/:su_id/:mn_id" component={MenuView} />
-            
-                <Route path="/customer/main" component={CustomerMain} />
-                <Route path="/customer/category/:cate" component={Stores} />
-                <Route path="/customer/order" component={OrderForm} />
-                <Route path="/customer/orderHistory" component={OrderHistory} />
-                <Route path="/customer/cart" component={Cart} />
+                    <Route exact path="/customer/" component={CustomerMain} />
+                    <Route path="/customer/main" component={CustomerMain} />
+                    <Route path="/customer/login" component={CustomerLogin} />
+                    <Route path="/customer/signup" component={CustomerSignup} />
+                    <Route path="/customer/store/:su_id" component={StoreView} />
+                    <Route path="/customer/menu/:su_id/:mn_id" component={MenuView} />
+                
+                    <Route path="/customer/category/:cate" component={Stores} />
+                    <Route path="/customer/order" component={OrderForm} />
+                    <Route path="/customer/orderHistory" component={OrderHistory} />
+                    <Route path="/customer/cart" component={Cart} />
+                    <Route path="/customer/favorite" component={Favorite} />
+                    <Route path="/customer/test" component={Test} />
                 
                
                 

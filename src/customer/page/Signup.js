@@ -25,6 +25,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import ApiService from '../ApiService';
+import AddrSearch from '../component/AddrSearch';
 
 function Copyright() {
     return (
@@ -115,13 +116,15 @@ export default function SignIn(props) {
       gender:'female',
       birth:new Date('1994-08-18')
     });
-    
+    const [addr,setAddr] = useState("");
     const [selectedDate, setSelectedDate] = React.useState(new Date('1994-08-18'));
     const [passChk, setPassChk] = useState('비밀번호는 영문과 숫자를 사용하여 8~16자로 정해주세요.');
     const [message, setMessage] = useState('');
     const classes = useStyles();
     
-    
+    useEffect(()=>{
+      setValue({...value,addr1:addr});
+    },[addr])
     const handleChange =(e)=> {
       setValue({
         ...value,[e.target.name] : e.target.value,
@@ -234,7 +237,8 @@ export default function SignIn(props) {
               placeholder="이름을 입력해주세요."
               onChange={handleChange}
             />
-            <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button>
+            <AddrSearch setAddr={setAddr} title={"주소 검색"}/>
+            {/* <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button> */}
             <CssTextField
               variant="outlined"
               margin="normal"
@@ -243,6 +247,7 @@ export default function SignIn(props) {
               id="addr1"
               label="주소"
               name="addr1"
+              value={value.addr1}
               placeholder="주소를 입력해주세요."
               onChange={handleChange}
             />

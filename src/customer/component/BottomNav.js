@@ -8,7 +8,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import {Link , withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
-  root: {
+  bottom: {
     position:'fixed',
     width: '100%',
     backgroundColor: '#FDC06D',
@@ -29,10 +29,10 @@ export default function BottomNav(props) {
         setValue(newValue);
       }}
       showLabels
-      className={classes.root}
+      className={classes.bottom}
     >
       <BottomNavigationAction component={Link} to="/customer/orderHistory" label="주문 내역" icon={<AssignmentIcon />} style={{color:'#ffffff'}}/>
-      <BottomNavigationAction label="찜스토어" icon={<FavoriteIcon />} style={{color:'#ffffff'}}/>
+      <BottomNavigationAction component={Link} to="/customer/favorite" label="찜스토어" icon={<FavoriteIcon />} style={{color:'#ffffff'}}/>
       <BottomNavigationAction label="마이페이지" icon={<AccountCircleIcon />} style={{color:'#ffffff'}}/>
     </BottomNavigation>
   );

@@ -7,11 +7,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {Link} from 'react-router-dom';
 import { Container } from '@material-ui/core';
+import AppbarSearch from './AppbarAddr';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,8 +24,6 @@ const useStyles = makeStyles((theme) => ({
   
   appBarSpacer: theme.mixins.toolbar,
   content: {
-    flexGrow: 1,
-    height: '100vh',
     overflow: 'auto',
   },
   container: {
@@ -76,7 +74,8 @@ export default function Appbar(props) {
       appbar: {
         backgroundColor: '#FDC06D',
         width: '100%',
-        height: '7%',
+        height: '65px',
+        textAlign: 'center'
       },
       addr: {
         color: '#ffffff',
@@ -94,9 +93,9 @@ export default function Appbar(props) {
     },[])
     const setLogin=(authChk)=>{
       if(authChk) {
-        return <Link to="login" style={{textDecoration:'none',color:'#ffffff'}}><Button color="inherit" align="right" onClick={()=>{window.sessionStorage.clear();}}><b>Logout</b></Button></Link>;
+        return <Link to="login" style={{textDecoration:'none',color:'#ffffff',fontSize:'1rem'}}><Button color="inherit" align="right" onClick={()=>{window.sessionStorage.clear();}} style={{fontSize:'0.8rem'}}>Logout</Button></Link>;
       }else {
-        return <Link to="login" style={{textDecoration:'none',color:'#ffffff'}}><Button color="inherit" align="right"><b>Login</b></Button></Link>;
+        return <Link to="login" style={{textDecoration:'none',color:'#ffffff',fontSize:'1rem'}}><Button color="inherit" align="right" style={{fontSize:'0.8rem'}}>Login</Button></Link>;
       }
     }
   return (
@@ -106,17 +105,17 @@ export default function Appbar(props) {
         <AppBar style={styles.appbar}>
           <Toolbar>
           <Link to="/customer/"><img src={logo} alt="logo" width="50" height="50"/></Link>
-            <Button style={styles.addr}><b>{addr}</b><ArrowDropDownIcon/></Button>
+            <AppbarSearch title={addr} setAddr={setAddr}/>
             {setLogin(auth)}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <div id="content" style={{marginTop: '100px'}}>
+      {/* <main className={classes.content}> */}
+        {/* <div className={classes.appBarSpacer} /> */}
+        <div style={{marginTop: '100px',height:'100%'}}>
             {React.cloneElement(props.children)}
         </div>
-      </main>
+      {/* </main> */}
     </React.Fragment>
   );
 }

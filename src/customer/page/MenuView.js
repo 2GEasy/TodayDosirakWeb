@@ -24,8 +24,23 @@ export default function MenuView(props) {
             console.log("insertCart Success",res);
             const result = window.confirm("장바구니로 이동하시겠습니까?");
             if(result) {
-                props.history.push("/customer/cart");
+                props.history.push({pathname:"/customer/cart",state:{su_id:props.match.params.su_id}});
             }
+        })
+        .catch(err=>{
+            console.log("insertCart Error",err);
+        })
+    }
+    const imadiatelyBuy=(pu_id,su_id,mn_id,amount)=>{
+        let CartItem = {
+            pu_id: pu_id,
+            su_id: su_id,
+            mn_id: mn_id,
+            amount: amount
+        }
+        ApiService.insertCart(CartItem)
+        .then(res=>{
+            console.log("insertCart Success",res);
         })
         .catch(err=>{
             console.log("insertCart Error",err);
@@ -45,7 +60,7 @@ export default function MenuView(props) {
                     <Typography>총금액 {(props.location.state.price*count)}</Typography>
                     <hr/>
                     <Button onClick={()=>addCart(window.sessionStorage.getItem('cid'), props.match.params.su_id, props.match.params.mn_id,count)}>장바구니에 추가</Button>
-                    <Link to={{pathname:`/customer/order`,state:{su_id:props.match.params.su_id,mn_id:props.match.params.mn_id,name:props.location.state.name, amount:count, price:props.location.state.price}}} style={{textDecoration:'none'}}><Button>바로 주문</Button></Link>
+                    <Link to={{pathname:`/customer/order`,state:{su_id:props.match.params.su_id}}} style={{textDecoration:'none'}}><Button onClick={()=>imadiatelyBuy(window.sessionStorage.getItem('cid'), props.match.params.su_id, props.match.params.mn_id,count)}>바로 주문</Button></Link>
                     </Paper>
                 </Container>
             </Appbar>

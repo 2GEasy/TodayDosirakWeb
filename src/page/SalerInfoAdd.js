@@ -24,7 +24,7 @@ import {
   KeyboardTimePicker
 } from '@material-ui/pickers';
 import ApiService from '../ApiService';
-
+import AddrSearch from '../component/AddrSearch';
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -128,7 +128,12 @@ export default function SalerInfo(props) {
       file:null,
       fileName:''
     });
+    const [addr,setAddr] = useState('');
 
+    useEffect(()=>{
+      setStore({...store,addr1:addr});
+    },[addr])
+    
     const handleFileInput =(e)=>{
       setStoreImg({
         file: e.target.files[0],
@@ -304,7 +309,7 @@ export default function SalerInfo(props) {
               value={store.name}
               readOnly
             />
-            <Button style={{backgroundColor:'#f57c00',color:'#ffffff'}}>주소찾기</Button>
+            <AddrSearch setAddr={setAddr}/>
             <CssTextField
               variant="outlined"
               margin="normal"
