@@ -1,8 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import ApiService from '../ApiService';
 import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import SlideShow from 'react-image-show';
 
 const useStyles = makeStyles((theme) => ({

@@ -14,7 +14,7 @@ export default function HygieneInfo(props) {
             fileName:'',
             path:''
         });
-        const imgPath = img.path+img.fileName;
+        const imgPath = "http://todaydsr.kro.kr:7979/upload/hygiene/"+img.fileName;
         useEffect(()=>{
             inputImage(props.image);
         },[1])

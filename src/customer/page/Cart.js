@@ -16,6 +16,7 @@ export default function Cart(props) {
       ApiService.fetchCartList(pu_id,su_id)
       .then(res=>{
         setCart(res.data);
+        console.log(res.data);
       })
       .catch(err=>{
         console.log("fetchCartList ERR",err);
@@ -28,19 +29,19 @@ export default function Cart(props) {
     }
     const refreshState=()=>{
       setCart([]);
-      fetchCartList(window.sessionStorage.getItem('cid'));
+      fetchCartList(window.sessionStorage.getItem('cid'),props.location.state.su_id);
     }
     return (
       <>
         <Appbar>
-          <Container maxWidth="sm">
+          <Container maxWidth="md">
           <Typography>장바구니</Typography>
           <Table>
             <TableHead>
               <TableRow>
                 {
                   titles.map(c=>{
-                    return <TableCell>{c}</TableCell>;
+                    return <TableCell style={{fontSize:'1.4vw'}}>{c}</TableCell>;
                   })
                 }
               </TableRow>

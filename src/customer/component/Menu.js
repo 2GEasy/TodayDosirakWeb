@@ -3,7 +3,6 @@ import React,{useState,useEffect} from "react";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import ApiService from "../ApiService";
 import {Link} from 'react-router-dom';
@@ -72,7 +71,8 @@ export default function EngagementCard01 (props) {
             className={"MuiCardMedia-root"}
             component="img"
             src={path}
-            height={400}
+            width="100%"
+            
             style={{float:'left'}}
             />
             <CardContent className={"MuiCardContent-root"}>

@@ -1,9 +1,6 @@
-import React,{Component} from 'react';
-import { Grid, TextareaAutosize, Container } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import CardView from './CardView';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
@@ -13,8 +10,7 @@ import img2 from '../img/healthdsr.jpg';
 import img3 from '../img/dndsr.gif';
 import img4 from '../img/premiumdsr.jpg';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { withStyles,makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   

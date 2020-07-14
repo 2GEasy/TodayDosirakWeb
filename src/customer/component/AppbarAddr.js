@@ -1,21 +1,11 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import {Button, Dialog, DialogTitle, DialogContent} from '@material-ui/core';
 import DaumPostcode from 'react-daum-postcode';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import axios from 'axios';
 const {kakao} = window;
 
 const Postcode = (props) => {
   const [open,setOpen] = useState(false);
-  // const [lngX,setLngX] = useState('');
-  // const [latY,setLatY] = useState('');
-
-  // useEffect(()=>{
-  //   if(lngX!=='' && latY!==''){
-  //     fetchDistance(lngX,latY);
-  //   }
-  // },[latY]);
-
   const handleComplete = (data) => {
     console.log(data);
     let fullAddress = data.address;

@@ -9,16 +9,21 @@
     "@fullcalendar/daygrid": "^4.4.2",
     "@fullcalendar/interaction": "^4.4.2",
     "@fullcalendar/react": "^4.4.2",
-    "@material-ui/core": "^4.10.0",
+    "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.54",
+    "@material-ui/lab": "^4.0.0-alpha.55",
     "@material-ui/pickers": "^3.2.10",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "antd": "^4.3.3",
     "axios": "^0.19.2",
+    "cordova": "^9.0.0",
     "date-fns": "^2.14.0",
+    "device-uuid": "^1.0.4",
     "firebase": "^7.15.0",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
     "moment": "^2.26.0",
     "multer": "^1.4.2",
     "node-sass": "^4.14.0",
@@ -27,11 +32,15 @@
     "react-dom": "^16.13.1",
     "react-image-gallery": "^1.0.7",
     "react-image-show": "^0.3.4",
-    "react-material-ui-carousel": "^1.5.0",
+    "react-material-ui-carousel": "^1.5.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-stomp": "^5.0.0",
+    "react-toastify": "^6.0.5",
     "recharts": "^1.8.5",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "sockjs-client": "^1.4.0",
+    "stompjs": "^2.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -56,6 +65,7 @@
   },
   "devDependencies": {
     "@date-io/date-fns": "^1.3.13",
-    "react-alice-carousel": "^1.19.2"
+    "react-alice-carousel": "^1.19.3",
+    "serviceworker-webpack-plugin": "^1.0.1"
   }
 }

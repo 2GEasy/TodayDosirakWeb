@@ -132,7 +132,7 @@ export default function SalerInfo(props) {
       fileName:'',
       path: '',
     });
-    let regImg = storeImg.path+storeImg.fileName;
+    let regImg = "http://todaydsr.kro.kr:7979/upload/store/"+storeImg.fileName;
     useEffect(()=>{
       console.log(window.sessionStorage.getItem("userID"));
       loadStoreInf();
@@ -237,10 +237,6 @@ export default function SalerInfo(props) {
               placeholder="배달가능 지역을 적어주세요"
               readOnly
             />
-            {/* <input style={{display:'none'}} accept="image/*" id="raised-button-file" type="file" /><br/>
-            <label htmlFor="raised-button-file">
-            <Button component="span" name="file" style={{backgroundColor:'#f57c00',color:'#ffffff'}}>판매자 사진 등록</Button>
-            </label> */}
             <CssTextField
               variant="outlined"
               margin="normal"

@@ -3,12 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import AddCommentIcon from '@material-ui/icons/AddComment';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -129,7 +127,7 @@ let summary=0;
   const returnReviewImgs=(reviewImgs)=>{
     let path = [];
     reviewImgs.map((c,index)=>{
-      path.push(c.path+c.fileName);
+      path.push("http://todaydsr.kro.kr:7979/upload/review/"+c.fileName);
     })
     return <SlideShow
     images={path}

@@ -58,14 +58,19 @@ export default function CartItem(props) {
             console.log("deleteItem ERR",err);
         })
     }
+    const style={
+        font:{
+            fontSize:'10vw'
+        }
+    }
     return(
         <>
             <TableRow>
-                <TableCell>{menu.name}</TableCell>
-                <TableCell>{menu.price}</TableCell>
-                <TableCell><TextField type="number" value={amount} onChange={onChange} style={{width:40}}/><Button onClick={()=>changeAmount(amount)}>수량 변경</Button></TableCell>
-                <TableCell>{(menu.price*props.amount)}</TableCell>
-                <TableCell><Button onClick={()=>deleteItem(window.sessionStorage.getItem('cid'),props.su_id,props.mn_id)}>삭제</Button></TableCell>
+                <TableCell style={{fontSize:'1vw'}}>{menu.name}</TableCell>
+                <TableCell style={{fontSize:'1vw'}}>{menu.price}</TableCell>
+                <TableCell><TextField type="number" value={amount} onChange={onChange} style={{width:40,fontSize:'1vw'}} /><Button onClick={()=>changeAmount(amount)} style={{fontSize:'1vw'}}>수량 변경</Button></TableCell>
+                <TableCell style={{fontSize:'1vw'}}>{(menu.price*props.amount)}</TableCell>
+                <TableCell><Button onClick={()=>deleteItem(window.sessionStorage.getItem('cid'),props.su_id,props.mn_id)} style={{fontSize:'1vw'}}>삭제</Button></TableCell>
             </TableRow>
         </>
     )

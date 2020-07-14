@@ -93,9 +93,9 @@ export default function Appbar(props) {
     },[])
     const setLogin=(authChk)=>{
       if(authChk) {
-        return <Link to="login" style={{textDecoration:'none',color:'#ffffff',fontSize:'1rem'}}><Button color="inherit" align="right" onClick={()=>{window.sessionStorage.clear();}} style={{fontSize:'0.8rem'}}>Logout</Button></Link>;
+        return <Link to="/customer/login" style={{textDecoration:'none',color:'#ffffff',fontSize:'1rem'}}><Button color="inherit" align="right" onClick={()=>{window.sessionStorage.clear();}} style={{fontSize:'0.8rem'}}>Logout</Button></Link>;
       }else {
-        return <Link to="login" style={{textDecoration:'none',color:'#ffffff',fontSize:'1rem'}}><Button color="inherit" align="right" style={{fontSize:'0.8rem'}}>Login</Button></Link>;
+        return <Link to="/customer/login" style={{textDecoration:'none',color:'#ffffff',fontSize:'1rem'}}><Button color="inherit" align="right" style={{fontSize:'0.8rem'}}>Login</Button></Link>;
       }
     }
   return (

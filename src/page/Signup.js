@@ -104,7 +104,7 @@ const CssTextField = withStyles({
   })((props) => <Radio color="default" {...props} />);
   
 export default function SignIn(props) {
-    const [addr,setAddr] = useState("");
+    
     const [value,setValue] = useState({
       su_id:'',
       password1:'',
@@ -123,9 +123,7 @@ export default function SignIn(props) {
     const [message, setMessage] = useState('');
     const classes = useStyles();
     
-    useEffect(()=>{
-      setValue({...value,addr1:addr});
-    },[addr])
+    
     const handleChange =(e)=> {
       setValue({
         ...value,[e.target.name] : e.target.value,
@@ -157,6 +155,7 @@ export default function SignIn(props) {
     }
     
     const handlePassChk=(e)=>{
+      setValue({...value,password2:e.target.value});
       if(value.password1===e.target.value) {
         setValue({...value,password:e.target.value})
         setPassChk('비밀번호가 맞습니다.')
@@ -171,6 +170,9 @@ export default function SignIn(props) {
       setValue({...value,birth:date});
       console.log("setbirth: "+value.birth);
     };
+    const setAddr=(addr)=>{
+      setValue({...value,addr1:addr});
+    }
     return (
         <>
     <AppBar position="static" style={{backgroundColor: '#FDC06D'}}>
@@ -197,9 +199,10 @@ export default function SignIn(props) {
               required
               fullWidth
               id="su_id"
-              label="이메일"
+              label="아이디"
               name="su_id"
-              placeholder="이메일을 입력해주세요."
+              value={value.su_id}
+              placeholder="아이디를 입력해주세요."
               onChange={handleChange}
             />
             <CssTextField
@@ -211,6 +214,7 @@ export default function SignIn(props) {
               label="비밀번호"
               type="password"
               id="password1"
+              value={value.password1}
               placeholder="비밀번호를 입력해주세요."
               onChange={handleChange}
             />
@@ -223,6 +227,7 @@ export default function SignIn(props) {
               label="비밀번호 확인"
               type="password"
               id="password2"
+              value={value.password2}
               placeholder="비밀번호를 다시 입력해주세요."
               helperText={passChk}
               onChange={handlePassChk}
@@ -235,6 +240,7 @@ export default function SignIn(props) {
               id="name"
               label="이름"
               name="name"
+              value={value.name}
               placeholder="이름을 입력해주세요."
               onChange={handleChange}
             />
@@ -247,6 +253,7 @@ export default function SignIn(props) {
               id="addr1"
               label="주소"
               name="addr1"
+              value={value.addr1}
               placeholder="주소를 입력해주세요."
               onChange={handleChange}
             />
@@ -258,6 +265,7 @@ export default function SignIn(props) {
               id="addr2"
               label="상세주소"
               name="addr2"
+              value={value.addr2}
               placeholder="상세주소를 입력해주세요."
               onChange={handleChange}
             />
@@ -269,6 +277,7 @@ export default function SignIn(props) {
               id="phone"
               label="연락처"
               name="phone"
+              value={value.phone}
               placeholder="연락처를 입력해주세요."
               onChange={handleChange}
             />

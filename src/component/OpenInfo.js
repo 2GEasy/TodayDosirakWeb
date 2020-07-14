@@ -1,10 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import StockMod from './StockMod';
-import StockDelete from './StockDelete';
-import { Button } from '@material-ui/core';
-import ApiService from '../ApiService';
 
 export default function OpenInfo(props) {
         const stateChk =(st)=>{

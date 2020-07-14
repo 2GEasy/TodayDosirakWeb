@@ -51,7 +51,7 @@ export default function MenuView(props) {
             <Appbar>
                 <Container component="main" maxWidth="xs">
                     <Paper>
-                    <img src={props.location.state.img} width={400} height={400} /><br/>
+                    <img src={props.location.state.img} width="100%" height="60%" /><br/>
                     <Typography>{props.location.state.name}</Typography><br/>
                     <Typography>{props.location.state.price}원</Typography><br/>
                     <Button onClick={()=>setCount(count+1)}>+</Button>{count}<Button onClick={()=>{if(count>1) {setCount(count-1)}else{alert("수량이 1 이하 입니다.")}}}>-</Button><br/>

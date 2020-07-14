@@ -13,21 +13,7 @@ import Appbar from '../component/Appbar';
 
 export default function OrderList(props) {
   const [orderList, setOrderList] = useState([]);
-  
-  // const [delivery,setDelivery] = useState(0);
-  // const onClick =(e)=> {
-  //   setDelivery(e.target.value)
-  // }
-  // function deliveryState(delivery) {
-  //   if(delivery===0) {
-  //     return <Button color="primary" onClick={onClick} value="1">배달 시작</Button>
-  //   }else if(delivery===1) {
-  //     return <Button color="secondary" onClick={onClick} value="2">배달 종료</Button>
-  //   }else if(delivery===2) {
-  //     return <Button disabled>완료</Button>
-  //   }
-  // }
-  
+ 
   useEffect(()=>{
     if(window.sessionStorage.getItem("userID")===null){
       alert("로그인을 해주세요.");
@@ -71,7 +57,7 @@ export default function OrderList(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-        {returnOrderList(orderList)}
+        {orderList.length>0?returnOrderList(orderList):"주문내역이 없습니다!"}
         </TableBody>
       </Table>
       </Container>

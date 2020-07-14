@@ -14,7 +14,7 @@ export default function MenuInfo(props) {
             fileName:'',
             path:''
         });
-        const imgPath = img.path+img.fileName;
+        const imgPath = "http://todaydsr.kro.kr:7979/upload/menu/"+img.fileName;
         useEffect(()=>{
             inputImage(props.image);
         },[1])

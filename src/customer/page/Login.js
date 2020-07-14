@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import {useHistory} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,8 +7,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -19,6 +16,8 @@ import {withStyles} from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ApiService from '../ApiService';
+
+import firebase from '../../firebase';
 
 function Copyright() {
     return (
@@ -83,7 +82,7 @@ const CssTextField = withStyles({
       },
     },
   })(TextField);
-
+  const messaging = firebase.messaging();
 export default function Login(props) {
     const classes = useStyles();
     const [auth,setAuth] = useState();
@@ -144,7 +143,20 @@ export default function Login(props) {
             );
             console.log(message);
             window.sessionStorage.setItem("cid",login.pu_id);
-            
+            messaging.requestPermission()
+            .then(function() {
+              console.log('허가!');
+              return messaging.getToken(); //토큰을 받는 함수를 추가!
+            })
+            .then(function(token) {
+              console.log(token); //토큰을 출력!
+              // console.log(device.DeviceUUID().get());
+              
+              insertToken(token);
+            })
+            .catch(function(err) {
+              console.log(err);
+            })
             props.history.push('/customer/main');
           }else if(res.data===3) {
             setMessage('알 수 없는 오류');
@@ -154,6 +166,38 @@ export default function Login(props) {
         .catch(err => {
             console.log('loginUser() Error!' , err);
         })
+    }
+    const insertToken=(token)=>{
+      let os = "";
+      if(navigator.userAgent.match(/Windows/)) {
+        os = "desktop";
+      }else if(navigator.userAgent.match(/Android/|/iPhone/)) {
+        os = "mobile";
+      }
+      let tempToken={}
+      if(window.sessionStorage.getItem('cid')!==null) {
+        tempToken={
+          user_id: window.sessionStorage.getItem('cid'),
+          user_type: 'p',
+          uuid: os,
+          token: token
+        }
+      }else if(window.sessionStorage.getItem('userID')!==null) {
+        tempToken={
+          user_id: window.sessionStorage.getItem('userID'),
+          user_type: 's',
+          uuid: os,
+          token: token
+        }
+      }
+      console.log(os);
+      console.log(tempToken);
+      
+      ApiService.insertToken(tempToken)
+      .then(res=>{
+        // console.log(res);
+      })
+      .catch(err=>console.log(err));
     }
     return (
         <>

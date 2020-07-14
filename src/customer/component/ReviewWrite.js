@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
 import ApiService from '../ApiService';
 import { Typography } from '@material-ui/core';
-import { set } from 'date-fns';
 
 export default function ReviewWrite(props) {
     const [open,setOpen] = useState(false);
@@ -97,6 +96,7 @@ export default function ReviewWrite(props) {
         }
     }
     const handleFileInput =(e)=>{
+        console.log("fileInput:",e.target.files);
         readURI(e);
         if(e.target.files) { 
             setFiles(e.target.files);

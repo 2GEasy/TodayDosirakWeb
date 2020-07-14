@@ -42,7 +42,7 @@ import DayChart from './component/DayChart';
 import YearChart from './component/YearChart';
 import Cart from './customer/page/Cart';
 import Favorite from './customer/page/Favorite';
-import Test from './customer/component/NotificationTest';
+import Test from './customer/page/TEST';
 const AppRouter = () => {
 return(
     <>

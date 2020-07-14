@@ -28,9 +28,16 @@ export default function DeliveryStart(props) {
             end: '',
             date: new Date()
         }
+        let notification = {
+            user_id: pu_id,
+            user_type: 'p',
+            title: "배송 시작",
+            message: "주문하신 도시락의 배송이 시작되었습니다."
+        }
         ApiService.insertDelivery(deliver)
         .then(res=>{
             console.log("insertDeliver",res);
+            sendNotification(notification);
             props.stateRefresh();
         })
         .catch(err=>{
@@ -47,9 +54,16 @@ export default function DeliveryStart(props) {
             end: new Date(),
             date: delivery.date
         }
+        let notification = {
+            user_id: pu_id,
+            user_type: 'p',
+            title: "배송 종료",
+            message: "주문하신 도시락의 배송이 종료되었습니다."
+        }
         ApiService.updateDelivery(deliver)
         .then(res=>{
             console.log("updateDelivery",res);
+            sendNotification(notification);
             props.stateRefresh();
         })
         .catch(err=>{
@@ -74,7 +88,13 @@ export default function DeliveryStart(props) {
             return <Button color="secondary" disabled>종료</Button>
         }
     }
-    
+    const sendNotification=(noti)=>{
+        console.log(noti);
+        ApiService.sendNotification(noti)
+        .then(res=>console.log(res))
+        .catch(err=>console.log(err)
+        )
+    }
     return(
         <>
         {delivery?

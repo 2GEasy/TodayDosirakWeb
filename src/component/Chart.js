@@ -4,21 +4,6 @@ import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recha
 import Title from './Title';
 import ApiService from '../ApiService';
 
-
-// Generate Sales Data
-
-// const data = [
-  //   createData(0, 0),
-  //   createData(2, 300),
-  //   createData(4, 600),
-  //   createData(6, 800),
-  //   createData(8, 1500),
-  //   createData(10, 2000),
-  //   createData(12, 2400),
-  //   createData(20, 2800),
-  //   createData(24, undefined),
-  // ];
-  
   export default function Chart() {
     const theme = useTheme();
     const [sales,setSales] = useState([]);

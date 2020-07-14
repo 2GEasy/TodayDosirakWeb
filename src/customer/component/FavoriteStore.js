@@ -2,12 +2,12 @@ import React,{useState,useEffect} from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import ApiService from '../../ApiService';
 import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
+  
   root: {
     display: 'flex',
     maxWidth: '600px',
@@ -24,20 +24,20 @@ const useStyles = makeStyles((theme) => ({
     width: 151,
 
   },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
   playIcon: {
     height: 38,
     width: 38,
   },
+  name:{
+    fontSize:'1rem'
+  }, 
+  desc:{
+    fontSize:'0.8rem'
+  }
 }));
 
 export default function FavoriteStore(props) {
-  const classes = useStyles;
+  const classes = useStyles();
   const theme = useTheme;
   const [file,setFile] = useState({});
   
@@ -62,35 +62,38 @@ export default function FavoriteStore(props) {
   const path = "/upload/store/" + file.fileName;
   return (
     <Link to={`/customer/store/${props.su_id}`} style={{textDecoration:'none'}}>
-    <Card className={classes.root}>
+    <Card>
        
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-        <img src={path} width={200} height={200} style={{float:'left'}}/>
-          <Typography component="h5" variant="h5">
-            {props.storeName}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {props.storeExplain}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {new Date(props.abledeliverS).toLocaleString("ko-KR")}~
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {new Date(props.abledeliverE).toLocaleString("ko-KR")} 배달가능
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {props.deliverPosible}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            주문수 {props.count}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            찜 수 {props.favorite}
-          </Typography>
-        </CardContent>
-      </div>
-    </Card>
+       <div className={classes.details}>
+         <CardContent>
+            <img src={path} style={{float:'left'}} height="100%"/>
+           <Typography component="h5" variant="h5" className={classes.name}>
+             <b>{props.storeName}</b>
+           </Typography>
+           <Typography variant="subtitle1" color="textSecondary" className={classes.desc}>
+             {props.storeExplain}
+           </Typography>
+           <Typography variant="subtitle1" color="textSecondary" className={classes.desc}>
+             {new Date(props.abledeliverS).toLocaleTimeString("ko-KR")}~
+           </Typography>
+           <Typography variant="subtitle1" color="textSecondary" className={classes.desc}>
+             {new Date(props.abledeliverE).toLocaleTimeString("ko-KR")} 배달가능
+           </Typography>
+           <Typography variant="subtitle1" color="textSecondary" className={classes.desc}>
+             {props.deliverPosible}
+           </Typography>
+           <Typography variant="subtitle1" color="textSecondary" className={classes.desc}>
+             거리 {props.distance} m
+           </Typography>
+           <Typography variant="subtitle1" color="textSecondary" className={classes.desc}>
+             주문수 {props.count}
+           </Typography>
+           <Typography variant="subtitle1" color="textSecondary" className={classes.desc}>
+             찜 수 {props.favorite}
+           </Typography>
+         </CardContent>
+       </div>
+     </Card>
     </Link>
   );
 }

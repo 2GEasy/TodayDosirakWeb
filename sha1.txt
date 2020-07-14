@@ -1,0 +1,22 @@
+> Task :react-native-webview:signingReport
+Variant: debugUnitTest
+Config: debug
+Store: C:\Users\ch.$_$\.android\debug.keystore
+Alias: AndroidDebugKey
+MD5: 08:85:62:0F:C4:BF:D3:5D:81:75:54:87:72:A4:50:BC
+SHA1: 30:5E:D0:97:42:30:C1:49:46:75:0F:9D:3B:14:7C:39:20:15:75:E9
+SHA-256: 8B:01:42:F9:CD:DD:BD:BE:B9:3E:46:C2:D8:85:73:38:85:BA:EC:08:3D:C7:75:57:78:47:30:78:2C:D3:7B:CB
+Valid until: 2050斥 3岿 10老 格夸老
+----------
+Variant: debugAndroidTest
+Config: debug
+Store: C:\Users\ch.$_$\.android\debug.keystore
+Alias: AndroidDebugKey
+MD5: 08:85:62:0F:C4:BF:D3:5D:81:75:54:87:72:A4:50:BC
+SHA1: 30:5E:D0:97:42:30:C1:49:46:75:0F:9D:3B:14:7C:39:20:15:75:E9
+SHA-256: 8B:01:42:F9:CD:DD:BD:BE:B9:3E:46:C2:D8:85:73:38:85:BA:EC:08:3D:C7:75:57:78:47:30:78:2C:D3:7B:CB
+Valid until: 2050斥 3岿 10老 格夸老
+----------
+Variant: releaseUnitTest
+Config: none
+----------

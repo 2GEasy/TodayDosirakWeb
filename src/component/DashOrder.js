@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import ApiService from '../ApiService';
-import DeliveryState from './DeliveryState';
-import OrderCancel from './OrderCancel';
 
 export default function DashOrder(props) {
     const [orderMenu,setOrderMenu] = useState([{

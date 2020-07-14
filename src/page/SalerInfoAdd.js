@@ -14,7 +14,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {withStyles,makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import DateFnsUtils from '@date-io/date-fns';
-import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -128,11 +127,8 @@ export default function SalerInfo(props) {
       file:null,
       fileName:''
     });
-    const [addr,setAddr] = useState('');
+    
 
-    useEffect(()=>{
-      setStore({...store,addr1:addr});
-    },[addr])
     
     const handleFileInput =(e)=>{
       setStoreImg({
@@ -148,6 +144,7 @@ export default function SalerInfo(props) {
       ApiService.insertStoreImg(formData,store.su_id)
       .then(res=>{
         alert('성공');
+        // props.history.push('/login');
         console.log(res.data);
       })
       .catch(err=>{
@@ -159,6 +156,9 @@ export default function SalerInfo(props) {
       console.log(props.match.params.su_id);
       loadUser();
     },[])
+    const setAddr=(addr)=>{
+      setStore({...store,addr1:addr});
+    }
     const loadUser =()=>{
       ApiService.fetchUserByID(props.match.params.su_id)
       .then(res => {
@@ -220,16 +220,18 @@ export default function SalerInfo(props) {
             lowsalt: store.lowsalt,
             premium: store.premium
         };
+
         if(!(storeImg.file===null)) {
           handlePost();
         }
+        console.log(storeInf);
         ApiService.insertStoreInf(storeInf)
         .then(res=> {
-            props.history.push('/login');
         })
         .catch(err => {
-            console.log('insertStoreInf() Error!' , err);
+          console.log('insertStoreInf() Error!' , err);
         })
+        props.history.push('/login');
     }
     
     return (

@@ -118,6 +118,13 @@ export default function Checkout(props) {
         }
         insertOrderMenu(orderMenu,window.sessionStorage.getItem('cid'));
       })
+      let notification = {
+        user_id: props.su_id,
+        user_type : 's',
+        title: "주문 확인",
+        message: window.sessionStorage.getItem('cid')+"님의 주문이 확인되었습니다."
+      }
+      sendNotification(notification);
       setActiveStep(activeStep + 1);
     }else{
       setActiveStep(activeStep + 1);
@@ -140,6 +147,13 @@ export default function Checkout(props) {
     .catch(err=>{
       console.log("insertOrderMenu ERR",err);
     })
+  }
+  const sendNotification=(noti)=>{
+    ApiService.sendNotification(noti)
+    .then(res=>{
+      console.log(res);
+    })
+    .catch(err=>console.log(err))
   }
   const handleBack = () => {
     setActiveStep(activeStep - 1);

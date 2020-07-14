@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import StockMod from './StockMod';
-import StockDelete from './StockDelete';
-import { Button } from '@material-ui/core';
 import ApiService from '../ApiService';
 
 export default function StockInfo(props) {
@@ -14,7 +12,9 @@ export default function StockInfo(props) {
             fileName:'',
             path:''
         });
-        const imgPath = "/"+img.path+img.fileName;
+        // https://todaydsr.kro.kr/upload/stock/
+        const imgPath = "http://todaydsr.kro.kr:7979/upload/menu/"+img.fileName;
+        
         useEffect(()=>{
             inputImage(props.image);
         },[1])
