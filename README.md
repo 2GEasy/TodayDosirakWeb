@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 구매자, 판매자, 홍보웹 구성
 
-구매자\n
+구매자<br>
 -회원가입, 로그인, 회원정보 수정
 -주소 지정, 판매자 스토어 간 거리 측정 필터링
 -메뉴 선택, 바로 구매 및 장바구니 넣기
