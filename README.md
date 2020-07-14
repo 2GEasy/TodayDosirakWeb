@@ -2,7 +2,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 2020 오늘도시락 웹
 
-구매자, 판매자, 홍보웹 구성
+ReactJS
+Material UI
+Firebase
+Daum Postcode Api
+Kakao map Api
+Tmap Api
+
+구성: 구매자, 판매자, 홍보웹
 
 구매자<br>
 -회원가입, 로그인, 회원정보 수정<br>
