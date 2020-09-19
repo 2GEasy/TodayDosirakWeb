@@ -10,7 +10,7 @@ import ApiService from '../ApiService';
 export default function MenuMod(props) {
     const [open,setOpen] =useState(false);
     const [menu,setMenu] = useState({
-        su_id: window.sessionStorage.getItem("userID"),
+        su_id: window.localStorage.getItem("userID"),
         mn_id:props.mn_id,
         name: '',
         produce: '',
@@ -23,7 +23,7 @@ export default function MenuMod(props) {
     });
     useEffect(()=>{
         console.log("props.mn_id: ",props.mn_id);
-        loadMenu(window.sessionStorage.getItem("userID"),props.mn_id);
+        loadMenu(window.localStorage.getItem("userID"),props.mn_id);
     },[])
     const loadMenu=(su_id,mn_id)=> {
         ApiService.fetchMenuByID(su_id,mn_id)
@@ -58,7 +58,7 @@ export default function MenuMod(props) {
     }
     const modifyMenu=(su_id,mn_id)=> {
         let modMenu = {
-            su_id: window.sessionStorage.getItem("userID"),
+            su_id: window.localStorage.getItem("userID"),
             mn_id: mn_id,
             name: menu.name,
             produce: menu.produce,
@@ -70,7 +70,7 @@ export default function MenuMod(props) {
             props.stateRefresh();
             handleClose();
             if(menu.fileChk) {
-                handlePostImg(window.sessionStorage.getItem("userID"), props.mn_id);
+                handlePostImg(window.localStorage.getItem("userID"), props.mn_id);
             }
         })
         .catch(err=>{
@@ -124,7 +124,7 @@ export default function MenuMod(props) {
                         </label>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={()=>modifyMenu(window.sessionStorage.getItem("userID"),props.mn_id)}>수정</Button>
+                <Button variant="contained" color="primary" onClick={()=>modifyMenu(window.localStorage.getItem("userID"),props.mn_id)}>수정</Button>
                 <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button>
             </DialogActions>
         </Dialog>

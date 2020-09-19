@@ -10,8 +10,8 @@ export default function MonthChart() {
   const [sales,setSales] = useState([]);
   const theme = useTheme();
   useEffect(()=>{
-    if(window.sessionStorage.getItem("userID")!==null){
-      fetchDaySales(window.sessionStorage.getItem("userID"));
+    if(window.localStorage.getItem("userID")!==null){
+      fetchDaySales(window.localStorage.getItem("userID"));
     }
   },[])
   const fetchDaySales=(su_id)=>{

@@ -143,7 +143,7 @@ export default function SalerInfoMod(props) {
       const formData = new FormData();
       formData.append('file',storeImg.file);
       console.log(formData)
-      ApiService.updateStoreImg(formData,window.sessionStorage.getItem("userID"))
+      ApiService.updateStoreImg(formData,window.localStorage.getItem("userID"))
       .then(res=>{
         alert('성공');
         console.log(res.data);
@@ -154,11 +154,11 @@ export default function SalerInfoMod(props) {
     }
     
     useEffect(()=>{
-      console.log(window.sessionStorage.getItem("userID"));
+      console.log(window.localStorage.getItem("userID"));
       loadStoreInf();
     },[])
     const loadStoreInf =()=>{
-      ApiService.fetchStoreByID(window.sessionStorage.getItem("userID"))
+      ApiService.fetchStoreByID(window.localStorage.getItem("userID"))
       .then(res => {
           let store = res.data;
           console.log(store.abledeliverS);
@@ -207,7 +207,7 @@ export default function SalerInfoMod(props) {
       })
     };
     const onSubmit =(e)=> {
-      let id = window.sessionStorage.getItem("userID");
+      let id = window.localStorage.getItem("userID");
       let imgChk = false;
       if(!(storeImg.file===null)){
         imgChk = true;

@@ -134,7 +134,7 @@ export default function Login(props) {
             alert('비밀번호가 틀렸습니다. 다시 확인해주세요');
           }else if(res.data===1) {
             alert(login.su_id + '님이 성공적으로 로그인 되었습니다.');
-            window.sessionStorage.setItem("userID",login.su_id);
+            window.localStorage.setItem("userID",login.su_id);
             messaging.requestPermission()
             .then(function() {
               console.log('허가!');
@@ -166,16 +166,16 @@ export default function Login(props) {
         os = "mobile";
       }
       let tempToken={}
-      if(window.sessionStorage.getItem('cid')!==null) {
+      if(window.localStorage.getItem('cid')!==null) {
         tempToken={
-          user_id: window.sessionStorage.getItem('cid'),
+          user_id: window.localStorage.getItem('cid'),
           user_type: 'p',
           uuid: os,
           token: token
         }
-      }else if(window.sessionStorage.getItem('userID')!==null) {
+      }else if(window.localStorage.getItem('userID')!==null) {
         tempToken={
-          user_id: window.sessionStorage.getItem('userID'),
+          user_id: window.localStorage.getItem('userID'),
           user_type: 's',
           uuid: os,
           token: token

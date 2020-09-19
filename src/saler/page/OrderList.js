@@ -15,11 +15,11 @@ export default function OrderList(props) {
   const [orderList, setOrderList] = useState([]);
  
   useEffect(()=>{
-    if(window.sessionStorage.getItem("userID")===null){
+    if(window.localStorage.getItem("userID")===null){
       alert("로그인을 해주세요.");
       props.history.push('login');
     }else{
-      loadSalerOrderList(window.sessionStorage.getItem("userID"));
+      loadSalerOrderList(window.localStorage.getItem("userID"));
     }
   },[]);
   const loadSalerOrderList=(su_id)=> {
@@ -35,7 +35,7 @@ export default function OrderList(props) {
   
   const stateRefresh =()=>{
     setOrderList([]);
-    loadSalerOrderList(window.sessionStorage.getItem("userID"));
+    loadSalerOrderList(window.localStorage.getItem("userID"));
   }
   const returnOrderList=(data)=>{
     return data.map((c,index)=>{

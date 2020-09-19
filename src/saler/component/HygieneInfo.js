@@ -20,7 +20,7 @@ export default function HygieneInfo(props) {
         },[1])
         const inputImage=(bl)=>{
             if(bl) {
-                ApiService.fetchHygieneImgPreview(window.sessionStorage.getItem("userID"), props.hgn_id)
+                ApiService.fetchHygieneImgPreview(window.localStorage.getItem("userID"), props.hgn_id)
                 .then(res=>{
                     setImg(res.data);
                 })

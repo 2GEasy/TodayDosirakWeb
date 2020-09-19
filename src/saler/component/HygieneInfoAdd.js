@@ -11,7 +11,7 @@ import ApiService from '../ApiService';
 export default function HygieneInfoAdd(props) {
     const [open,setOpen] = useState(false);
     const [hygiene,setHygiene] = useState({
-        su_id: window.sessionStorage.getItem("userID"),
+        su_id: window.localStorage.getItem("userID"),
         hgnTitle: '',
         hgnExpln: '',
         hgnFileChk: false,
@@ -37,7 +37,7 @@ export default function HygieneInfoAdd(props) {
     const onSubmit=(e)=>{
         e.preventDefault();
         let hygieneInfo = {
-            su_id: window.sessionStorage.getItem("userID"),
+            su_id: window.localStorage.getItem("userID"),
             hgnTitle: hygiene.hgnTitle,
             hgnExpln: hygiene.hgnExpln,
             hgnFileChk: hygiene.hgnFileChk,
@@ -73,7 +73,7 @@ export default function HygieneInfoAdd(props) {
 
         }
         console.log("formData:",formData);
-        ApiService.insertHygieneImg(formData,window.sessionStorage.getItem("userID"))
+        ApiService.insertHygieneImg(formData,window.localStorage.getItem("userID"))
         .then(res=>{
           
           console.log('성공:',res.data);

@@ -11,7 +11,7 @@ import ApiService from '../ApiService';
 export default function MenuAdd(props) {
     const [open,setOpen] = useState(false);
     const [menu,setMenu] = useState({
-        su_id: window.sessionStorage.getItem("userID"),
+        su_id: window.localStorage.getItem("userID"),
         name: '',
         produce: '',
         price:'',
@@ -38,7 +38,7 @@ export default function MenuAdd(props) {
     const onSubmit=(e)=>{
         e.preventDefault();
         let menuTemp = {
-            su_id: window.sessionStorage.getItem("userID"),
+            su_id: window.localStorage.getItem("userID"),
             name: menu.name,
             produce: menu.produce,
             price: menu.price,
@@ -75,7 +75,7 @@ export default function MenuAdd(props) {
 
         }
         console.log("formData:",formData);
-        ApiService.insertMenuImg(formData,window.sessionStorage.getItem("userID"))
+        ApiService.insertMenuImg(formData,window.localStorage.getItem("userID"))
         .then(res=>{
           console.log('성공:',res.data);
         })

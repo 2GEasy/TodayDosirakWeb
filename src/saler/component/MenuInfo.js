@@ -20,7 +20,7 @@ export default function MenuInfo(props) {
         },[1])
         const inputImage=(bl)=>{
             if(bl) {
-                ApiService.fetchMenuImgPreview(window.sessionStorage.getItem("userID"), props.mn_id)
+                ApiService.fetchMenuImgPreview(window.localStorage.getItem("userID"), props.mn_id)
                 .then(res=>{
                     setImg(res.data);
                 })

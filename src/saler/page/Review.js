@@ -35,11 +35,11 @@ export default function Review(props) {
   const [review,setReview] = useState([]);
     const classes = useStyles;
   useEffect(()=>{
-    if(window.sessionStorage.getItem("userID")===null){
+    if(window.localStorage.getItem("userID")===null){
         alert("로그인을 해주세요.");
         props.history.push('login');
       }else{
-        fetchReviewList(window.sessionStorage.getItem("userID"));
+        fetchReviewList(window.localStorage.getItem("userID"));
       }
   },[])
   const fetchReviewList=(su_id)=>{

@@ -11,7 +11,7 @@ import ApiService from '../ApiService';
 export default function StockAdd(props) {
     const [open,setOpen] = useState(false);
     const [stock,setStock] = useState({
-        su_id: window.sessionStorage.getItem("userID"),
+        su_id: window.localStorage.getItem("userID"),
         name: '',
         amount: '',
         minAmount:'',
@@ -38,7 +38,7 @@ export default function StockAdd(props) {
     const onSubmit=(e)=>{
         e.preventDefault();
         let stockTemp = {
-            su_id: window.sessionStorage.getItem("userID"),
+            su_id: window.localStorage.getItem("userID"),
             name: stock.name,
             amount: stock.amount,
             minAmount: stock.minAmount,
@@ -75,7 +75,7 @@ export default function StockAdd(props) {
 
         }
         console.log("formData:",formData);
-        ApiService.insertStockImg(formData,window.sessionStorage.getItem("userID"))
+        ApiService.insertStockImg(formData,window.localStorage.getItem("userID"))
         .then(res=>{
           console.log('성공:',res.data);
         })

@@ -134,12 +134,12 @@ export default function SalerInfo(props) {
     });
     let regImg = "https://todaydsr.kro.kr:8090/upload/store/"+storeImg.fileName;
     useEffect(()=>{
-      console.log(window.sessionStorage.getItem("userID"));
+      console.log(window.localStorage.getItem("userID"));
       loadStoreInf();
       
     },[])
     const loadStoreInf =()=>{
-      ApiService.fetchStoreByID(window.sessionStorage.getItem("userID"))
+      ApiService.fetchStoreByID(window.localStorage.getItem("userID"))
       .then(res => {
           let store = res.data;
           console.log(store.abledeliverS);
@@ -169,7 +169,7 @@ export default function SalerInfo(props) {
       });
   }
   const loadStoreImg =()=>{
-    ApiService.fetchStoreImgByID(window.sessionStorage.getItem("userID"))
+    ApiService.fetchStoreImgByID(window.localStorage.getItem("userID"))
     .then(res => {
         let storeImg = res.data;
         console.log("loadImg:",res.data);

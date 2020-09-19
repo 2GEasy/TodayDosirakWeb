@@ -17,8 +17,8 @@ export default function Deposits() {
   const [sales,setSales] = useState([]);
   
   useEffect(()=>{
-    if(window.sessionStorage.getItem("userID")!==null){
-      fetchMonthSales(window.sessionStorage.getItem("userID"));
+    if(window.localStorage.getItem("userID")!==null){
+      fetchMonthSales(window.localStorage.getItem("userID"));
     }
   },[])
   const fetchMonthSales=(su_id)=>{

@@ -10,7 +10,7 @@ import ApiService from '../ApiService';
 export default function HygieneInfoMod(props) {
     const [open,setOpen] =useState(false);
     const [hygiene,setHygiene] = useState({
-        su_id: window.sessionStorage.getItem("userID"),
+        su_id: window.localStorage.getItem("userID"),
         hgn_id:props.hgn_id,
         hgnTitle: '',
         hgnExpln: '',
@@ -22,7 +22,7 @@ export default function HygieneInfoMod(props) {
     });
     useEffect(()=>{
         console.log("props.hgn_id: ",props.hgn_id);
-        loadHygieneInfo(window.sessionStorage.getItem("userID"),props.hgn_id);
+        loadHygieneInfo(window.localStorage.getItem("userID"),props.hgn_id);
     },[])
     const loadHygieneInfo=(su_id,hgn_id)=> {
         ApiService.fetchHygieneByID(su_id,hgn_id)
@@ -56,7 +56,7 @@ export default function HygieneInfoMod(props) {
     }
     const modifyHygieneInfo=(su_id,hgn_id)=> {
         let modHygiene = {
-            su_id: window.sessionStorage.getItem("userID"),
+            su_id: window.localStorage.getItem("userID"),
             hgn_id: hgn_id,
             hgnTitle: hygiene.hgnTitle,
             hgnExpln: hygiene.hgnExpln,
@@ -67,7 +67,7 @@ export default function HygieneInfoMod(props) {
             props.stateRefresh();
             handleClose();
             if(hygiene.hgnFileChk) {
-                handlePostImg(window.sessionStorage.getItem("userID"), props.hgn_id);
+                handlePostImg(window.localStorage.getItem("userID"), props.hgn_id);
             }
         })
         .catch(err=>{
@@ -120,7 +120,7 @@ export default function HygieneInfoMod(props) {
                         </label>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={()=>modifyHygieneInfo(window.sessionStorage.getItem("userID"),props.hgn_id)}>수정</Button>
+                <Button variant="contained" color="primary" onClick={()=>modifyHygieneInfo(window.localStorage.getItem("userID"),props.hgn_id)}>수정</Button>
                 <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button>
             </DialogActions>
         </Dialog>

@@ -106,14 +106,14 @@ export default function UserMod(props) {
     const [addr,setAddr] = useState('');
     const [passChk, setPassChk] = useState('비밀번호는 영문과 숫자를 사용하여 8~16자로 정해주세요.');
     useEffect(()=>{
-      console.log(window.sessionStorage.getItem("userID"));
+      console.log(window.localStorage.getItem("userID"));
       loadUser();
     },[])
     useEffect(()=>{
       setUser({...user,addr1:addr});
     },[addr])
     const loadUser =()=>{
-      ApiService.fetchUserByID(window.sessionStorage.getItem("userID"))
+      ApiService.fetchUserByID(window.localStorage.getItem("userID"))
       .then(res => {
         console.log(res.data);
           let user = res.data;

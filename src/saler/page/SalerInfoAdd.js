@@ -199,7 +199,7 @@ export default function SalerInfo(props) {
       })
     };
     const onSubmit =(e)=> {
-      let id = window.sessionStorage.getItem("userID");
+      let id = window.localStorage.getItem("userID");
       let imgChk = false;
       if(!(storeImg.file===null)){
         imgChk = true;

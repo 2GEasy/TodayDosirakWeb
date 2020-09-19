@@ -142,7 +142,7 @@ export default function Appbar(props) {
     setOpen(false);
   };
   useEffect(()=>{
-    const id = window.sessionStorage.getItem("userID");
+    const id = window.localStorage.getItem("userID");
     if(id) {
       setAuth(true);
       setId(id);
@@ -180,7 +180,7 @@ export default function Appbar(props) {
             </Badge>
           </IconButton> */}
           {auth?
-          <RouterLink to="/login" style={style.link}><Button color="inherit" onClick={()=>{window.sessionStorage.clear();}}>{id}님 Logout</Button></RouterLink>
+          <RouterLink to="/login" style={style.link}><Button color="inherit" onClick={()=>{window.localStorage.clear();}}>{id}님 Logout</Button></RouterLink>
          : <RouterLink to="/login" style={style.link}><Button color="inherit">Login</Button></RouterLink>}
         </Toolbar>
       </AppBar>

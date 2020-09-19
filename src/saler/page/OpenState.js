@@ -68,7 +68,7 @@ export default function OpenState(props) {
                 console.log("updateOpenState Error!", err);
             })
         }else{
-            ApiService.insertOpenState(window.sessionStorage.getItem("userID"))
+            ApiService.insertOpenState(window.localStorage.getItem("userID"))
             .then(res=>{
                 stateRefresh();
             })
@@ -78,12 +78,12 @@ export default function OpenState(props) {
         }
     }
     useEffect(()=>{
-      if(window.sessionStorage.getItem("userID")===null){
+      if(window.localStorage.getItem("userID")===null){
         alert("로그인을 해주세요.");
         props.history.push('login');
       }else{
-        loadOpenList(window.sessionStorage.getItem("userID"));
-        loadOpenState(window.sessionStorage.getItem("userID"));
+        loadOpenList(window.localStorage.getItem("userID"));
+        loadOpenState(window.localStorage.getItem("userID"));
       }
     },[])
     const loadOpenList=(su_id)=> {
@@ -113,8 +113,8 @@ export default function OpenState(props) {
     const stateRefresh =()=>{
       setOpenList([]);
       setOpenState('');
-      loadOpenList(window.sessionStorage.getItem("userID"));
-      loadOpenState(window.sessionStorage.getItem("userID"));
+      loadOpenList(window.localStorage.getItem("userID"));
+      loadOpenState(window.localStorage.getItem("userID"));
     }
     const listAttach=(data)=>{
         return data.map((c,index)=>{

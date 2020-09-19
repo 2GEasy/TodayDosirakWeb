@@ -90,11 +90,11 @@ const styles = theme => ({
     const cellList = ["번호","이미지","이름","수량","최소 수량","수정"];
     const classes = styles;
     useEffect(()=>{
-      if(window.sessionStorage.getItem("userID")===null){
+      if(window.localStorage.getItem("userID")===null){
         alert("로그인을 해주세요.");
         props.history.push('login');
       }else{
-        loadStockInfo(window.sessionStorage.getItem("userID"));
+        loadStockInfo(window.localStorage.getItem("userID"));
       }
     },[])
     const loadStockInfo=(su_id)=> {
@@ -111,7 +111,7 @@ const styles = theme => ({
     }
     const stateRefresh =()=>{
       setStock([]);
-      loadStockInfo(window.sessionStorage.getItem("userID"));
+      loadStockInfo(window.localStorage.getItem("userID"));
     }
     const listAttach=(data)=>{
       return data.map((c,index)=>{

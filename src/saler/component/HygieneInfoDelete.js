@@ -39,7 +39,7 @@ export default function HygieneInfoDelete(props) {
                 </Typography>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={()=>deleteHygieneInfo(window.sessionStorage.getItem("userID"), props.hgn_id)}>삭제</Button>
+                <Button variant="contained" color="primary" onClick={()=>deleteHygieneInfo(window.localStorage.getItem("userID"), props.hgn_id)}>삭제</Button>
                 <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button>
             </DialogActions>
         </Dialog>

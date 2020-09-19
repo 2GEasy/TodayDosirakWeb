@@ -64,7 +64,7 @@ function PwChk(props) {
     }
 
     useEffect(()=>{
-        setUser(window.sessionStorage.getItem("userID"));
+        setUser(window.localStorage.getItem("userID"));
     })
     const onChange =(e)=>{
         setPw(

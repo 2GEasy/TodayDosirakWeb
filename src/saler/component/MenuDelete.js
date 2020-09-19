@@ -39,7 +39,7 @@ export default function MenuDelete(props) {
                 </Typography>
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={()=>deleteMenu(window.sessionStorage.getItem("userID"), props.mn_id)}>삭제</Button>
+                <Button variant="contained" color="primary" onClick={()=>deleteMenu(window.localStorage.getItem("userID"), props.mn_id)}>삭제</Button>
                 <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button>
             </DialogActions>
         </Dialog>

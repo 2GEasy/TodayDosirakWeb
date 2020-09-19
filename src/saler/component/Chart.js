@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
     const theme = useTheme();
     const [sales,setSales] = useState([]);
     useEffect(()=>{
-      if(window.sessionStorage.getItem("userID")!==null){
-        fetchYearSales(window.sessionStorage.getItem("userID"));
+      if(window.localStorage.getItem("userID")!==null){
+        fetchYearSales(window.localStorage.getItem("userID"));
       }
     },[])
     const fetchYearSales=(su_id)=>{

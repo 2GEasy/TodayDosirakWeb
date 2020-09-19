@@ -10,7 +10,7 @@ import ApiService from '../ApiService';
 export default function StockMod(props) {
     const [open,setOpen] =useState(false);
     const [stock,setStock] = useState({
-        su_id: window.sessionStorage.getItem("userID"),
+        su_id: window.localStorage.getItem("userID"),
         mn_id: props.mn_id,
         name: '',
         amount: '',
@@ -23,7 +23,7 @@ export default function StockMod(props) {
     });
     useEffect(()=>{
         console.log("props.mn_id: ",props.mn_id);
-        loadStock(window.sessionStorage.getItem("userID"),props.mn_id);
+        loadStock(window.localStorage.getItem("userID"),props.mn_id);
     },[])
     const loadStock=(su_id,mn_id)=> {
         ApiService.fetchMenuByID(su_id,mn_id)
@@ -56,7 +56,7 @@ export default function StockMod(props) {
     }
     const modifyStock=(su_id,mn_id)=> {
         let modStock = {
-            su_id: window.sessionStorage.getItem("userID"),
+            su_id: window.localStorage.getItem("userID"),
             mn_id: mn_id,
             amount: stock.amount,
             minAmount: stock.minAmount
@@ -90,7 +90,7 @@ export default function StockMod(props) {
                         </label> */}
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={()=>modifyStock(window.sessionStorage.getItem("userID"),props.mn_id)}>수정</Button>
+                <Button variant="contained" color="primary" onClick={()=>modifyStock(window.localStorage.getItem("userID"),props.mn_id)}>수정</Button>
                 <Button variant="outlined" color="primary" onClick={handleClose}>닫기</Button>
             </DialogActions>
         </Dialog>
