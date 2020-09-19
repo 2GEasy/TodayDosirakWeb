@@ -82,7 +82,7 @@ export default function Checkout(props) {
   const [total,setTotal] = useState(0);
   const [activeStep, setActiveStep] = React.useState(0);
   useEffect(()=>{
-    fetchCartList(window.sessionStorage.getItem('cid'),props.su_id);
+    fetchCartList(window.localStorage.getItem('cid'),props.su_id);
   },[])
   useEffect(()=>{
 
@@ -100,7 +100,7 @@ export default function Checkout(props) {
     if(activeStep === steps.length - 1) {
       let order = {
         su_id: props.su_id,
-        pu_id: window.sessionStorage.getItem('cid'),
+        pu_id: window.localStorage.getItem('cid'),
         name: deliverInfo.name,
         addr1: deliverInfo.addr1,
         addr2: deliverInfo.addr2,
@@ -116,13 +116,13 @@ export default function Checkout(props) {
           mn_id: c.mn_id,
           amount: c.amount
         }
-        insertOrderMenu(orderMenu,window.sessionStorage.getItem('cid'));
+        insertOrderMenu(orderMenu,window.localStorage.getItem('cid'));
       })
       let notification = {
         user_id: props.su_id,
         user_type : 's',
         title: "주문 확인",
-        message: window.sessionStorage.getItem('cid')+"님의 주문이 확인되었습니다."
+        message: window.localStorage.getItem('cid')+"님의 주문이 확인되었습니다."
       }
       sendNotification(notification);
       setActiveStep(activeStep + 1);

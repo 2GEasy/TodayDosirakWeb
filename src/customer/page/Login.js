@@ -142,7 +142,7 @@ export default function Login(props) {
                 login.pu_id + '님이 성공적으로 로그인 되었습니다.'
             );
             console.log(message);
-            window.sessionStorage.setItem("cid",login.pu_id);
+            window.localStorage.setItem("cid",login.pu_id);
             messaging.requestPermission()
             .then(function() {
               console.log('허가!');
@@ -175,16 +175,16 @@ export default function Login(props) {
         os = "mobile";
       }
       let tempToken={}
-      if(window.sessionStorage.getItem('cid')!==null) {
+      if(window.localStorage.getItem('cid')!==null) {
         tempToken={
-          user_id: window.sessionStorage.getItem('cid'),
+          user_id: window.localStorage.getItem('cid'),
           user_type: 'p',
           uuid: os,
           token: token
         }
-      }else if(window.sessionStorage.getItem('userID')!==null) {
+      }else if(window.localStorage.getItem('userID')!==null) {
         tempToken={
-          user_id: window.sessionStorage.getItem('userID'),
+          user_id: window.localStorage.getItem('userID'),
           user_type: 's',
           uuid: os,
           token: token

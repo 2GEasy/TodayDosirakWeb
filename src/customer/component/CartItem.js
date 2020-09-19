@@ -34,7 +34,7 @@ export default function CartItem(props) {
     }
     const changeAmount=(amount)=>{
         let updateItem={
-            pu_id: window.sessionStorage.getItem('cid'),
+            pu_id: window.localStorage.getItem('cid'),
             su_id: props.su_id,
             mn_id: props.mn_id,
             amount: amount
@@ -70,7 +70,7 @@ export default function CartItem(props) {
                 <TableCell style={{fontSize:'1vw'}}>{menu.price}</TableCell>
                 <TableCell><TextField type="number" value={amount} onChange={onChange} style={{width:40,fontSize:'1vw'}} /><Button onClick={()=>changeAmount(amount)} style={{fontSize:'1vw'}}>수량 변경</Button></TableCell>
                 <TableCell style={{fontSize:'1vw'}}>{(menu.price*props.amount)}</TableCell>
-                <TableCell><Button onClick={()=>deleteItem(window.sessionStorage.getItem('cid'),props.su_id,props.mn_id)} style={{fontSize:'1vw'}}>삭제</Button></TableCell>
+                <TableCell><Button onClick={()=>deleteItem(window.localStorage.getItem('cid'),props.su_id,props.mn_id)} style={{fontSize:'1vw'}}>삭제</Button></TableCell>
             </TableRow>
         </>
     )

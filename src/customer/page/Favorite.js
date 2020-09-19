@@ -41,7 +41,7 @@ export default function Stores(props) {
   const theme = useTheme;
   
   useEffect(()=>{
-    fetchFavorite(window.sessionStorage.getItem('cid'));
+    fetchFavorite(window.localStorage.getItem('cid'));
   },[]);
   const fetchFavorite=(pu_id)=>{
     

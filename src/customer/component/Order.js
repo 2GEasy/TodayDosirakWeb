@@ -36,7 +36,7 @@ export default function Order(props) {
         fetchStoreInfo(props.su_id);
         fetchStoreImg(props.su_id);
         fetchOrderMenu(props.ord_id);
-        fetchReviewChk(props.ord_id,props.su_id,window.sessionStorage.getItem('cid'));
+        fetchReviewChk(props.ord_id,props.su_id,window.localStorage.getItem('cid'));
     }
   },[])
   const fetchReviewChk=(ord_id,su_id,pu_id)=>{

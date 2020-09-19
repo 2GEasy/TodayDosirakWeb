@@ -23,7 +23,7 @@ const Postcode = (props) => {
 
     console.log(fullAddress);  // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
     props.setAddr(data.address);
-    window.sessionStorage.setItem("addr",data.address);
+    window.localStorage.setItem("addr",data.address);
     addr2geo(data.address);
     handleClose();
   }
@@ -41,8 +41,8 @@ const Postcode = (props) => {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                 // console.log("좌표:",coords);
                 // console.log("X:",coords.getLng(),"Y:",coords.getLat());
-                window.sessionStorage.setItem("cgeox",coords.getLng());
-                window.sessionStorage.setItem("cgeoy",coords.getLat());
+                window.localStorage.setItem("cgeox",coords.getLng());
+                window.localStorage.setItem("cgeoy",coords.getLat());
                 // setLngX(coords.getLng());
                 // setLatY(coords.getLat());
             }
@@ -103,7 +103,7 @@ const Postcode = (props) => {
   // }
   return (
     <>
-                <Button onClick={handleClickOpen} style={{color: '#ffffff',flexGrow: 1,textAlign:'center',fontSize: '1rem',width:'90%'}}>{(window.sessionStorage.getItem('addr')?window.sessionStorage.getItem('addr'):props.title)}<ArrowDropDownIcon/></Button>
+                <Button onClick={handleClickOpen} style={{color: '#ffffff',flexGrow: 1,textAlign:'center',fontSize: '1rem',width:'90%'}}>{(window.localStorage.getItem('addr')?window.localStorage.getItem('addr'):props.title)}<ArrowDropDownIcon/></Button>
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>주소 검색</DialogTitle>
                     <DialogContent>

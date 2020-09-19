@@ -8,7 +8,7 @@ import ApiService from '../ApiService';
 export default function OrderHistory(props) {
     const [orders,setOrders] = useState([]);
     useEffect(()=>{
-        fetchOrderByID(window.sessionStorage.getItem('cid'));
+        fetchOrderByID(window.localStorage.getItem('cid'));
     },[])
     const fetchOrderByID=(pu_id)=>{
         ApiService.fetchOrderByID(pu_id)
@@ -21,7 +21,7 @@ export default function OrderHistory(props) {
     }
     const refreshState=()=>{
       setOrders([]);
-      fetchOrderByID(window.sessionStorage.getItem('cid'));
+      fetchOrderByID(window.localStorage.getItem('cid'));
     }
     return (
         <Appbar>

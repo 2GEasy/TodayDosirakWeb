@@ -27,8 +27,8 @@ export default function OrderForm(props) {
             console.log(props.deliver);
             setDeliver(props.deliver);
         }else{
-            if(window.sessionStorage.getItem('cid')){
-                fetchCustomerByID(window.sessionStorage.getItem('cid'));
+            if(window.localStorage.getItem('cid')){
+                fetchCustomerByID(window.localStorage.getItem('cid'));
             }
         }
     },[])

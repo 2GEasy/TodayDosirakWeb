@@ -55,7 +55,7 @@ export default function ReviewWrite(props) {
         let reviewTemp = {
             ord_id: props.ord_id,
             su_id: props.su_id,
-            pu_id: window.sessionStorage.getItem("cid"),
+            pu_id: window.localStorage.getItem("cid"),
             content: review.content,
             score: review.score,
             fileChk: review.fileChk,
@@ -113,7 +113,7 @@ export default function ReviewWrite(props) {
             formData.append('file',files[i]);
         }
         console.log("formData:",formData);
-        ApiService.insertReviewImg(formData,window.sessionStorage.getItem("cid"),props.su_id,props.ord_id)
+        ApiService.insertReviewImg(formData,window.localStorage.getItem("cid"),props.su_id,props.ord_id)
         .then(res=>{
           console.log('성공:',res.data);
         })

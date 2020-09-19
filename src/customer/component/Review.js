@@ -100,7 +100,7 @@ export default function Review(props) {
     return (
             <>
             <CardHeader
-              title={(window.sessionStorage.getItem('cid')+"님")}
+              title={(window.localStorage.getItem('cid')+"님")}
               subheader={menu}
             />
             </>

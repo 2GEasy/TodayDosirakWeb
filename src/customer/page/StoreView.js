@@ -45,14 +45,14 @@ export default function StoreView(props) {
     const [storeInf,setStoreInf] = useState({});
     const [favorite,setFavorite] = useState(false);
     useEffect(()=>{
-      if(window.sessionStorage.getItem("cid")===null) {
+      if(window.localStorage.getItem("cid")===null) {
         alert("로그인을 해주세요.");
         props.history.push("/customer/login");
       }else{
         fetchMenuList(props.match.params.su_id);
         fetchReviewList(props.match.params.su_id);
         fetchStoreInfo(props.match.params.su_id);
-        chkFavorite(props.match.params.su_id,window.sessionStorage.getItem('cid'));
+        chkFavorite(props.match.params.su_id,window.localStorage.getItem('cid'));
       }
       console.log(props.match.params.su_id);
     },[])
@@ -63,7 +63,7 @@ export default function StoreView(props) {
       fetchMenuList(props.match.params.su_id);
       fetchReviewList(props.match.params.su_id);
       fetchStoreInfo(props.match.params.su_id);
-      chkFavorite(props.match.params.su_id,window.sessionStorage.getItem('cid'));
+      chkFavorite(props.match.params.su_id,window.localStorage.getItem('cid'));
     }
     const fetchMenuList=(su_id)=>{
       ApiService.fetchMenuList(su_id)
@@ -158,11 +158,11 @@ export default function StoreView(props) {
               <CallIcon />
             </Button>
             {favorite?
-            <Button aria-label="favorite" style={{color:'#F57C00'}} onClick={()=>cancelFavorite(props.match.params.su_id,window.sessionStorage.getItem('cid'))}>
+            <Button aria-label="favorite" style={{color:'#F57C00'}} onClick={()=>cancelFavorite(props.match.params.su_id,window.localStorage.getItem('cid'))}>
               <FavoriteIcon />
             </Button>
             :
-            <Button aria-label="favorite" style={{color:'#F57C00'}} onClick={()=>addFavorite(props.match.params.su_id,window.sessionStorage.getItem('cid'))}>
+            <Button aria-label="favorite" style={{color:'#F57C00'}} onClick={()=>addFavorite(props.match.params.su_id,window.localStorage.getItem('cid'))}>
               <FavoriteBorderIcon/>
             </Button>
             }

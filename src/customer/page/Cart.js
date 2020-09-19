@@ -10,7 +10,7 @@ export default function Cart(props) {
     const titles=["메뉴","가격","수량","합","삭제"];
     
     useEffect(()=>{
-      fetchCartList(window.sessionStorage.getItem('cid'),props.location.state.su_id);
+      fetchCartList(window.localStorage.getItem('cid'),props.location.state.su_id);
     },[])
     const fetchCartList=(pu_id,su_id)=>{
       ApiService.fetchCartList(pu_id,su_id)
@@ -29,7 +29,7 @@ export default function Cart(props) {
     }
     const refreshState=()=>{
       setCart([]);
-      fetchCartList(window.sessionStorage.getItem('cid'),props.location.state.su_id);
+      fetchCartList(window.localStorage.getItem('cid'),props.location.state.su_id);
     }
     return (
       <>

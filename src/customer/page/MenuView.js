@@ -59,8 +59,8 @@ export default function MenuView(props) {
                     <hr/>
                     <Typography>총금액 {(props.location.state.price*count)}</Typography>
                     <hr/>
-                    <Button onClick={()=>addCart(window.sessionStorage.getItem('cid'), props.match.params.su_id, props.match.params.mn_id,count)}>장바구니에 추가</Button>
-                    <Link to={{pathname:`/customer/order`,state:{su_id:props.match.params.su_id}}} style={{textDecoration:'none'}}><Button onClick={()=>imadiatelyBuy(window.sessionStorage.getItem('cid'), props.match.params.su_id, props.match.params.mn_id,count)}>바로 주문</Button></Link>
+                    <Button onClick={()=>addCart(window.localStorage.getItem('cid'), props.match.params.su_id, props.match.params.mn_id,count)}>장바구니에 추가</Button>
+                    <Link to={{pathname:`/customer/order`,state:{su_id:props.match.params.su_id}}} style={{textDecoration:'none'}}><Button onClick={()=>imadiatelyBuy(window.localStorage.getItem('cid'), props.match.params.su_id, props.match.params.mn_id,count)}>바로 주문</Button></Link>
                     </Paper>
                 </Container>
             </Appbar>
