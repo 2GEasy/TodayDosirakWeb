@@ -1,16 +1,17 @@
 import React,{useState, useEffect} from 'react';
 import Table from '@material-ui/core/Table';
-import Typography from '@material-ui/core/Typography';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
-import StockInfo from '../component/StockInfo';
-import Appbar from '../component/Appbar';
+import MenuInfo from '../component/MenuInfo';
+import MenuAdd from '../component/MenuAdd';
+
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import ApiService from '../ApiService';
-import { Container } from '@material-ui/core';
+import Appbar from '../component/Appbar';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -85,64 +86,64 @@ const styles = theme => ({
   })
 
   
-  export default function Stock(props) {
-    const [stock,setStock] = useState([]);
-    const cellList = ["번호","이미지","이름","수량","최소 수량","수정"];
+  export default function Menu(props) {
+    const [menu,setMenu] = useState([]);
+    const cellList = ["번호","이미지","이름","설명","가격","수정","삭제"];
     const classes = styles;
     useEffect(()=>{
       if(window.sessionStorage.getItem("userID")===null){
         alert("로그인을 해주세요.");
         props.history.push('login');
       }else{
-        loadStockInfo(window.sessionStorage.getItem("userID"));
+        loadMenuInfo(window.sessionStorage.getItem("userID"));
       }
     },[])
-    const loadStockInfo=(su_id)=> {
-      ApiService.fetchStockList(su_id)
+    const loadMenuInfo=(su_id)=> {
+      ApiService.fetchMenuList(su_id)
       .then(res=> {
-        console.log("재고리스트 로드 성공 ");
-        setStock(res.data);
+        console.log("메뉴리스트 로드 성공 ");
+        setMenu(res.data);
         console.log("res.data: ",res.data);
-        console.log("stock:", stock);
+        console.log("menu:", menu);
       })
       .catch(err=> {
-        console.log("loadStock Error!", err);
+        console.log("loadMenu Error!", err);
       })
     }
     const stateRefresh =()=>{
-      setStock([]);
-      loadStockInfo(window.sessionStorage.getItem("userID"));
+      setMenu([]);
+      loadMenuInfo(window.sessionStorage.getItem("userID"));
     }
     const listAttach=(data)=>{
       return data.map((c,index)=>{
         
-        return <StockInfo key={index} mn_id={c.mn_id} num={index+1} image={c.fileChk} name={c.name} amount={c.amount} minAmount={c.minAmount} stateRefresh={stateRefresh} />;
+        return <MenuInfo key={index} mn_id={c.mn_id} num={index+1} image={c.fileChk} name={c.name} produce={c.produce} price={c.price} stateRefresh={stateRefresh} />;
         
       })
     }
     return (
       <>
-      <Appbar>
-        <Container fullWidth="sm">
-        <Typography variant="h5" style={{marginTop:'20px',marginBottom:'20px'}}><b>재고 관리</b></Typography>
-        {/* <div className={classes.menu}>
-            <StockAdd stateRefresh={stateRefresh}/>
-        </div> */}
-        <Paper className={classes.paper}>
-            <Table className={classes.table}>
-            <TableHead>
-                <TableRow>
-                {cellList.map((c,index) => {
-                    return <TableCell className={classes.tableHead} key={index}>{c}</TableCell>
-                })}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {listAttach(stock)}
-            </TableBody>
-            </Table>
-        </Paper>
-        </Container>
+        <Appbar>
+        <div style={{margin:'20px'}}>
+          <Typography variant="h5" style={{marginTop:'20px',marginBottom:'20px'}}><b>메뉴 관리</b></Typography>
+          <div className={classes.menu}>
+              <MenuAdd stateRefresh={stateRefresh}/>
+          </div>
+          <Paper className={classes.paper} style={{width:'1300px'}}>
+              <Table className={classes.table}>
+              <TableHead>
+                  <TableRow>
+                  {cellList.map((c,index) => {
+                      return <TableCell className={classes.tableHead} key={index}>{c}</TableCell>
+                  })}
+                  </TableRow>
+              </TableHead>
+              <TableBody>
+                  {listAttach(menu)}
+              </TableBody>
+              </Table>
+          </Paper>
+        </div>
         </Appbar>
         </>
     );

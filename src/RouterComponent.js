@@ -1,48 +1,35 @@
 import React, { useEffect,useState } from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
-import Appbar from './component/Appbar';
-import Dashbrd from './page/Dashbrd';
-import Login from './page/Login';
-import Signup from './page/Signup';
-import MonthMenu from './page/MonthMenu';
-import OpenState from './page/OpenState';
-import SalerInfo from './page/SalerInfo';
-import Stock from './page/Stock';
-import UserMod from './page/UserMod';
-import OrderList from './page/OrderList';
-import Hygiene from './page/Hygiene';
-import PWChk from './page/PwChk';
-import StoreMod from './page/SalerInfoMod';
-import StoreAdd from './page/SalerInfoAdd';
-import Menu from './page/Menu';
-import Review from './page/Review';
+import Dashbrd from './saler/page/Dashbrd';
+import Login from './saler/page/Login';
+import Signup from './saler/page/Signup';
+import MonthMenu from './saler/page/MonthMenu';
+import OpenState from './saler/page/OpenState';
+import SalerInfo from './saler/page/SalerInfo';
+import Stock from './saler/page/Stock';
+import UserMod from './saler/page/UserMod';
+import OrderList from './saler/page/OrderList';
+import Hygiene from './saler/page/Hygiene';
+import PWChk from './saler/page/PwChk';
+import StoreMod from './saler/page/SalerInfoMod';
+import StoreAdd from './saler/page/SalerInfoAdd';
+import Menu from './saler/page/Menu';
+import Review from './saler/page/Review';
 
-
-import Main from "./produce/page/Main";
-import Produce from "./produce/page/Produce";
-import Notice from "./produce/page/NoticeBoard";
-import BestSaler from './produce/page/BestSaler';
-import Inquire from './produce/page/Inquire';
-import Master from './produce/page/Master';
-import Nav from './produce/component/Nav';
-import NoticeView from './produce/page/NoticeView';
-
+import MonthChart from './saler/component/MonthChart';
+import DayChart from './saler/component/DayChart';
+import YearChart from './saler/component/YearChart';
+import Cart from './customer/page/Cart';
+import Favorite from './customer/page/Favorite';
+import Test from './customer/page/TEST';
 import CustomerMain from './customer/page/Main';
 import CustomerLogin from './customer/page/Login';
 import CustomerSignup from './customer/page/Signup';
 import Stores from './customer/page/Stores';
-import CustomerAppbar from './customer/component/Appbar';
-import BottomNav from './customer/component/BottomNav';
 import StoreView from './customer/page/StoreView';
 import MenuView from './customer/page/MenuView';
 import OrderForm from './customer/page/OrderForm';
 import OrderHistory from './customer/page/OrderHistory';
-import MonthChart from './component/MonthChart';
-import DayChart from './component/DayChart';
-import YearChart from './component/YearChart';
-import Cart from './customer/page/Cart';
-import Favorite from './customer/page/Favorite';
-import Test from './customer/page/TEST';
 const AppRouter = () => {
 return(
     <>

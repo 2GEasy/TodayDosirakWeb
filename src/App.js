@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Router from './RouterComponent';
 import firebase from './firebase';
-
-const messaging = firebase.messaging();
-
-messaging.onMessage((payload)=>{
-  alert(payload);
-  console.log(payload);
-  // appendMessage(payload); 
-})
+import { Alert } from '@material-ui/lab';
 
 
-function App() {
+// messaging.onMessage(async (payload)=>{
+  //   alert(payload.data.title,payload.data.message);
+  //   console.log(payload);
+  //   // appendMessage(payload); 
+  // })
+  // messaging.onMessage((payload) => {
+    //   const title = payload.notification.title;
+    //   const options = {
+      //       body: payload.notification.body,
+      //       actions: [
+        //           {
+          //               action: payload.fcmOptions.link,
+          //               title: 'Book Appointment'
+          //           }
+          //       ]
+          //   };
+          //   showNotification(title, options);           
+          // });
+          
+function App() { 
   return (
     <>
         <Router />

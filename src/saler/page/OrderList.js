@@ -46,7 +46,7 @@ export default function OrderList(props) {
   return (
     <>
     <Appbar>
-      <Container style={{marginTop:'20px'}}>
+      <Container style={{marginTop:'20px', width:'1200px'}}>
       <Typography variant="h5" gutterBottom><b>주문 내역</b></Typography>
       <Table>
         <TableHead>

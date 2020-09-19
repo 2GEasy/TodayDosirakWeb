@@ -133,7 +133,7 @@ export default function OpenState(props) {
     return (
         <>
         <Appbar>
-        <Container component="main" maxWidth="xl" style={{padding: '20px'}}>
+        <Container component="main" maxWidth="xl" style={{padding: '20px',width:'1300px'}}>
             <Typography style={{fontSize:'1.8rem'}}>영업 상태</Typography>
             <Paper className={classes.paper}>
             <Table className={classes.table}>

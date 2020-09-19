@@ -3,17 +3,19 @@ import { useTheme } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from './Title';
 import ApiService from '../ApiService';
+import { Link } from 'react-router-dom';
+
 
   export default function Chart() {
     const theme = useTheme();
     const [sales,setSales] = useState([]);
     useEffect(()=>{
       if(window.sessionStorage.getItem("userID")!==null){
-        fetchDaySales(window.sessionStorage.getItem("userID"));
+        fetchYearSales(window.sessionStorage.getItem("userID"));
       }
     },[])
-    const fetchDaySales=(su_id)=>{
-      ApiService.fetchDaySales(su_id)
+    const fetchYearSales=(su_id)=>{
+      ApiService.fetchYearSales(su_id)
       .then(res=>{
         setSales(res.data);
         console.log(res.data);
@@ -26,7 +28,7 @@ import ApiService from '../ApiService';
   const data=sales;
   return (
     <React.Fragment>
-      <Title>오늘 매출</Title>
+      <Title><Link to="/yearSales" style={{textDecoration:'none'}}>올해 매출</Link></Title>
       <ResponsiveContainer>
         <LineChart
           data={data}

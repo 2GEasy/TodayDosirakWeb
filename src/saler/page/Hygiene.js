@@ -124,7 +124,7 @@ const styles = theme => ({
     return (
       <>
       <Appbar>
-        <div style={{margin:'20px'}}>
+        <div style={{margin:'20px', width:'1200px'}}>
         <Typography variant="h5" style={{marginTop:'20px',marginBottom:'20px'}}><b>위생정보 관리</b></Typography>
         <div className={classes.menu}>
             <HygieneInfoAdd stateRefresh={stateRefresh}/>

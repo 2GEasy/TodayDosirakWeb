@@ -131,6 +131,9 @@ class ApiService {
     loadSalerOrderList(su_id) {
         return axios.get("https://todaydsr.kro.kr:8090/order/saler/"+su_id);
     }
+    loadSalerLastOrderList(su_id) {
+        return axios.get("https://todaydsr.kro.kr:8090/order/saler/lastest/"+su_id);
+    }
     loadSalerOrderMenu(ord_id) {
         return axios.get("https://todaydsr.kro.kr:8090/orderMenu/"+ord_id);
     }

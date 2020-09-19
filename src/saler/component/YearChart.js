@@ -11,24 +11,24 @@ export default function MonthChart() {
   const theme = useTheme();
   useEffect(()=>{
     if(window.sessionStorage.getItem("userID")!==null){
-      fetchDaySales(window.sessionStorage.getItem("userID"));
+      fetchYearSales(window.sessionStorage.getItem("userID"));
     }
   },[])
-  const fetchDaySales=(su_id)=>{
-    ApiService.fetchDaySales(su_id)
+  const fetchYearSales=(su_id)=>{
+    ApiService.fetchYearSales(su_id)
     .then(res=>{
       setSales(res.data);
       console.log(res.data);
     })
     .catch(err=>{
-      console.log("fetchDaySales",err);
+      console.log("fetchYearSales",err);
     })
   }
   return (
     <React.Fragment>
       <Appbar>
-      <Container maxWidth="xs">
-      <Title>오늘 매출</Title>
+      <Container maxWidth="xs" style={{width:'400px'}}>
+      <Title>올해 매출</Title>
       {/* <ResponsiveContainer>
         <LineChart
           data={sales}
@@ -55,7 +55,7 @@ export default function MonthChart() {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>시간</TableCell>
+            <TableCell>월</TableCell>
             <TableCell>매출</TableCell>
           </TableRow>
         </TableHead>

@@ -9,53 +9,42 @@ import Appbar from './Appbar';
 export default function MonthChart() {
   const [sales,setSales] = useState([]);
   const theme = useTheme();
+  const data = sales;
   useEffect(()=>{
     if(window.sessionStorage.getItem("userID")!==null){
-      fetchYearSales(window.sessionStorage.getItem("userID"));
+      fetchMonthSales(window.sessionStorage.getItem("userID"));
     }
   },[])
-  const fetchYearSales=(su_id)=>{
-    ApiService.fetchYearSales(su_id)
+  useEffect(()=>{
+    console.log(data);
+  },[sales])
+  const fetchMonthSales=(su_id)=>{
+    ApiService.fetchMonthSales(su_id)
     .then(res=>{
       setSales(res.data);
       console.log(res.data);
     })
     .catch(err=>{
-      console.log("fetchYearSales",err);
+      console.log("fetchMonthSales",err);
     })
   }
   return (
     <React.Fragment>
       <Appbar>
-      <Container maxWidth="xs">
-      <Title>올해 매출</Title>
-      {/* <ResponsiveContainer>
+      <Container maxWidth="xs" style={{width:'400px'}}>
+      <Title>이번달 매출</Title>
+      
         <LineChart
-          data={sales}
-          margin={{
-            top: 16,
-            right: 16,
-            bottom: 0,
-            left: 24,
-          }}
+          data={data}
         >
           <XAxis dataKey="ordDate" stroke={theme.palette.text.secondary} />
-          <YAxis stroke={theme.palette.text.secondary}>
-            <Label
-              angle={270}
-              position="left"
-              style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
-            >
-              매출 (천원)
-            </Label>
-          </YAxis>
+          <YAxis/>
           <Line type="monotone" dataKey="sum" stroke={theme.palette.primary.main} dot={false} />
         </LineChart>
-      </ResponsiveContainer> */}
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>월</TableCell>
+            <TableCell>일자</TableCell>
             <TableCell>매출</TableCell>
           </TableRow>
         </TableHead>

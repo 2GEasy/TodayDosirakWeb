@@ -32,7 +32,8 @@ export default function DeliveryStart(props) {
             user_id: pu_id,
             user_type: 'p',
             title: "배송 시작",
-            message: "주문하신 도시락의 배송이 시작되었습니다."
+            message: "주문하신 도시락의 배송이 시작되었습니다.",
+            // url: "OrderHistory"
         }
         ApiService.insertDelivery(deliver)
         .then(res=>{
@@ -58,7 +59,8 @@ export default function DeliveryStart(props) {
             user_id: pu_id,
             user_type: 'p',
             title: "배송 종료",
-            message: "주문하신 도시락의 배송이 종료되었습니다."
+            message: "주문하신 도시락의 배송이 종료되었습니다.",
+            // url: "OrderHistory"
         }
         ApiService.updateDelivery(deliver)
         .then(res=>{

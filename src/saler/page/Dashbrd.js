@@ -10,13 +10,14 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-import Link from '@material-ui/core/Link';
+import {Link} from 'react-router-dom';
 import Chart from '../component/Chart';
 import Deposits from '../component/Deposits';
 
 import DashOrder from '../component/DashOrder';
 import ApiService from '../ApiService';
 import Appbar from '../component/Appbar';
+import { TableFooter, Button, TableRow } from '@material-ui/core';
 
 function Copyright() {
     return (
@@ -100,6 +101,22 @@ function Copyright() {
     container: {
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
+      display:'grid',
+      gridTemplateAreas: `
+        "chart deposit"
+        "orderlist orderlist"
+        `
+    },
+    item1: {
+      gridArea: 'chart'
+    },
+    item2: {
+      gridArea:'deposit'
+    },
+    item3: {
+      gridArea:'orderlist',
+      paddingTop: 20,
+      overflow:'hidden',
     },
     paper: {
       padding: theme.spacing(2),
@@ -122,18 +139,18 @@ export default function Dashbrd(props) {
             alert("로그인을 해주세요.");
             props.history.push('login');
           }else{
-            loadSalerOrderList(window.sessionStorage.getItem("userID"));
+            loadSalerLastOrderList(window.sessionStorage.getItem("userID"));
           }
         },[]);
         const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-        const loadSalerOrderList=(su_id)=> {
-          ApiService.loadSalerOrderList(su_id)
+        const loadSalerLastOrderList=(su_id)=> {
+          ApiService.loadSalerLastOrderList(su_id)
           .then(res=>{
             setOrderList(res.data);
             console.log(res.data);
           })
           .catch(err=>{
-            console.log("loadSalerOrderList Error!",err);
+            console.log("loadSalerLastOrderList Error!",err);
           })
         }
         const returnOrderList=(data)=>{
@@ -141,28 +158,31 @@ export default function Dashbrd(props) {
             return <DashOrder key={index,c.ord_id} ord={c.ord_id} su_id={c.su_id} pu_id={c.pu_id} num={index+1} addr1={c.addr1} addr2={c.addr2} dreqstart={c.dreqstart} dreqend={c.dreqend} ordDate={c.ordDate} />;
           })
         }
-        const cellList = ["번호","배송지","요청시간(부터)","요청시간(까지)","메뉴","총 금액","주문일시"];
+        const cellList = ["배송지","요청시간(부터)","요청시간(까지)","메뉴","총 금액","주문일시"];
         return (
             <Appbar> 
           <div className={classes.root}>
             <main className={classes.content}>
         
             <Container maxWidth="lg" className={classes.container}>
-              <Grid container spacing={3}>
+              
+                <div className={classes.item1}>
                 {/* Chart */}
-                <Grid item xs={12} md={8} lg={9}>
-                  <Paper className={fixedHeightPaper}>
+                
+                  <Paper className={fixedHeightPaper} style={{width:'900px'}}>
                     <Chart />
                   </Paper>
-                </Grid>
+                </div>
+                <div className={classes.item2}>
                 {/* Recent Deposits */}
-                <Grid item xs={12} md={4} lg={3}>
-                  <Paper className={fixedHeightPaper}>
+                
+                  <Paper className={fixedHeightPaper} style={{width:'300px'}}>
                     <Deposits />
                   </Paper>
-                </Grid>
+                </div>
+                
                 {/* Recent Orders */}
-                <Grid item xs={12}>
+                <div className={classes.item3}>
                   <Paper className={classes.paper}>
                   <Typography component="h2" variant="h6" color="primary" gutterBottom>
                     주문내역
@@ -176,13 +196,20 @@ export default function Dashbrd(props) {
                     <TableBody>
                     {returnOrderList(orderList)}
                     </TableBody>
+                    <TableFooter>
+                      <TableRow>
+                        <TableCell colspan={6}>
+                        <center><Link to="/order" style={{textDecoration:'none', fontWeight:'bold',fontSize:'1rem'}}><b>더보기</b></Link></center>
+                        </TableCell>
+                      </TableRow>
+                    </TableFooter>
                   </Table>
                   </Paper>
-                </Grid>
-              </Grid>
-              <Box pt={4}>
-                <Copyright />
-              </Box>
+                  <Box pt={4}>
+                    <Copyright />
+                  </Box>
+                </div>
+              
             </Container>
           </main>
         </div>

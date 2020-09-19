@@ -134,9 +134,9 @@ let summary=0;
     width="400px"
     imagesWidth="400px"
     imagesHeight="250px"
-    imagesHeightMobile="56vw"
+    imagesHeightMobile="250px"
     thumbnailsWidth="420px"
-    thumbnailsHeight="10vw"
+    thumbnailsHeight="10px"
     thumbnails fixedImagesHeight arrows={false}
   />;
   }
@@ -162,7 +162,7 @@ let summary=0;
   return (
     <>
     
-    <Card className={classes.root} style={{margin:20}}>
+    <Card className={classes.root} style={{margin:20, width:'400px'}}>
       {attach(orderMenu)}
       {returnReviewImgs(reviewImgs)}
       <CardContent>

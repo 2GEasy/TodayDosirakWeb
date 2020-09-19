@@ -8,7 +8,8 @@ export default function OrderCancel(props) {
             user_id: pu_id,
             user_type: 'p',
             title: "주문 취소",
-            message: "주문하신 도시락 주문이 취소 되었습니다."
+            message: "주문하신 도시락 주문이 취소 되었습니다.",
+            // url: "OrderHistory"
         }
         ApiService.deleteOrder(ord_id,su_id,pu_id)
         .then(res=>{

@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import 'date-fns';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import logo from '../img/logo.png';
+import logo from '../../img/logo.png';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
