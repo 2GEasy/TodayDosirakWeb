@@ -132,7 +132,7 @@ export default function SalerInfo(props) {
       fileName:'',
       path: '',
     });
-    let regImg = "https://todaydsr.kro.kr:8090/upload/store/"+storeImg.fileName;
+    let regImg = "http://todaydsr.kro.kr:7979/upload/store/"+storeImg.fileName;
     useEffect(()=>{
       console.log(window.localStorage.getItem("userID"));
       loadStoreInf();

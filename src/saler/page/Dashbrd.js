@@ -135,11 +135,11 @@ export default function Dashbrd(props) {
         
         const [orderList,setOrderList] = useState([]);
         useEffect(()=>{
-          if(window.sessionStorage.getItem("userID")===null){
+          if(window.localStorage.getItem("userID")===null){
             alert("로그인을 해주세요.");
             props.history.push('login');
           }else{
-            loadSalerLastOrderList(window.sessionStorage.getItem("userID"));
+            loadSalerLastOrderList(window.localStorage.getItem("userID"));
           }
         },[]);
         const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
